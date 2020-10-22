@@ -4,15 +4,15 @@ dependencies {
 
     api "io.micronaut:micronaut-inject"
     api project(":r2dbc-core")
-    implementation 'dev.miku:r2dbc-mysql'
+    implementation 'org.mariadb:r2dbc-mariadb'
     testImplementation("io.reactivex.rxjava2:rxjava")
 
     testImplementation("org.spockframework:spock-core:${spockVersion}") {
         exclude module:'groovy-all'
     }
-    testImplementation "org.testcontainers:mysql"
+    testImplementation "org.testcontainers:mariadb"
     testImplementation "org.testcontainers:r2dbc"
-    testImplementation 'mysql:mysql-connector-java'
+    testImplementation 'org.mariadb.jdbc:mariadb-java-client'
     testImplementation "io.micronaut.test:micronaut-test-spock:$micronautTestVersion"
 }
 

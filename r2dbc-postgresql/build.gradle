@@ -12,7 +12,7 @@ dependencies {
     }
     testImplementation "org.testcontainers:postgresql"
     testImplementation "org.testcontainers:r2dbc"
-    testImplementation 'org.postgresql:postgresql:42.2.18.jre7'
+    testImplementation 'org.postgresql:postgresql'
     testImplementation "io.micronaut.test:micronaut-test-spock:$micronautTestVersion"
 }
 
