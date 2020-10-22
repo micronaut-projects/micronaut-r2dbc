@@ -1,3 +1,4 @@
-rootProject.name = 'xxx'
+rootProject.name = 'r2dbc'
 
-include 'xxx'
+include 'r2dbc-core'
+include 'r2dbc-h2'
