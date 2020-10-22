@@ -7,6 +7,7 @@ import io.r2dbc.spi.ConnectionFactoryOptions;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.time.Duration;
 import java.util.Map;
 
 /**
@@ -41,6 +42,20 @@ public interface BasicR2dbcProperties<O> extends Named {
      * @return These properties
      */
     BasicR2dbcProperties<O> setProtocol(@NotBlank String protocol);
+
+    /**
+     * Sets the connect timeout.
+     * @param duration The duration
+     * @return These properties
+     */
+    BasicR2dbcProperties<O> setConnectTimeout(Duration duration);
+
+    /**
+     * Sets whether to prefer SSL configuration
+     * @param ssl Sets whether to prefer SSL
+     * @return These properties
+     */
+    BasicR2dbcProperties<O> setSsl(boolean ssl);
 
     /**
      * Sets the username.

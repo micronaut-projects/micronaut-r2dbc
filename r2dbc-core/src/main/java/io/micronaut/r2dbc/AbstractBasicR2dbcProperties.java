@@ -8,6 +8,7 @@ import io.r2dbc.spi.ConnectionFactoryOptions;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.time.Duration;
 
 /**
  * Abstract implementation of {@link BasicR2dbcProperties}.
@@ -44,6 +45,32 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
         if (protocol != null) {
             this.builder.option(ConnectionFactoryOptions.PROTOCOL, protocol);
         }
+        return this;
+    }
+
+    /**
+     * Sets the connect timeout.
+     *
+     * @param duration The duration
+     * @return These properties
+     */
+    @Override
+    public BasicR2dbcProperties<O> setConnectTimeout(Duration duration) {
+        if (duration != null) {
+            this.builder.option(ConnectionFactoryOptions.CONNECT_TIMEOUT, duration);
+        }
+        return this;
+    }
+
+    /**
+     * Sets whether to prefer SSL configuration
+     *
+     * @param ssl Sets whether to prefer SSL
+     * @return These properties
+     */
+    @Override
+    public BasicR2dbcProperties<O> setSsl(boolean ssl) {
+        this.builder.option(ConnectionFactoryOptions.SSL, ssl);
         return this;
     }
 
