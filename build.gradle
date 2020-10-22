@@ -13,13 +13,17 @@ buildscript {
 subprojects { Project subproject ->
     group "io.micronaut.r2dbc"
 
-    apply plugin: "io.micronaut.build.common"
-    apply plugin: "io.micronaut.build.dependency-updates"
+    boolean isExampleOrBenchmark = subproject.parent.name == "docs-examples" || subproject.name.contains("example") || subproject.name.contains("benchmark")
 
-    apply plugin: "io.micronaut.build.publishing"
+    if (!isExampleOrBenchmark) {
+        apply plugin: "io.micronaut.build.common"
+        apply plugin: "io.micronaut.build.dependency-updates"
 
-    dependencies {
-        testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
+        apply plugin: "io.micronaut.build.publishing"
+
+        dependencies {
+            testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
+        }
     }
 }
 

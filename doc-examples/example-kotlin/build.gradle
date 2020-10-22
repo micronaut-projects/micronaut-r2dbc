@@ -1,0 +1,14 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.4.10"
+    id "org.jetbrains.kotlin.kapt" version "1.4.10"
+    id "org.jetbrains.kotlin.plugin.allopen" version "1.4.10"
+    id "io.micronaut.library" version "1.0.5"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}

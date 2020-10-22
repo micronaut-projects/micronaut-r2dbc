@@ -1,0 +1,4 @@
+r2dbc:
+  datasources:
+    default:
+      url: r2dbc:tc:mysql:///databasename?TC_IMAGE_TAG=5.7.22

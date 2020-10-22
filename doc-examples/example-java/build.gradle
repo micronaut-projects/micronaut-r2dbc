@@ -1,0 +1,26 @@
+plugins {
+    id "java"
+    id "io.micronaut.application" version "1.0.5"
+}
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = "example.Application"
+}
+
+micronaut {
+    runtime "netty"
+    testRuntime "junit5"
+}
+
+dependencies {
+    implementation project(":r2dbc-mysql")
+    testImplementation "io.micronaut:micronaut-http-client"
+    testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
+    testImplementation "org.testcontainers:r2dbc"
+    testImplementation "org.testcontainers:mysql"
+    testImplementation 'mysql:mysql-connector-java'
+}
