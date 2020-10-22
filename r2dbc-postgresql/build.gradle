@@ -1,0 +1,21 @@
+dependencies {
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut.docs:micronaut-docs-asciidoc-config-props:$micronautDocsVersion"
+
+    api "io.micronaut:micronaut-inject"
+    api project(":r2dbc-core")
+    implementation 'io.r2dbc:r2dbc-postgresql:0.8.5.RELEASE'
+    testImplementation("io.reactivex.rxjava2:rxjava")
+
+    testImplementation("org.spockframework:spock-core:${spockVersion}") {
+        exclude module:'groovy-all'
+    }
+    testImplementation "org.testcontainers:postgresql"
+    testImplementation "org.testcontainers:r2dbc"
+    testImplementation 'org.postgresql:postgresql:42.2.18.jre7'
+    testImplementation "io.micronaut.test:micronaut-test-spock:$micronautTestVersion"
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.r2dbc.mysql;
+package io.micronaut.r2dbc.postgresql;
 
 import edu.umd.cs.findbugs.annotations.Nullable;
 import io.micronaut.context.annotation.EachProperty;
@@ -28,26 +28,26 @@ import io.r2dbc.spi.Option;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import java.time.Duration;
 import java.util.Map;
 
 /**
- * Implementation of {@link BasicR2dbcProperties} for MySQL.
+ * Implementation of {@link BasicR2dbcProperties} for Postgresql.
  *
  * @author graemerocher
  * @since 1.0.0
  */
 @EachProperty(value = BasicR2dbcProperties.PREFIX, primary = "default")
-public class MySqlConnectionFactoryConfiguration extends AbstractBasicR2dbcProperties<String> {
+public class PostgresConnectionFactoryConfiguration extends AbstractBasicR2dbcProperties<String> {
     /**
      * Default constructor.
      *
      * @param name    The name of the datasource
      * @param environment The environment
      */
-    protected MySqlConnectionFactoryConfiguration(@Parameter String name, Environment environment) {
+    protected PostgresConnectionFactoryConfiguration(@Parameter String name, Environment environment) {
         super(name, newConnectionFactoryOptionsBuilder(name, environment, null));
     }
-
     /**
      * Sets the connection properties.
      *
@@ -55,7 +55,7 @@ public class MySqlConnectionFactoryConfiguration extends AbstractBasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public MySqlConnectionFactoryConfiguration setOptions(
+    public BasicR2dbcProperties<String> setOptions(
             @MapFormat(keyFormat = StringConvention.RAW)
             @Nullable Map<String, String> options) {
         if (CollectionUtils.isNotEmpty(options)) {
@@ -70,14 +70,47 @@ public class MySqlConnectionFactoryConfiguration extends AbstractBasicR2dbcPrope
     }
 
     /**
+     * Sets the protocol.
+     *
+     * @param protocol The protocol
+     * @return These properties
+     */
+    @Override
+    public PostgresConnectionFactoryConfiguration setProtocol(@NotBlank String protocol) {
+        return (PostgresConnectionFactoryConfiguration) super.setProtocol(protocol);
+    }
+
+    /**
+     * Sets the connect timeout.
+     *
+     * @param duration The duration
+     * @return These properties
+     */
+    @Override
+    public PostgresConnectionFactoryConfiguration setConnectTimeout(Duration duration) {
+        return (PostgresConnectionFactoryConfiguration) super.setConnectTimeout(duration);
+    }
+
+    /**
+     * Sets whether to prefer SSL configuration
+     *
+     * @param ssl Sets whether to prefer SSL
+     * @return These properties
+     */
+    @Override
+    public PostgresConnectionFactoryConfiguration setSsl(boolean ssl) {
+        return (PostgresConnectionFactoryConfiguration) super.setSsl(ssl);
+    }
+
+    /**
      * Sets the host.
      *
      * @param host The host
      * @return These properties
      */
     @Override
-    public MySqlConnectionFactoryConfiguration setHost(@NotBlank String host) {
-        return (MySqlConnectionFactoryConfiguration) super.setHost(host);
+    public PostgresConnectionFactoryConfiguration setHost(@NotBlank String host) {
+        return (PostgresConnectionFactoryConfiguration) super.setHost(host);
     }
 
     /**
@@ -87,8 +120,8 @@ public class MySqlConnectionFactoryConfiguration extends AbstractBasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public MySqlConnectionFactoryConfiguration setPort(@Positive int port) {
-        return (MySqlConnectionFactoryConfiguration) super.setPort(port);
+    public PostgresConnectionFactoryConfiguration setPort(@Positive int port) {
+        return (PostgresConnectionFactoryConfiguration) super.setPort(port);
     }
 
     /**
@@ -98,8 +131,8 @@ public class MySqlConnectionFactoryConfiguration extends AbstractBasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public MySqlConnectionFactoryConfiguration setUsername(@NotBlank String username) {
-        return (MySqlConnectionFactoryConfiguration) super.setUsername(username);
+    public PostgresConnectionFactoryConfiguration setUsername(@NotBlank String username) {
+        return (PostgresConnectionFactoryConfiguration) super.setUsername(username);
     }
 
     /**
@@ -109,8 +142,8 @@ public class MySqlConnectionFactoryConfiguration extends AbstractBasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public MySqlConnectionFactoryConfiguration setPassword(CharSequence password) {
-        return (MySqlConnectionFactoryConfiguration) super.setPassword(password);
+    public PostgresConnectionFactoryConfiguration setPassword(CharSequence password) {
+        return (PostgresConnectionFactoryConfiguration) super.setPassword(password);
     }
 
     /**
@@ -120,7 +153,7 @@ public class MySqlConnectionFactoryConfiguration extends AbstractBasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public MySqlConnectionFactoryConfiguration setDatabase(@NotBlank String database) {
-        return (MySqlConnectionFactoryConfiguration) super.setDatabase(database);
+    public PostgresConnectionFactoryConfiguration setDatabase(@NotBlank String database) {
+        return (PostgresConnectionFactoryConfiguration) super.setDatabase(database);
     }
 }
