@@ -3,13 +3,16 @@ dependencies {
     annotationProcessor "io.micronaut.docs:micronaut-docs-asciidoc-config-props:$micronautDocsVersion"
 
     api "io.micronaut:micronaut-inject"
-    api "io.micronaut:micronaut-validation"
-    api platform("io.r2dbc:r2dbc-bom:$r2dbcVersion")
-    api "io.r2dbc:r2dbc-spi"
+    api project(":r2dbc-core")
+    implementation 'io.r2dbc:r2dbc-mssql'
+    testImplementation("io.reactivex.rxjava2:rxjava")
 
     testImplementation("org.spockframework:spock-core:${spockVersion}") {
         exclude module:'groovy-all'
     }
+    testImplementation "org.testcontainers:mssqlserver"
+    testImplementation "org.testcontainers:r2dbc"
+    testImplementation 'com.microsoft.sqlserver:mssql-jdbc'
     testImplementation "io.micronaut.test:micronaut-test-spock:$micronautTestVersion"
 }
 

@@ -48,6 +48,7 @@ public class PostgresConnectionFactoryConfiguration extends AbstractBasicR2dbcPr
     protected PostgresConnectionFactoryConfiguration(@Parameter String name, Environment environment) {
         super(name, newConnectionFactoryOptionsBuilder(name, environment, null));
     }
+
     /**
      * Sets the connection properties.
      *
@@ -92,7 +93,7 @@ public class PostgresConnectionFactoryConfiguration extends AbstractBasicR2dbcPr
     }
 
     /**
-     * Sets whether to prefer SSL configuration
+     * Sets whether to prefer SSL configuration.
      *
      * @param ssl Sets whether to prefer SSL
      * @return These properties

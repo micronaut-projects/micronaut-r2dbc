@@ -26,14 +26,15 @@ import java.time.Duration;
 import java.util.Map;
 
 /**
- * An interface to model configuring basic R2DBC properties
+ * An interface to model configuring basic R2DBC properties.
  *
  * @since 1.0.0
  * @author graemerocher
+ * @param <O> The option type
  */
 public interface BasicR2dbcProperties<O> extends Named {
     /**
-     * The prefix for configuration
+     * The prefix for configuration.
      */
     String PREFIX = "r2dbc.datasources";
 
@@ -66,7 +67,7 @@ public interface BasicR2dbcProperties<O> extends Named {
     BasicR2dbcProperties<O> setConnectTimeout(Duration duration);
 
     /**
-     * Sets whether to prefer SSL configuration
+     * Sets whether to prefer SSL configuration.
      * @param ssl Sets whether to prefer SSL
      * @return These properties
      */

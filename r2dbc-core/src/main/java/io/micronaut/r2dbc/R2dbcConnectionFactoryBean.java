@@ -23,7 +23,7 @@ import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactoryOptions;
 
 /**
- * Core factory bean that exposes the following beans:
+ * Core factory bean that exposes the following beans.
  *
  * <ul>
  *     <li>The {@link ConnectionFactoryOptions.Builder}</li>

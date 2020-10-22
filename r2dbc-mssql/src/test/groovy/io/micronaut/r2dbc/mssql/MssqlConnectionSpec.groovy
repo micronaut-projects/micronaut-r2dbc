@@ -1,4 +1,4 @@
-package io.micronaut.r2dbc.postgresql
+package io.micronaut.r2dbc.mssql
 
 import io.micronaut.context.annotation.Property
 import io.micronaut.r2dbc.BasicR2dbcProperties
@@ -16,9 +16,9 @@ import spock.lang.Specification
 import javax.inject.Inject
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:postgresql:///databasename?TC_IMAGE_TAG=9.6.8")
+@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:sqlserver:///?TC_IMAGE_TAG=2017-CU12")
 @Property(name = "r2dbc.datasources.default.options.applicationName", value = "test")
-class PostgresConnectionSpec extends Specification {
+class MssqlConnectionSpec extends Specification {
     @Inject BasicR2dbcProperties props
     @Inject ConnectionFactoryOptions options
     @Inject ConnectionFactory connectionFactory
@@ -27,8 +27,7 @@ class PostgresConnectionSpec extends Specification {
         expect:
         props != null
         options.getValue(ConnectionFactoryOptions.DRIVER) == 'tc'
-        options.getValue(ConnectionFactoryOptions.DATABASE) == 'databasename'
-        options.getValue(ConnectionFactoryOptions.PROTOCOL) == 'postgresql'
+        options.getValue(ConnectionFactoryOptions.PROTOCOL) == 'sqlserver'
         options.getValue(Option.valueOf("applicationName")) == 'test'
     }
 
@@ -50,3 +49,4 @@ class PostgresConnectionSpec extends Specification {
         result == 1
     }
 }
+

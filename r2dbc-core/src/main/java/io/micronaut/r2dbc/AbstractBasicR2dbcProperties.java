@@ -78,7 +78,7 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
     }
 
     /**
-     * Sets whether to prefer SSL configuration
+     * Sets whether to prefer SSL configuration.
      *
      * @param ssl Sets whether to prefer SSL
      * @return These properties
@@ -93,6 +93,7 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
      * Create a {@link ConnectionFactoryOptions.Builder} from the configured URL if present.
      * @param name The name of the datasource
      * @param env The environment
+     * @param defaultUrl The default URL to use
      * @return The builder
      */
     protected static ConnectionFactoryOptions.Builder newConnectionFactoryOptionsBuilder(String name, Environment env, @Nullable String defaultUrl) {
