@@ -18,9 +18,13 @@ micronaut {
 
 dependencies {
     implementation project(":r2dbc-core")
+    implementation project(":r2dbc-rxjava2")
     testImplementation "io.micronaut:micronaut-http-client"
+    testImplementation 'io.r2dbc:r2dbc-h2'
+
     testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
     testImplementation "org.testcontainers:r2dbc"
-    testImplementation "org.testcontainers:mysql"
-    testImplementation 'mysql:mysql-connector-java'
+    testImplementation 'io.r2dbc:r2dbc-postgresql'
+    testImplementation "org.testcontainers:postgresql"
+    testImplementation 'org.postgresql:postgresql'
 }
