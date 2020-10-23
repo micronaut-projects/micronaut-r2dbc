@@ -77,8 +77,7 @@ final class DefaultRxConnectionFactory implements RxConnectionFactory {
                                     protected void doOnError(Throwable t) {
                                         //noinspection ResultOfMethodCallIgnored
                                         connection.rollbackTransaction()
-                                                  .isEmpty()
-                                                  .flatMapPublisher(b -> connection.close())
+                                                  .switchIfEmpty(connection.close())
                                                   .isEmpty()
                                                 .subscribe((v) -> actual.onError(t), (closeError) -> {
                                             if (LOG.isDebugEnabled()) {
@@ -93,8 +92,7 @@ final class DefaultRxConnectionFactory implements RxConnectionFactory {
                                         //noinspection ResultOfMethodCallIgnored
                                         connection
                                                 .commitTransaction()
-                                                .isEmpty()
-                                                .flatMapPublisher(b -> connection.close())
+                                                .switchIfEmpty(connection.close())
                                                 .isEmpty()
                                                 .subscribe((v) -> actual.onComplete(), (closeError) -> {
                                             if (LOG.isDebugEnabled()) {
