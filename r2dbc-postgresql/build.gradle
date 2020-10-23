@@ -4,7 +4,7 @@ dependencies {
 
     api "io.micronaut:micronaut-inject"
     api project(":r2dbc-core")
-    implementation 'io.r2dbc:r2dbc-postgresql:0.8.5.RELEASE'
+    implementation 'io.r2dbc:r2dbc-postgresql:0.8.6.RELEASE'
     testImplementation("io.reactivex.rxjava2:rxjava")
 
     testImplementation("org.spockframework:spock-core:${spockVersion}") {
