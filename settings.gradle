@@ -1,12 +1,6 @@
 rootProject.name = 'r2dbc'
 
 include 'r2dbc-core'
-include 'r2dbc-h2'
-include 'r2dbc-mariadb'
-include 'r2dbc-mysql'
-include 'r2dbc-mssql'
-include 'r2dbc-oracle'
-include 'r2dbc-postgresql'
 
 // examples
 include 'doc-examples:example-groovy'

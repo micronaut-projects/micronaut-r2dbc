@@ -17,7 +17,7 @@ micronaut {
 }
 
 dependencies {
-    implementation project(":r2dbc-mysql")
+    implementation project(":r2dbc-core")
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
     testImplementation "org.testcontainers:r2dbc"

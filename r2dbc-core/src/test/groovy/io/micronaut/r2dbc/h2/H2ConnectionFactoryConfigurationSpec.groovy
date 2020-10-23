@@ -28,6 +28,7 @@ class H2ConnectionFactoryConfigurationSpec extends Specification {
     }
 
     @Property(name = 'r2dbc.datasources.default.protocol', value = "mem")
+    @Property(name = 'r2dbc.datasources.default.driver', value = "h2")
     @Property(name = 'r2dbc.datasources.default.database', value = "testdb2")
     @Property(name = 'r2dbc.datasources.default.options.DB_CLOSE_DELAY', value = "10")
     void 'test with database props'() {

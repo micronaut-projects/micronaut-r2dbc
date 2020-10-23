@@ -17,31 +17,38 @@ package io.micronaut.r2dbc;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
+import io.micronaut.context.annotation.EachProperty;
+import io.micronaut.context.annotation.Parameter;
 import io.micronaut.context.env.Environment;
+import io.micronaut.core.convert.format.MapFormat;
+import io.micronaut.core.naming.conventions.StringConvention;
 import io.micronaut.core.type.Argument;
+import io.micronaut.core.util.CollectionUtils;
 import io.r2dbc.spi.ConnectionFactoryOptions;
+import io.r2dbc.spi.Option;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.Duration;
+import java.util.Map;
 
 /**
  * Abstract implementation of {@link BasicR2dbcProperties}.
- * @param <O> The option type
  * @author graemerocher
  * @since 1.0.0
  */
-public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcProperties<O> {
+@EachProperty(value = BasicR2dbcProperties.PREFIX, primary = "default")
+public class DefaultBasicR2dbcProperties implements BasicR2dbcProperties {
     private final ConnectionFactoryOptions.Builder builder;
     private final String name;
 
     /**
      * Default constructor.
      * @param name The name of the datasource
-     * @param builder The {@link io.r2dbc.spi.ConnectionFactoryOptions.Builder}
+     * @param environment The environment
      */
-    protected AbstractBasicR2dbcProperties(String name, ConnectionFactoryOptions.Builder builder) {
-        this.builder = builder;
+    protected DefaultBasicR2dbcProperties(@Parameter String name, Environment environment) {
+        this.builder = newConnectionFactoryOptionsBuilder(name, environment, null);
         this.name = name;
     }
 
@@ -51,12 +58,49 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
     }
 
     /**
+     * Sets the driver.
+     *
+     * @param driver The driver
+     * @return These properties
+     */
+    @Override
+    public BasicR2dbcProperties setDriver(@NotBlank String driver) {
+        if (driver != null) {
+            this.builder.option(ConnectionFactoryOptions.DRIVER, driver);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the connection properties.
+     *
+     * @param options The options
+     * @return These properties
+     */
+    @Override
+    public BasicR2dbcProperties setOptions(
+            @MapFormat(keyFormat = StringConvention.RAW)
+            @Nullable
+            Map<String, String> options) {
+        if (CollectionUtils.isNotEmpty(options)) {
+            options.forEach((key, value) ->
+                    getBuilder().option(
+                            Option.valueOf(key),
+                            value
+                    )
+            );
+        }
+        return this;
+
+    }
+
+    /**
      * Sets the protocol.
      * @param protocol The protocol
      * @return These properties
      */
     @Override
-    public BasicR2dbcProperties<O> setProtocol(@NotBlank String protocol) {
+    public BasicR2dbcProperties setProtocol(@NotBlank String protocol) {
         if (protocol != null) {
             this.builder.option(ConnectionFactoryOptions.PROTOCOL, protocol);
         }
@@ -70,7 +114,7 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public BasicR2dbcProperties<O> setConnectTimeout(Duration duration) {
+    public BasicR2dbcProperties setConnectTimeout(Duration duration) {
         if (duration != null) {
             this.builder.option(ConnectionFactoryOptions.CONNECT_TIMEOUT, duration);
         }
@@ -84,7 +128,7 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public BasicR2dbcProperties<O> setSsl(boolean ssl) {
+    public BasicR2dbcProperties setSsl(boolean ssl) {
         this.builder.option(ConnectionFactoryOptions.SSL, ssl);
         return this;
     }
@@ -126,7 +170,7 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public BasicR2dbcProperties<O> setHost(@NotBlank String host) {
+    public BasicR2dbcProperties setHost(@NotBlank String host) {
         builder.option(
                 ConnectionFactoryOptions.HOST, host
         );
@@ -139,7 +183,7 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public BasicR2dbcProperties<O> setPort(@Positive int port) {
+    public BasicR2dbcProperties setPort(@Positive int port) {
         builder.option(
                 ConnectionFactoryOptions.PORT, port
         );
@@ -152,7 +196,7 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public BasicR2dbcProperties<O> setUsername(@NotBlank String username) {
+    public BasicR2dbcProperties setUsername(@NotBlank String username) {
         builder.option(
                 ConnectionFactoryOptions.USER, username
         );
@@ -165,7 +209,7 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public BasicR2dbcProperties<O> setPassword(CharSequence password) {
+    public BasicR2dbcProperties setPassword(CharSequence password) {
         builder.option(
                 ConnectionFactoryOptions.PASSWORD, password
         );
@@ -178,7 +222,7 @@ public abstract class AbstractBasicR2dbcProperties<O> implements BasicR2dbcPrope
      * @return These properties
      */
     @Override
-    public BasicR2dbcProperties<O> setDatabase(@NotBlank String database) {
+    public BasicR2dbcProperties setDatabase(@NotBlank String database) {
         builder.option(
                 ConnectionFactoryOptions.DATABASE, database
         );

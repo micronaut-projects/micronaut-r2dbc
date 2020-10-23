@@ -43,7 +43,7 @@ public class R2dbcConnectionFactoryBean {
      * @return The builder
      */
     @EachBean(BasicR2dbcProperties.class)
-    protected ConnectionFactoryOptions.Builder connectionFactoryOptionsBuilder(BasicR2dbcProperties<?> basicR2dbcProperties) {
+    protected ConnectionFactoryOptions.Builder connectionFactoryOptionsBuilder(BasicR2dbcProperties basicR2dbcProperties) {
         return basicR2dbcProperties.builder();
     }
 

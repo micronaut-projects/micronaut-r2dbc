@@ -30,9 +30,8 @@ import java.util.Map;
  *
  * @since 1.0.0
  * @author graemerocher
- * @param <O> The option type
  */
-public interface BasicR2dbcProperties<O> extends Named {
+public interface BasicR2dbcProperties extends Named {
     /**
      * The prefix for configuration.
      */
@@ -43,64 +42,71 @@ public interface BasicR2dbcProperties<O> extends Named {
      * @param host The host
      * @return These properties
      */
-    BasicR2dbcProperties<O> setHost(@NotBlank String host);
+    BasicR2dbcProperties setHost(@NotBlank String host);
 
     /**
      * Sets the port.
      * @param port The port
      * @return These properties
      */
-    BasicR2dbcProperties<O> setPort(@Positive int port);
+    BasicR2dbcProperties setPort(@Positive int port);
+
+    /**
+     * Sets the driver.
+     * @param driver The driver
+     * @return These properties
+     */
+    BasicR2dbcProperties setDriver(@NotBlank String driver);
 
     /**
      * Sets the protocol.
      * @param protocol The protocol
      * @return These properties
      */
-    BasicR2dbcProperties<O> setProtocol(@NotBlank String protocol);
+    BasicR2dbcProperties setProtocol(@NotBlank String protocol);
 
     /**
      * Sets the connect timeout.
      * @param duration The duration
      * @return These properties
      */
-    BasicR2dbcProperties<O> setConnectTimeout(Duration duration);
+    BasicR2dbcProperties setConnectTimeout(Duration duration);
 
     /**
      * Sets whether to prefer SSL configuration.
      * @param ssl Sets whether to prefer SSL
      * @return These properties
      */
-    BasicR2dbcProperties<O> setSsl(boolean ssl);
+    BasicR2dbcProperties setSsl(boolean ssl);
 
     /**
      * Sets the username.
      * @param username The username
      * @return These properties
      */
-    BasicR2dbcProperties<O> setUsername(@NotBlank String username);
+    BasicR2dbcProperties setUsername(@NotBlank String username);
 
     /**
      * Sets the password.
      * @param password The password
      * @return These properties
      */
-    BasicR2dbcProperties<O> setPassword(CharSequence password);
+    BasicR2dbcProperties setPassword(CharSequence password);
 
     /**
      * Sets the initial database name.
      * @param database The database
      * @return These properties
      */
-    BasicR2dbcProperties<O> setDatabase(@NotBlank String database);
+    BasicR2dbcProperties setDatabase(@NotBlank String database);
 
     /**
      * Sets the connection properties.
      * @param options The options
      * @return These properties
      */
-    BasicR2dbcProperties<O> setOptions(
-            @Nullable Map<O, String> options);
+    BasicR2dbcProperties setOptions(
+            @Nullable Map<String, String> options);
 
     /**
      * @return Return the current builder
