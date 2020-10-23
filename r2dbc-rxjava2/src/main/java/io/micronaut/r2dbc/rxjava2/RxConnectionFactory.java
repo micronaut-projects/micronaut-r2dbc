@@ -38,7 +38,8 @@ public interface RxConnectionFactory extends ConnectionFactory {
     <T> Flowable<T> withConnection(Function<RxConnection, Flowable<T>> publisherFunction);
 
     /**
-     * Apply the given function closing the connection on termination.
+     * Apply given function within a context of a transaction, rolling back if an error occurs and committing if not. This method will also close the connection on completion.
+     *
      * @param publisherFunction The publisher function
      * @param <T> The return type
      * @return The flowable
