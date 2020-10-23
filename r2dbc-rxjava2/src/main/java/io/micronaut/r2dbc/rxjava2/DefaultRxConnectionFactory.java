@@ -79,11 +79,11 @@ final class DefaultRxConnectionFactory implements RxConnectionFactory {
                                         connection.rollbackTransaction()
                                                   .switchIfEmpty(connection.close())
                                                   .isEmpty()
-                                                .subscribe((v) -> actual.onError(t), (closeError) -> {
-                                            if (LOG.isDebugEnabled()) {
-                                                LOG.debug("Error during R2DBC transaction rollback: " + closeError.getMessage(), closeError);
+                                                .subscribe((v) -> actual.onError(t), (rollbackError) -> {
+                                            if (LOG.isErrorEnabled()) {
+                                                LOG.error("Error during R2DBC transaction rollback: " + rollbackError.getMessage(), rollbackError);
                                             }
-                                            actual.onError(t);
+                                            actual.onError(rollbackError);
                                         });
                                     }
 
@@ -94,11 +94,11 @@ final class DefaultRxConnectionFactory implements RxConnectionFactory {
                                                 .commitTransaction()
                                                 .switchIfEmpty(connection.close())
                                                 .isEmpty()
-                                                .subscribe((v) -> actual.onComplete(), (closeError) -> {
-                                            if (LOG.isDebugEnabled()) {
-                                                LOG.debug("Error during R2DBC transaction commit: " + closeError.getMessage(), closeError);
+                                                .subscribe((v) -> actual.onComplete(), (commitError) -> {
+                                            if (LOG.isErrorEnabled()) {
+                                                LOG.error("Error during R2DBC transaction commit: " + commitError.getMessage(), commitError);
                                             }
-                                            actual.onComplete();
+                                            actual.onError(commitError);
                                         });
                                     }
                                 });
