@@ -15,11 +15,13 @@
  */
 package io.micronaut.r2dbc.rxjava2;
 
+import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.ConnectionFactory;
 import io.reactivex.Flowable;
 
 import java.util.function.Function;
 
+@Experimental
 public interface RxConnectionFactory extends ConnectionFactory {
     /**
      * Creates a new {@link RxConnection}.

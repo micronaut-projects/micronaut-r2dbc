@@ -15,9 +15,11 @@
  */
 package io.micronaut.r2dbc.rxjava2;
 
+import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.*;
 import io.reactivex.Flowable;
 
+@Experimental
 public interface RxConnection extends Connection {
     /**
      * Creates a new {@link RxBatch} instance for building a batched request.

@@ -19,12 +19,16 @@ import io.micronaut.context.annotation.Context;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Replaces;
+import io.micronaut.core.annotation.Experimental;
+import io.micronaut.core.annotation.Internal;
 import io.micronaut.r2dbc.BasicR2dbcProperties;
 import io.micronaut.r2dbc.R2dbcConnectionFactoryBean;
 import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactoryOptions;
 
 @Factory
+@Internal
+@Experimental
 public class RxR2dbcConnectionFactoryBean extends R2dbcConnectionFactoryBean {
     @Override
     @EachBean(BasicR2dbcProperties.class)

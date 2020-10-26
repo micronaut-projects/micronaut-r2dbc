@@ -15,12 +15,14 @@
  */
 package io.micronaut.r2dbc.rxjava2;
 
+import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.Result;
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
 import io.reactivex.Flowable;
 import java.util.function.BiFunction;
 
+@Experimental
 public interface RxResult extends Result {
     /**
      * Returns the number of rows updated by a query against a database.  May be empty if the query did not update any rows.

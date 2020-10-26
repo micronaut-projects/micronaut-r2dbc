@@ -15,9 +15,11 @@
  */
 package io.micronaut.r2dbc.rxjava2;
 
+import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.Batch;
 import io.reactivex.Flowable;
 
+@Experimental
 public interface RxBatch extends Batch {
     /**
      * Executes one or more SQL statements and returns the {@link RxResult}s.
