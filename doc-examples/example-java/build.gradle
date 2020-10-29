@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "io.micronaut.application" version "1.0.5"
+    id "io.micronaut.application" version "1.1.0"
 }
 
 repositories {
@@ -19,12 +19,30 @@ micronaut {
 dependencies {
     implementation project(":r2dbc-core")
     implementation project(":r2dbc-rxjava2")
+    implementation 'io.r2dbc:r2dbc-postgresql'
+    implementation "io.micronaut.reactor:micronaut-reactor"
+
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation 'io.r2dbc:r2dbc-h2'
-
     testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
-    testImplementation "org.testcontainers:r2dbc"
-    testImplementation 'io.r2dbc:r2dbc-postgresql'
     testImplementation "org.testcontainers:postgresql"
     testImplementation 'org.postgresql:postgresql'
+    testImplementation('io.micronaut.test:micronaut-test-core:2.2.1') {
+        version {
+            strictly('2.2.1')
+        }
+    }
+}
+
+nativeImage {
+//    args('--debug-attach=5005')
+    args('-H:+TraceClassInitialization')
+    args('--report-unsupported-elements-at-runtime')
+    args('--initialize-at-build-time=io.r2dbc.spi.IsolationLevel,io.r2dbc.spi')
+    args('--initialize-at-build-time=io.r2dbc.spi.ConstantPool,io.r2dbc.spi.Assert,io.r2dbc.spi.ValidationDepth')
+    args('--initialize-at-run-time=io.micronaut.core.async.publisher')
+    args('--initialize-at-run-time=io.micronaut.r2dbc')
+    args('--initialize-at-run-time=io.r2dbc.spi.ConnectionFactory')
+    args('--initialize-at-run-time=io.r2dbc.postgresql')
+    args('--initialize-at-run-time=reactor.netty.tcp.TcpClient')
 }
