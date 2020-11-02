@@ -35,13 +35,7 @@ dependencies {
 }
 
 nativeImage {
-//    args('--debug-attach=5005')
-    args('-H:+TraceClassInitialization')
     args('--report-unsupported-elements-at-runtime')
     args('--initialize-at-run-time=io.micronaut.core.async.publisher')
-    args('--initialize-at-run-time=io.netty.resolver.dns.DnsQueryContextManager')
-    args('--initialize-at-run-time=io.r2dbc.postgresql.PostgresqlConnectionConfiguration\\$Builder')
-    args('--initialize-at-run-time=io.netty.resolver.dns.DefaultDnsServerAddressStreamProvider')
-    args('--initialize-at-run-time=io.netty.resolver.dns.DnsServerAddressStreamProviders\\$DefaultProviderHolder')
-    args('--initialize-at-run-time=reactor.netty.tcp.TcpClientConnect')
+    args('--initialize-at-run-time=io.netty.util.NetUtil,io.netty.channel.DefaultChannelId,io.netty.resolver.HostsFileEntriesResolver,io.netty.channel.socket.InternetProtocolFamily,io.netty.resolver.dns')
 }
