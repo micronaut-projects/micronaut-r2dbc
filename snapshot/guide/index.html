@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Micronaut R2DBC</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <link rel="stylesheet" href="../css/highlight/agate.css">
+    <script src="../js/highlight.pack.js"></script>
+    <script src="../js/guide.js"></script>
+    <script src="../js/multi-language-sample.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="../css/multi-language-sample.css"/>
+    <script src="../js/docs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+    <script type="text/javascript">
+        function addJsClass(el) {
+            var classes = document.body.className.split(" ");
+            classes.push("js");
+            document.body.className = classes.join(" ");
+        }
+    </script>
+
+</head>
+
+<body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
+
+<div id="table-of-content-nav-link" class="desktop">
+    <a id="theme-switcher" title="Switch to dark theme" href="javascript:switchTheme(true)"><i class="fa fa-moon-o"></i></a>
+    <a title="Collapse/Open Table of contents" title="Hide Table of Contents" href="javascript:hideTableOfContents();" class="button">[ + ]</a>
+</div>
+
+<div id="main">
+    <div id="navigation" class="no-print">
+        <div class="navTitle">
+            <span id="logo"><a href="http://micronaut.io" title="Go to Micronaut Website"><img src="../img/micronaut-logo-white.svg" alt="Micronaut"/></a></span>
+        </div>
+        <div class="navLinks">
+            <ul>
+                    <li><div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)" class="desktop">
+                            <a href="../guide/index.html" class="button">Table of contents</a>
+                            <div id="nav-summary-childs" style="display:none;">
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#quickStart"><strong>3</strong><span>Quick Start</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#rxJavaClient"><strong>4</strong><span>RxJava 2 Client (Experimental)</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>5</strong><span>Repository</span></a></div>
+                                
+                            </div>
+                        </div>
+                    </li>
+
+                <li id="table-of-content-nav-link-mobile" class="mobile">
+                    <a title="Scroll to Table of contents" href="javascript:scrollToTop();" class="button">Toc</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Configuration Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Conf</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    
+    <div id="table-of-content">
+        <div class="toc-content">
+
+        <h2>Table of Contents</h2>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-introduction"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-quickStart"><a href="#quickStart"><strong>3</strong><span>Quick Start</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-rxJavaClient"><a href="#rxJavaClient"><strong>4</strong><span>RxJava 2 Client (Experimental)</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>5</strong><span>Repository</span></a></div>
+        
+        </div>
+    </div>
+    
+    <div class="docs-content">
+    <div class="project">
+        <h1>Micronaut R2DBC</h1>
+        <p></p>
+        <p>Integration with Micronaut and R2DBC</p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-r2dbc/snapshot/guide/index.html'>SNAPSHOT</option></select></p>
+    </div>
+    
+<h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/introduction.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>This module provides integration between Micronaut and R2DBC.</p>
+</div>
+
+<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>For this project, you can find a list of releases (with release notes) here:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-r2dbc/releases">https://github.com/micronaut-projects/micronaut-r2dbc/releases</a></p>
+</div>
+
+<h1 id="quickStart"><a class="anchor" href="#quickStart"></a>3 Quick Start</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/quickStart.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To get started using this module you should first apply the <code>micronaut-r2dbc-bom</code>. For example with Gradle:</p>
+</div>
+<div class="listingblock">
+<div class="title">Applying the BOM in Gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">implementation platform(project("io.micronaut.r2dbc:micronaut-r2dbc-bom:1.0.0.BUILD-SNAPSHOT"))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or in Maven:</p>
+</div>
+<div class="listingblock">
+<div class="title">Applying the BOM in Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.r2dbc&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-r2dbc-bom&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0.BUILD-SNAPSHOT&lt;/version&gt;
+    &lt;type&gt;pom&lt;/type&gt;
+    &lt;scope&gt;import&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you should add a dependency on <code>micronaut-r2dbc-core</code>:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut:io.micronaut.r2dbc:micronaut-r2dbc-core")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;artifactId&gt;io.micronaut.r2dbc&lt;/artifactId&gt;
+    &lt;version&gt;micronaut-r2dbc-core&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>Followed by a dependency on any of the R2DBC drivers, for example for H2:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut:io.r2dbc:r2dbc-h2")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;artifactId&gt;io.r2dbc&lt;/artifactId&gt;
+    &lt;version&gt;r2dbc-h2&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>You can then configure the R2DBC connection URL in your application configuration, for example in <code>application.yml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">r2dbc:
+  datasources:
+    default:
+      url: "r2dbc:h2:mem:///mydb"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And then inject the R2DBC <code>ConnectionFactory</code> anywhere you need it.</p>
+</div>
+
+<h1 id="rxJavaClient"><a class="anchor" href="#rxJavaClient"></a>4 RxJava 2 Client (Experimental)</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/rxJavaClient.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>By default R2DBC is not opinonated about clients, therefore you can use the R2DBC <code>ConnectionFactory</code> with any <a href="https://r2dbc.io/clients/">external R2DBC client</a> you choose.</p>
+</div>
+<div class="paragraph">
+<p>As part of this project there is an experimental RxJava 2 client which you can add with the following dependency:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut:io.micronaut.r2dbc:micronaut-r2dbc-rxjava2")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;artifactId&gt;io.micronaut.r2dbc&lt;/artifactId&gt;
+    &lt;version&gt;micronaut-r2dbc-rxjava2&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>Which allows you to inject a <code>RxConnectionFactory</code> bean that allows you to do basic operations with R2DBC, for example inserts:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">connectionFactory.withTransaction((connection) -&gt; connection.createBatch()
+        .add("CREATE TABLE BOOKS(TITLE VARCHAR(255), PAGES INT)")
+        .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Stand', 1000)")
+        .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Shining', 400)")
+        .execute()
+).blockingSubscribe();</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">connectionFactory.withTransaction((connection) -&gt; connection.createBatch()
+        .add("CREATE TABLE BOOKS(TITLE VARCHAR(255), PAGES INT)")
+        .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Stand', 1000)")
+        .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Shining', 400)")
+        .execute()
+).blockingSubscribe()</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">connectionFactory.withTransaction { connection: RxConnection -&gt;
+    connection.createBatch()
+            .add("CREATE TABLE BOOKS(TITLE VARCHAR(255), PAGES INT)")
+            .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Stand', 1000)")
+            .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Shining', 400)")
+            .execute() as Flowable&lt;RxResult&gt;
+}.blockingSubscribe()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or read operations:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Get("/")
+Flowable&lt;Book&gt; list() {
+    return connectionFactory.withConnection(connection -&gt;
+            connection
+                .createStatement("SELECT * FROM BOOKS")
+                .execute()
+                .flatMap(result -&gt;
+                    result.map((row, rowMetadata) -&gt;
+                            new Book(
+                                    row.get(0, String.class),
+                                    row.get(1, Integer.class)
+                            )
+                    )
+                )
+    );
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">@Get("/")
+Flowable&lt;Book&gt; list() {
+    return connectionFactory.withConnection(connection -&gt;
+            connection
+                .createStatement("SELECT * FROM BOOKS")
+                .execute()
+                .flatMap(result -&gt;
+                        result.map((row, rowMetadata) -&gt;
+                                new Book(
+                                        row.get(0, String),
+                                        row.get(1, Integer)
+                                )
+                        )
+                )
+    )
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">@Get("/")
+fun list(): Flowable&lt;Book&gt; {
+    return connectionFactory.withConnection { connection: RxConnection -&gt;
+        connection
+            .createStatement("SELECT * FROM BOOKS")
+            .execute()
+            .flatMap { result: RxResult -&gt;
+                result.map { row: Row, rowMetadata: RowMetadata -&gt;
+                    Book(
+                        row.get(0, String::class.java),
+                        row.get(1, Integer::class.java)
+                    )
+                }
+            }
+    }
+}</code></pre>
+</div>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>5 Repository</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/repository.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can find the source code of this project in this repository:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-r2dbc">https://github.com/micronaut-projects/micronaut-r2dbc</a></p>
+</div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
