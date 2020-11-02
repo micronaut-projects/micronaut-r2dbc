@@ -33,4 +33,7 @@ dependencies {
     }
 }
 
-testNativeImage.enabled = false
+project.afterEvaluate {
+    nativeImage.enabled = false
+    testNativeImage.enabled = false
+}
