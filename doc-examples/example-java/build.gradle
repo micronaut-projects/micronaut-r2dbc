@@ -33,9 +33,3 @@ dependencies {
         }
     }
 }
-
-nativeImage {
-    args('--report-unsupported-elements-at-runtime')
-    args('--initialize-at-run-time=io.micronaut.core.async.publisher')
-    args('--initialize-at-run-time=io.netty.util.NetUtil,io.netty.channel.DefaultChannelId,io.netty.resolver.HostsFileEntriesResolver,io.netty.channel.socket.InternetProtocolFamily,io.netty.resolver.dns')
-}
