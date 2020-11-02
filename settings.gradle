@@ -1,5 +1,6 @@
 rootProject.name = 'r2dbc'
 
+include 'r2dbc-bom'
 include 'r2dbc-core'
 include 'r2dbc-rxjava2'
 

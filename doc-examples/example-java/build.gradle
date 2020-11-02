@@ -17,11 +17,10 @@ micronaut {
 }
 
 dependencies {
+    implementation platform(project(":r2dbc-bom"))
     implementation project(":r2dbc-core")
     implementation project(":r2dbc-rxjava2")
     implementation 'io.r2dbc:r2dbc-postgresql'
-    implementation 'io.projectreactor.netty:reactor-netty:1.0.0'
-
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation 'io.r2dbc:r2dbc-h2'
     testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')

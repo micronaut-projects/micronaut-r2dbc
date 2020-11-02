@@ -1,0 +1,17 @@
+plugins {
+    id 'java-platform'
+}
+javaPlatform {
+    allowDependencies()
+}
+dependencies {
+    api platform("io.r2dbc:r2dbc-bom:$r2dbcVersion")
+    constraints {
+        for (Project p : rootProject.subprojects) {
+            if (p.name == "r2dbc-bom") continue
+            api "$p.group:micronaut-$p.name:$p.version"
+        }
+
+        api "io.projectreactor.netty:reactor-netty:1.0.0"
+    }
+}

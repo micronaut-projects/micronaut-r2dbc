@@ -16,13 +16,20 @@ subprojects { Project subproject ->
     boolean isExampleOrBenchmark = subproject.parent.name == "docs-examples" || subproject.name.contains("example") || subproject.name.contains("benchmark")
 
     if (!isExampleOrBenchmark) {
-        apply plugin: "io.micronaut.build.common"
-        apply plugin: "io.micronaut.build.dependency-updates"
+        if (subproject.name.endsWith('-bom')) {
+            apply plugin: "java-platform"
+            version projectVersion
+            apply plugin: "io.micronaut.build.dependency-updates"
+            apply plugin: "io.micronaut.build.publishing"
+        }  else {
 
-        apply plugin: "io.micronaut.build.publishing"
+            apply plugin: "io.micronaut.build.common"
+            apply plugin: "io.micronaut.build.dependency-updates"
+            apply plugin: "io.micronaut.build.publishing"
 
-        dependencies {
-            testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
+            dependencies {
+                testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
+            }
         }
     }
 }
