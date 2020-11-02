@@ -15,6 +15,7 @@
  */
 package io.micronaut.r2dbc.rxjava2;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.Batch;
 import io.reactivex.Flowable;
@@ -27,8 +28,9 @@ public interface RxBatch extends Batch {
      * @return the {@link RxResult}s, returned by each statement
      */
     @Override
+    @NonNull
     Flowable<? extends RxResult> execute();
 
     @Override
-    RxBatch add(String sql);
+    @NonNull RxBatch add(@NonNull String sql);
 }

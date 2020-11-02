@@ -1,14 +1,37 @@
 plugins {
+    id "java"
     id "org.jetbrains.kotlin.jvm" version "1.4.10"
     id "org.jetbrains.kotlin.kapt" version "1.4.10"
     id "org.jetbrains.kotlin.plugin.allopen" version "1.4.10"
-    id "io.micronaut.library" version "1.0.5"
+    id "io.micronaut.application" version "1.1.0"
 }
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
+application {
+    mainClass = "example.ApplicationKt"
+}
 
+micronaut {
+    runtime "netty"
+    testRuntime "junit5"
+}
+
+dependencies {
+    implementation platform(project(":r2dbc-bom"))
+    implementation project(":r2dbc-core")
+    implementation project(":r2dbc-rxjava2")
+    implementation 'io.r2dbc:r2dbc-postgresql'
+    testImplementation "io.micronaut:micronaut-http-client"
+    testImplementation 'io.r2dbc:r2dbc-h2'
+    testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
+    testImplementation "org.testcontainers:postgresql"
+    testImplementation 'org.postgresql:postgresql'
+    testImplementation('io.micronaut.test:micronaut-test-core:2.2.1') {
+        version {
+            strictly('2.2.1')
+        }
+    }
 }

@@ -3,5 +3,6 @@ introduction:
 releaseHistory: Release History
 quickStart:
   title: Quick Start
+rxJavaClient: RxJava 2 Client (Experimental)
 repository: Repository
 

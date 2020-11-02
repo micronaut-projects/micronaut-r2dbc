@@ -15,6 +15,7 @@
  */
 package io.micronaut.r2dbc.rxjava2;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.*;
 import io.reactivex.Flowable;
@@ -27,7 +28,7 @@ public interface RxConnection extends Connection {
      * @return a new {@link RxBatch} instance
      */
     @Override
-    RxBatch createBatch();
+    @NonNull RxBatch createBatch();
 
     /**
      * Creates a new statement for building a statement-based request.
@@ -37,7 +38,7 @@ public interface RxConnection extends Connection {
      * @throws IllegalArgumentException if {@code sql} is {@code null}
      */
     @Override
-    RxStatement createStatement(String sql);
+    @NonNull RxStatement createStatement(@NonNull String sql);
 
     /**
      * Begins a new transaction.  Calling this method disables {@link #isAutoCommit() auto-commit} mode.
@@ -45,7 +46,7 @@ public interface RxConnection extends Connection {
      * @return a {@link Flowable} that indicates that the transaction is open
      */
     @Override
-    Flowable<Void> beginTransaction();
+    @NonNull Flowable<Void> beginTransaction();
 
     /**
      * Release any resources held by the {@link Connection}.
@@ -53,7 +54,7 @@ public interface RxConnection extends Connection {
      * @return a {@link Flowable} that termination is complete
      */
     @Override
-    Flowable<Void> close();
+    @NonNull Flowable<Void> close();
 
     /**
      * Commits the current transaction.
@@ -61,7 +62,7 @@ public interface RxConnection extends Connection {
      * @return a {@link Flowable} that indicates that a transaction has been committed
      */
     @Override
-    Flowable<Void> commitTransaction();
+    @NonNull Flowable<Void> commitTransaction();
 
     /**
      * Creates a savepoint in the current transaction.
@@ -72,7 +73,7 @@ public interface RxConnection extends Connection {
      * @throws UnsupportedOperationException if savepoints are not supported
      */
     @Override
-    Flowable<Void> createSavepoint(String name);
+    @NonNull Flowable<Void> createSavepoint(String name);
 
     /**
      * Releases a savepoint in the current transaction.  Calling this for drivers not supporting savepoint release results in a no-op.
@@ -82,7 +83,7 @@ public interface RxConnection extends Connection {
      * @throws IllegalArgumentException if {@code name} is {@code null}
      */
     @Override
-    Flowable<Void> releaseSavepoint(String name);
+    @NonNull Flowable<Void> releaseSavepoint(@NonNull String name);
 
     /**
      * Rolls back the current transaction.
@@ -90,7 +91,7 @@ public interface RxConnection extends Connection {
      * @return a {@link Flowable} that indicates that a transaction has been rolled back
      */
     @Override
-    Flowable<Void> rollbackTransaction();
+    @NonNull Flowable<Void> rollbackTransaction();
 
     /**
      * Rolls back to a savepoint in the current transaction.
@@ -101,7 +102,7 @@ public interface RxConnection extends Connection {
      * @throws UnsupportedOperationException if savepoints are not supported
      */
     @Override
-    Flowable<Void> rollbackTransactionToSavepoint(String name);
+    @NonNull Flowable<Void> rollbackTransactionToSavepoint(@NonNull String name);
 
     /**
      * Configures the auto-commit mode for the current transaction.
@@ -116,7 +117,7 @@ public interface RxConnection extends Connection {
      * @return a {@link Flowable} that indicates that auto-commit mode has been configured
      */
     @Override
-    Flowable<Void> setAutoCommit(boolean autoCommit);
+    @NonNull Flowable<Void> setAutoCommit(boolean autoCommit);
 
     /**
      * Configures the isolation level for the current transaction.
@@ -136,7 +137,7 @@ public interface RxConnection extends Connection {
      * @throws IllegalArgumentException if {@code isolationLevel} is {@code null}
      */
     @Override
-    Flowable<Void> setTransactionIsolationLevel(IsolationLevel isolationLevel);
+    @NonNull Flowable<Void> setTransactionIsolationLevel(@NonNull IsolationLevel isolationLevel);
 
     /**
      * Validates the connection according to the given {@link ValidationDepth}.
@@ -147,5 +148,5 @@ public interface RxConnection extends Connection {
      * @throws IllegalArgumentException if {@code depth} is {@code null}
      */
     @Override
-    Flowable<Boolean> validate(ValidationDepth depth);
+    @NonNull Flowable<Boolean> validate(@NonNull ValidationDepth depth);
 }

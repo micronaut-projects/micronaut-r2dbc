@@ -15,6 +15,7 @@
  */
 package io.micronaut.r2dbc.rxjava2;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.ConnectionFactory;
 import io.reactivex.Flowable;
@@ -29,7 +30,7 @@ public interface RxConnectionFactory extends ConnectionFactory {
      * @return the newly created {@link RxConnection}
      */
     @Override
-    Flowable<? extends RxConnection> create();
+    @NonNull Flowable<? extends RxConnection> create();
 
     /**
      * Apply the given function closing the connection on termination.
@@ -37,7 +38,7 @@ public interface RxConnectionFactory extends ConnectionFactory {
      * @param <T> The return type
      * @return The flowable
      */
-    <T> Flowable<T> withConnection(Function<RxConnection, Flowable<T>> publisherFunction);
+    @NonNull <T> Flowable<T> withConnection(@NonNull RxConnectionFunction<T> publisherFunction);
 
     /**
      * Apply given function within a context of a transaction, rolling back if an error occurs and committing if not. This method will also close the connection on completion.
@@ -46,5 +47,17 @@ public interface RxConnectionFactory extends ConnectionFactory {
      * @param <T> The return type
      * @return The flowable
      */
-    <T> Flowable<T> withTransaction(Function<RxConnection, Flowable<T>> publisherFunction);
+    @NonNull
+    <T> Flowable<T> withTransaction(@NonNull RxConnectionFunction<T> publisherFunction);
+
+    /**
+     * Function applied with a connection.
+     * @param <T> The emitted type
+     */
+    @FunctionalInterface
+    interface RxConnectionFunction<T> extends Function<RxConnection, Flowable<T>> {
+        @Override
+        @NonNull
+        Flowable<T> apply(@NonNull RxConnection rxConnection);
+    }
 }

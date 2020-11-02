@@ -25,12 +25,14 @@ public class BookControllerTest implements TestPropertyProvider {
 
     @BeforeAll
     static void setupData(RxConnectionFactory connectionFactory) {
+        // tag::insert[]
         connectionFactory.withTransaction((connection) -> connection.createBatch()
                 .add("CREATE TABLE BOOKS(TITLE VARCHAR(255), PAGES INT)")
                 .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Stand', 1000)")
                 .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Shining', 400)")
                 .execute()
         ).blockingSubscribe();
+        // end::insert[]
     }
 
     @Test

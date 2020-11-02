@@ -13,6 +13,7 @@ public class BookController {
         this.connectionFactory = connectionFactory;
     }
 
+    // tag::read[]
     @Get("/")
     Flowable<Book> list() {
         return connectionFactory.withConnection(connection ->
@@ -29,4 +30,5 @@ public class BookController {
                     )
         );
     }
+    // end::read[]
 }

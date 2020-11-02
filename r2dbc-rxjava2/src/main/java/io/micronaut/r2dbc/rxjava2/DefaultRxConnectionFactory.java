@@ -32,9 +32,11 @@ import org.slf4j.LoggerFactory;
 final class DefaultRxConnectionFactory implements RxConnectionFactory {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultRxConnectionFactory.class);
     private final ConnectionFactory connectionFactory;
+    private final boolean closeOnComplete;
 
     public DefaultRxConnectionFactory(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
+        this.closeOnComplete = !connectionFactory.getMetadata().getName().equalsIgnoreCase("h2");
     }
 
     /**
@@ -45,13 +47,12 @@ final class DefaultRxConnectionFactory implements RxConnectionFactory {
     @Override
     public Flowable<? extends RxConnection> create() {
         Publisher<? extends Connection> publisher = connectionFactory.create();
-
         return Flowable.fromPublisher(publisher)
                 .map((Function<Connection, RxConnection>) DefaultRxConnection::new);
     }
 
     @Override
-    public <T> Flowable<T> withTransaction(java.util.function.Function<RxConnection, Flowable<T>> publisherFunction) {
+    public <T> Flowable<T> withTransaction(RxConnectionFunction<T> publisherFunction) {
         return create()
                 .switchMap(connection ->
                     connection.beginTransaction()
@@ -75,10 +76,12 @@ final class DefaultRxConnectionFactory implements RxConnectionFactory {
 
                                     @Override
                                     protected void doOnError(Throwable t) {
+                                        Flowable<Void> rollbackOp = connection.rollbackTransaction();
+                                        if (closeOnComplete) {
+                                            rollbackOp = rollbackOp.switchIfEmpty(connection.close());
+                                        }
                                         //noinspection ResultOfMethodCallIgnored
-                                        connection.rollbackTransaction()
-                                                  .switchIfEmpty(connection.close())
-                                                  .isEmpty()
+                                        rollbackOp.isEmpty()
                                                 .subscribe((v) -> actual.onError(t), (rollbackError) -> {
                                             if (LOG.isErrorEnabled()) {
                                                 LOG.error("Error during R2DBC transaction rollback: " + rollbackError.getMessage(), rollbackError);
@@ -89,10 +92,13 @@ final class DefaultRxConnectionFactory implements RxConnectionFactory {
 
                                     @Override
                                     protected void doOnComplete() {
+                                        Flowable<Void> commitOp = connection
+                                                .commitTransaction();
+                                        if (closeOnComplete) {
+                                            commitOp = commitOp.switchIfEmpty(connection.close());
+                                        }
                                         //noinspection ResultOfMethodCallIgnored
-                                        connection
-                                                .commitTransaction()
-                                                .switchIfEmpty(connection.close())
+                                        commitOp
                                                 .isEmpty()
                                                 .subscribe((v) -> actual.onComplete(), (commitError) -> {
                                             if (LOG.isErrorEnabled()) {
@@ -107,7 +113,7 @@ final class DefaultRxConnectionFactory implements RxConnectionFactory {
     }
 
     @Override
-    public <T> Flowable<T> withConnection(java.util.function.Function<RxConnection, Flowable<T>> publisherFunction) {
+    public <T> Flowable<T> withConnection(RxConnectionFunction<T> publisherFunction) {
         return create()
                 .switchMap(connection -> Flowable.fromPublisher((Publishers.MicronautPublisher<T>) actual -> {
                     Flowable<T> publisher = publisherFunction.apply(connection);
@@ -128,23 +134,32 @@ final class DefaultRxConnectionFactory implements RxConnectionFactory {
 
                         @Override
                         protected void doOnError(Throwable t) {
-                            //noinspection ResultOfMethodCallIgnored
-                            connection.close().isEmpty().subscribe((v) -> actual.onError(t), (closeError) -> {
-                                if (LOG.isDebugEnabled()) {
-                                    LOG.debug("Error closing R2DBC connection: " + closeError.getMessage(), closeError);
-                                }
+                            if (closeOnComplete) {
+                                //noinspection ResultOfMethodCallIgnored
+                                connection.close().isEmpty().subscribe((v) -> actual.onError(t), (closeError) -> {
+                                    if (LOG.isDebugEnabled()) {
+                                        LOG.debug("Error closing R2DBC connection: " + closeError.getMessage(), closeError);
+                                    }
+                                    actual.onError(t);
+                                });
+                            } else {
                                 actual.onError(t);
-                            });
+                            }
                         }
 
                         @Override
                         protected void doOnComplete() {
-                            connection.close().isEmpty().subscribe((v) -> actual.onComplete(), (closeError) -> {
-                                if (LOG.isDebugEnabled()) {
-                                    LOG.debug("Error closing R2DBC connection: " + closeError.getMessage(), closeError);
-                                }
+                            if (closeOnComplete) {
+                                connection.close().isEmpty().subscribe((v) -> actual.onComplete(), (closeError) -> {
+                                    if (LOG.isDebugEnabled()) {
+                                        LOG.debug("Error closing R2DBC connection: " + closeError.getMessage(), closeError);
+                                    }
+                                    actual.onComplete();
+                                });
+                            } else {
                                 actual.onComplete();
-                            });
+                            }
+
                         }
                     });
                 }));

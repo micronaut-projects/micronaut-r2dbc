@@ -1,1 +1,42 @@
-TODO
+To get started using this module you should first apply the `micronaut-r2dbc-bom`. For example with Gradle:
+
+.Applying the BOM in Gradle
+[source,groovy,subs="attributes"]
+----
+implementation platform(project("io.micronaut.r2dbc:micronaut-r2dbc-bom:{version}"))
+----
+
+Or in Maven:
+
+.Applying the BOM in Maven
+[source,xml,subs="attributes+"]
+----
+<dependency>
+    <groupId>io.micronaut.r2dbc</groupId>
+    <artifactId>micronaut-r2dbc-bom</artifactId>
+    <version>{version}</version>
+    <type>pom</type>
+    <scope>import</scope>
+</dependency>
+----
+
+Then you should add a dependency on `micronaut-r2dbc-core`:
+
+dependency::io.micronaut.r2dbc:micronaut-r2dbc-core[version="{version}]
+
+Followed by a dependency on any of the R2DBC drivers, for example for H2:
+
+dependency::io.r2dbc:r2dbc-h2[]
+
+You can then configure the R2DBC connection URL in your application configuration, for example in `application.yml`:
+
+[source,yaml]
+----
+r2dbc:
+  datasources:
+    default:
+      url: "r2dbc:h2:mem:///mydb"
+----
+
+And then inject the R2DBC `ConnectionFactory` anywhere you need it.
+
