@@ -1,2 +1,5 @@
+io.micronaut.data.r2dbc.annotation
+io.micronaut.data.r2dbc.mapper
+io.micronaut.data.r2dbc.operations
 io.micronaut.r2dbc
 io.micronaut.r2dbc.rxjava2
