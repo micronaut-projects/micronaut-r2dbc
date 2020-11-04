@@ -1,3 +1,18 @@
+/*
+ * Copyright 2017-2020 original authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.micronaut.data.r2dbc.operations;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
@@ -336,12 +351,13 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                 return IsolationLevel.REPEATABLE_READ;
             case SERIALIZABLE:
                 return IsolationLevel.SERIALIZABLE;
+            default:
+                return null;
         }
-        return null;
     }
 
     /**
-     * reactive operations implementation
+     * reactive operations implementation.
      */
     private final class DefaultR2dbcReactiveRepositoryOperations implements ReactiveRepositoryOperations {
 
@@ -399,8 +415,7 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                         false
                 );
                 return Flux.from(statement.execute())
-                        .flatMap((r) ->
-                                {
+                        .flatMap((r) -> {
                                     Publisher<Optional<R>> mapped = r.map((row, metadata) -> {
                                         Class<R> resultType = preparedQuery.getResultType();
                                         boolean dtoProjection = preparedQuery.isDtoProjection();
@@ -636,7 +651,6 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
             );
         }
 
-
         private <R> Mono<R> withNewTransaction(Function<Connection, Mono<R>> handler) {
             return withNewConnection(connection -> Mono.usingWhen(Mono.from(connection.beginTransaction()).hasElement(),
                     (b) -> handler.apply(connection),
@@ -651,7 +665,6 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
         public <T> Mono<Number> deleteAll(BatchOperation<T> operation) {
             throw new UnsupportedOperationException("The deleteAll method is not supported. Execute the SQL query directly");
         }
-
 
         @NonNull
         @Override
