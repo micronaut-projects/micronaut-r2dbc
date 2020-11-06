@@ -261,9 +261,8 @@
 <div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">connectionFactory.withTransaction((connection) -&gt; connection.createBatch()
-        .add("CREATE TABLE BOOKS(TITLE VARCHAR(255), PAGES INT)")
-        .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Stand', 1000)")
-        .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Shining', 400)")
+        .add("INSERT INTO BOOK(TITLE, PAGES) VALUES ('The Stand', 1000)")
+        .add("INSERT INTO BOOK(TITLE, PAGES) VALUES ('The Shining', 400)")
         .execute()
 ).blockingSubscribe();</code></pre>
 </div>
@@ -298,17 +297,21 @@
 Flowable&lt;Book&gt; list() {
     return connectionFactory.withConnection(connection -&gt;
             connection
-                .createStatement("SELECT * FROM BOOKS")
+                .createStatement("SELECT * FROM BOOK")
                 .execute()
                 .flatMap(result -&gt;
                     result.map((row, rowMetadata) -&gt;
                             new Book(
-                                    row.get(0, String.class),
-                                    row.get(1, Integer.class)
+                                    row.get(1, String.class),
+                                    row.get(2, Integer.class)
                             )
                     )
                 )
     );
+}
+@Get("/all")
+Single&lt;List&lt;Book&gt;&gt; all() {
+    return Flowable.fromPublisher(bookRepository.findAll()).toList();
 }</code></pre>
 </div>
 </div>

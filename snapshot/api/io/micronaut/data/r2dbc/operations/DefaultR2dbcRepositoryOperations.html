@@ -159,7 +159,7 @@ implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepos
 <!--   -->
 </a>
 <h3>Fields inherited from class&nbsp;io.micronaut.data.jdbc.operations.AbstractSqlRepositoryOperations</h3>
-<code>columnIndexResultSetReader, columnNameResultSetReader, dateTimeProvider, DEFAULT_SQL_BUILDER, dialects, IN_EXPRESSION_PATTERN, jsonCodec, NOT_TRUE_EXPRESSION, preparedStatementWriter, QUERY_LOG, queryBuilders</code></li>
+<code>columnIndexResultSetReader, columnNameResultSetReader, dateTimeProvider, DEFAULT_SQL_BUILDER, IN_EXPRESSION_PATTERN, jsonCodec, NOT_TRUE_EXPRESSION, preparedStatementWriter, QUERY_LOG, queryBuilders</code></li>
 </ul>
 </li>
 </ul>
@@ -177,10 +177,11 @@ implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepos
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected </code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-">DefaultR2dbcRepositoryOperations</a></span>(java.lang.String&nbsp;name,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-io.micronaut.context.BeanContext-">DefaultR2dbcRepositoryOperations</a></span>(java.lang.String&nbsp;dataSourceName,
                                 io.r2dbc.spi.ConnectionFactory&nbsp;connectionFactory,
                                 java.util.List&lt;io.micronaut.http.codec.MediaTypeCodec&gt;&nbsp;mediaTypeCodecList,
-                                io.micronaut.data.runtime.date.DateTimeProvider&lt;?&gt;&nbsp;dateTimeProvider)</code>
+                                io.micronaut.data.runtime.date.DateTimeProvider&lt;?&gt;&nbsp;dateTimeProvider,
+                                io.micronaut.context.BeanContext&nbsp;beanContext)</code>
 <div class="block">Default constructor.</div>
 </td>
 </tr>
@@ -330,25 +331,27 @@ implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepos
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-">
+<a name="DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-io.micronaut.context.BeanContext-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DefaultR2dbcRepositoryOperations</h4>
 <pre>protected&nbsp;DefaultR2dbcRepositoryOperations(@Parameter
-                                           java.lang.String&nbsp;name,
+                                           java.lang.String&nbsp;dataSourceName,
                                            io.r2dbc.spi.ConnectionFactory&nbsp;connectionFactory,
                                            java.util.List&lt;io.micronaut.http.codec.MediaTypeCodec&gt;&nbsp;mediaTypeCodecList,
                                            @NonNull
-                                           io.micronaut.data.runtime.date.DateTimeProvider&lt;?&gt;&nbsp;dateTimeProvider)</pre>
+                                           io.micronaut.data.runtime.date.DateTimeProvider&lt;?&gt;&nbsp;dateTimeProvider,
+                                           io.micronaut.context.BeanContext&nbsp;beanContext)</pre>
 <div class="block">Default constructor.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>name</code> - The data source name</dd>
+<dd><code>dataSourceName</code> - The data source name</dd>
 <dd><code>connectionFactory</code> - The associated connection factory</dd>
 <dd><code>mediaTypeCodecList</code> - The media type codec list</dd>
 <dd><code>dateTimeProvider</code> - The date time provider</dd>
+<dd><code>beanContext</code> - The bean context</dd>
 </dl>
 </li>
 </ul>
