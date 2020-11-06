@@ -642,7 +642,7 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
             if (metadata.getName().equalsIgnoreCase("H2")) {
                 return Mono.usingWhen(connectionFactory.create(), handler, Mono::just);
             } else {
-                return Mono.usingWhen(connectionFactory.create(), handler, (Connection::close));
+                return Mono.usingWhen(connectionFactory.create(), handler, Connection::close);
             }
         }
 
@@ -733,6 +733,7 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                         // seems like cancel should == rollback but reactor calls cancel() internally even for successful operations
                         return connection.commitTransaction();
                     })
+
             );
         }
 

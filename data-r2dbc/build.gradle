@@ -13,6 +13,8 @@ configurations.all {
             }
         }
     }
+ext {
+    micronautDataVersion = "2.2.0.BUILD-SNAPSHOT"
 }
 dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java:$micronautVersion"
