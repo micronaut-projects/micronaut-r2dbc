@@ -66,6 +66,7 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
     private final ConnectionFactory connectionFactory;
     private final DefaultR2dbcReactiveRepositoryOperations reactiveOperations;
     private final boolean closeConnectionOnComplete;
+    private final boolean isMariaDB;
 
     /**
      * Default constructor.
@@ -95,6 +96,7 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
         this.reactiveOperations = new DefaultR2dbcReactiveRepositoryOperations();
         ConnectionFactoryMetadata metadata = connectionFactory.getMetadata();
         this.closeConnectionOnComplete = metadata.getName().equalsIgnoreCase("H2");
+        this.isMariaDB = metadata.getName().equalsIgnoreCase("MariaDB");
     }
 
     @Override
@@ -481,10 +483,24 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                 if (hasGeneratedID) {
                     statement.returnGeneratedValues(identityProperty.getPersistedName());
                 }
-                for (T entity : operation) {
-                    setInsertParameters(insert, entity, statement);
-                    statement.add();
-                    results.add(entity);
+
+                // workaround for bug in MariaDB driver
+                if (isMariaDB) {
+                    Iterator<T> iterator = operation.iterator();
+                    while (iterator.hasNext()) {
+                        T entity = iterator.next();
+                        setInsertParameters(insert, entity, statement);
+                        if (iterator.hasNext()) {
+                            statement.add();
+                        }
+                        results.add(entity);
+                    }
+                } else {
+                    for (T entity : operation) {
+                        setInsertParameters(insert, entity, statement);
+                        statement.add();
+                        results.add(entity);
+                    }
                 }
 
                 Iterator<T> i = results.iterator();
