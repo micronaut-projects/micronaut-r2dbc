@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
+import reactor.core.publisher.Mono;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -24,20 +25,31 @@ public class BookControllerTest implements TestPropertyProvider {
     @Inject BookClient bookClient;
 
     @BeforeAll
-    static void setupData(RxConnectionFactory connectionFactory) {
+    static void setupData(RxConnectionFactory connectionFactory, BookRepository bookRepository) {
         // tag::insert[]
         connectionFactory.withTransaction((connection) -> connection.createBatch()
-                .add("CREATE TABLE BOOKS(TITLE VARCHAR(255), PAGES INT)")
-                .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Stand', 1000)")
-                .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Shining', 400)")
+                .add("CREATE TABLE BOOK(ID SERIAL PRIMARY KEY, TITLE VARCHAR(255), PAGES INT)")
+                .add("INSERT INTO BOOK(TITLE, PAGES) VALUES ('The Stand', 1000)")
+//                .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Shining', 400)")
                 .execute()
         ).blockingSubscribe();
         // end::insert[]
+        Mono.from(bookRepository.save(new Book("The Shining", 400)))
+                .block();
     }
 
     @Test
     void testListBooks() {
         List<Book> list = bookClient.list();
+        Assertions.assertEquals(
+                2,
+                list.size()
+        );
+    }
+
+    @Test
+    void testListBooksMicronautData() {
+        List<Book> list = bookClient.all();
         Assertions.assertEquals(
                 2,
                 list.size()
@@ -62,5 +74,8 @@ public class BookControllerTest implements TestPropertyProvider {
     interface BookClient {
         @Get("/")
         List<Book> list();
+
+        @Get("/all")
+        List<Book> all();
     }
 }

@@ -21,6 +21,7 @@ import io.micronaut.data.annotation.RepositoryConfiguration;
 import io.micronaut.data.annotation.TypeRole;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.model.query.builder.sql.SqlQueryBuilder;
+import io.micronaut.data.model.query.builder.sql.SqlQueryConfiguration;
 import io.micronaut.data.r2dbc.operations.R2dbcRepositoryOperations;
 import io.r2dbc.spi.Connection;
 
@@ -34,15 +35,27 @@ import java.lang.annotation.*;
  * @since 1.0.0
  */
 @RepositoryConfiguration(
-        queryBuilder = SqlQueryBuilder.class,
-        operations = R2dbcRepositoryOperations.class,
-        implicitQueries = false,
-        namedParameters = false,
-        typeRoles = @TypeRole(
-                role = R2dbcRepository.PARAMETER_CONNECTION,
-                type = Connection.class
-        )
+    queryBuilder = SqlQueryBuilder.class,
+    operations = R2dbcRepositoryOperations.class,
+    implicitQueries = false,
+    namedParameters = false,
+    typeRoles = @TypeRole(
+            role = R2dbcRepository.PARAMETER_CONNECTION,
+            type = Connection.class
+    )
 )
+@SqlQueryConfiguration({
+    @SqlQueryConfiguration.DialectConfiguration(
+        dialect = Dialect.POSTGRES,
+        positionalParameterFormat = "$%s",
+        escapeQueries = false
+    ),
+    @SqlQueryConfiguration.DialectConfiguration(
+        dialect = Dialect.SQL_SERVER,
+        positionalParameterFormat = "@p%s",
+        escapeQueries = false
+    )
+})
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE})
 @Documented

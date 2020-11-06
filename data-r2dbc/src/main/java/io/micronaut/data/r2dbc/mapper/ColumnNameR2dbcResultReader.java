@@ -25,6 +25,12 @@ import io.r2dbc.spi.Row;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * Implementation of {@link ResultReader} for R2DBC.
+ *
+ * @author graemerocher
+ * @since 1.0.0
+ */
 public class ColumnNameR2dbcResultReader implements ResultReader<Row, String> {
     private final ConversionService<?> conversionService = ConversionService.SHARED;
 

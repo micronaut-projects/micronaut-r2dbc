@@ -20,11 +20,18 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.data.exceptions.DataAccessException;
 import io.micronaut.data.runtime.mapper.QueryStatement;
+import io.micronaut.data.runtime.mapper.ResultReader;
 import io.r2dbc.spi.Statement;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * Implementation of {@link QueryStatement} for R2DBC.
+ *
+ * @author graemerocher
+ * @since 1.0.0
+ */
 public class R2dbcQueryStatement implements QueryStatement<Statement, Integer> {
     @Override
     public QueryStatement<Statement, Integer> setValue(Statement statement, Integer index, Object value) throws DataAccessException {

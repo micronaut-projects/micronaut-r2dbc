@@ -1,9 +1,15 @@
 package example;
 
 import io.micronaut.core.annotation.Introspected;
+import io.micronaut.data.annotation.GeneratedValue;
+import io.micronaut.data.annotation.Id;
+import io.micronaut.data.annotation.MappedEntity;
 
-@Introspected
+@MappedEntity
 public class Book {
+    @Id
+    @GeneratedValue
+    private Long id;
     private final String title;
     private final int pages;
 
@@ -18,5 +24,13 @@ public class Book {
 
     public int getPages() {
         return pages;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

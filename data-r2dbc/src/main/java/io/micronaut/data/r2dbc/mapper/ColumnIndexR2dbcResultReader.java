@@ -28,6 +28,12 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * Implementation of {@link ResultReader} for R2DBC.
+ *
+ * @author graemerocher
+ * @since 1.0.0
+ */
 public class ColumnIndexR2dbcResultReader implements ResultReader<Row, Integer> {
     private final ConversionService<?> conversionService = ConversionService.SHARED;
 

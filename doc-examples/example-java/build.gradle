@@ -5,6 +5,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven { url "https://oss.jfrog.org/oss-snapshot-local" }
 }
 
 application {
@@ -17,9 +18,11 @@ micronaut {
 }
 
 dependencies {
+    annotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
     implementation platform(project(":r2dbc-bom"))
     implementation project(":r2dbc-core")
     implementation project(":r2dbc-rxjava2")
+    implementation project(":data-r2dbc")
     implementation 'io.r2dbc:r2dbc-postgresql'
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation 'io.r2dbc:r2dbc-h2'
