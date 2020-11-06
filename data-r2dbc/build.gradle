@@ -4,6 +4,16 @@ ext {
 repositories {
     maven { url "https://oss.jfrog.org/oss-snapshot-local" }
 }
+configurations.all {
+    resolutionStrategy {
+        eachDependency { DependencyResolveDetails details ->
+            //specifying a fixed version for all libraries with 'org.gradle' group
+            if (details.requested.group == 'io.projectreactor') {
+                details.useVersion reactorVersion
+            }
+        }
+    }
+}
 ext {
     micronautDataVersion = "2.2.0.BUILD-SNAPSHOT"
 }
@@ -11,6 +21,7 @@ dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java:$micronautVersion"
     annotationProcessor "io.micronaut:micronaut-graal:$micronautVersion"
     annotationProcessor "io.micronaut.docs:micronaut-docs-asciidoc-config-props:$micronautDocsVersion"
+    implementation "io.projectreactor:reactor-core:$reactorVersion"
     implementation "io.projectreactor.netty:reactor-netty:1.0.0"
     api "io.micronaut.data:micronaut-data-jdbc:$micronautDataVersion"
     implementation "io.micronaut:micronaut-http:$micronautVersion"
@@ -35,7 +46,7 @@ dependencies {
     testImplementation "org.testcontainers:r2dbc"
 
     // mariadb
-    testImplementation 'org.mariadb:r2dbc-mariadb'
+    testImplementation 'org.mariadb:r2dbc-mariadb:0.8.4-rc'
     testImplementation "org.testcontainers:mariadb"
     testImplementation 'org.mariadb.jdbc:mariadb-java-client'
 

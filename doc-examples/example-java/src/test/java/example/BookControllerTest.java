@@ -6,12 +6,10 @@ import io.micronaut.http.client.annotation.Client;
 import io.micronaut.r2dbc.rxjava2.RxConnectionFactory;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.test.support.TestPropertyProvider;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
+import reactor.core.publisher.Mono;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -21,34 +19,57 @@ import java.util.Map;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookControllerTest implements TestPropertyProvider {
 
+    static PostgreSQLContainer<?> container;
+
     @Inject BookClient bookClient;
 
     @BeforeAll
-    static void setupData(RxConnectionFactory connectionFactory) {
+    static void setupData(RxConnectionFactory connectionFactory, BookRepository bookRepository) {
         // tag::insert[]
         connectionFactory.withTransaction((connection) -> connection.createBatch()
-                .add("CREATE TABLE BOOKS(TITLE VARCHAR(255), PAGES INT)")
-                .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Stand', 1000)")
-                .add("INSERT INTO BOOKS(TITLE, PAGES) VALUES ('The Shining', 400)")
+                .add("INSERT INTO BOOK(TITLE, PAGES) VALUES ('The Stand', 1000)")
+                .add("INSERT INTO BOOK(TITLE, PAGES) VALUES ('The Shining', 400)")
                 .execute()
         ).blockingSubscribe();
         // end::insert[]
+        Mono.from(bookRepository.save(new Book("Along Came a Spider", 300)))
+                .block();
+    }
+
+    @AfterAll
+    static void cleanup() {
+        if (container != null) {
+            container.stop();
+        }
     }
 
     @Test
     void testListBooks() {
         List<Book> list = bookClient.list();
         Assertions.assertEquals(
-                2,
+                3,
+                list.size()
+        );
+    }
+
+    @Test
+    void testListBooksMicronautData() {
+        List<Book> list = bookClient.all();
+        Assertions.assertEquals(
+                3,
                 list.size()
         );
     }
 
     @Override
     public Map<String, String> getProperties() {
-        PostgreSQLContainer<?> container = new PostgreSQLContainer<>(DockerImageName.parse("postgres").withTag(PostgreSQLContainer.DEFAULT_TAG));
+        container = new PostgreSQLContainer<>(DockerImageName.parse("postgres").withTag(PostgreSQLContainer.DEFAULT_TAG));
         container.start();
         return CollectionUtils.mapOf(
+                "datasources.default.url", container.getJdbcUrl(),
+                "datasources.default.username", container.getUsername(),
+                "datasources.default.password", container.getPassword(),
+                "datasources.default.database", container.getDatabaseName(),
                 "r2dbc.datasources.default.host", container.getHost(),
                 "r2dbc.datasources.default.port", container.getFirstMappedPort(),
                 "r2dbc.datasources.default.driver", "postgresql",
@@ -62,5 +83,8 @@ public class BookControllerTest implements TestPropertyProvider {
     interface BookClient {
         @Get("/")
         List<Book> list();
+
+        @Get("/all")
+        List<Book> all();
     }
 }
