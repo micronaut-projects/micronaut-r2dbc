@@ -30,7 +30,7 @@ dependencies {
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation 'io.r2dbc:r2dbc-h2'
-    testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
+    testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0')
     testImplementation "org.testcontainers:postgresql"
 
     testImplementation('io.micronaut.test:micronaut-test-core:2.2.1') {
