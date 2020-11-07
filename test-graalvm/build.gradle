@@ -95,8 +95,6 @@ project("mssql") {
         runtimeOnly 'io.r2dbc:r2dbc-mssql'
         testImplementation "org.testcontainers:mssqlserver"
     }
-    nativeImage {
-    }
 }
 project("postgres") {
     dependencies {
@@ -123,10 +121,6 @@ project("mariadb") {
         runtimeOnly "org.mariadb.jdbc:mariadb-java-client"
         runtimeOnly 'org.mariadb:r2dbc-mariadb:0.8.4-rc'
         testImplementation "org.testcontainers:mariadb"
-    }
-
-    nativeImage {
-        args("--initialize-at-run-time=org.mariadb.r2dbc.MariadbConnectionFactoryProvider,org.mariadb.r2dbc.client.ClientBase,org.mariadb.r2dbc.message.flow.AuthenticationFlow,org.mariadb.r2dbc.util.DefaultHostnameVerifier,org.mariadb.r2dbc.message.server")
     }
 }
 
