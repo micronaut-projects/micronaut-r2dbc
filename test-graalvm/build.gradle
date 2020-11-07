@@ -1,0 +1,141 @@
+plugins {
+    id 'io.micronaut.application' version "1.1.0" apply false
+    id 'io.micronaut.library'  version "1.1.0" apply false
+}
+
+subprojects { Project subproject ->
+
+    apply plugin: "java"
+    apply plugin: "groovy"
+
+    group "io.micronaut.example"
+
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://oss.jfrog.org/oss-snapshot-local" }
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    if (subproject.getName().startsWith("common")) {
+        apply plugin: 'io.micronaut.library'
+
+        micronaut {
+            version project.ext.micronautVersion
+        }
+
+        return
+    }
+
+    apply plugin: 'io.micronaut.application'
+
+    micronaut {
+        version project.ext.micronautVersion
+        runtime "netty"
+        testRuntime "spock"
+    }
+
+    dependencies {
+        runtimeOnly "io.micronaut.sql:micronaut-jdbc-hikari"
+        runtimeOnly("io.micronaut.flyway:micronaut-flyway")
+        runtimeOnly "ch.qos.logback:logback-classic"
+
+        implementation "io.micronaut:micronaut-http-client"
+        implementation project(":test-graalvm:common")
+        testImplementation project(":test-graalvm:common-tests")
+        testAnnotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
+        testImplementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
+        testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
+        testImplementation "org.testcontainers:spock"
+        testImplementation "org.testcontainers:jdbc"
+    }
+
+    nativeImage {
+        args("-H:+TraceClassInitialization")
+    }
+
+    mainClassName = "example.Application"
+}
+
+project("common") {
+    dependencies {
+        implementation "io.micronaut:micronaut-http-client"
+        annotationProcessor "io.micronaut:micronaut-graal"
+        implementation project(":data-r2dbc")
+    }
+}
+project("common-tests") {
+    dependencies {
+        api project(":data-r2dbc")
+        implementation project(":test-graalvm:common")
+        implementation "io.micronaut:micronaut-http-client"
+        implementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
+        implementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
+        implementation "org.testcontainers:spock"
+        implementation "org.testcontainers:jdbc"
+    }
+}
+project("h2") {
+    dependencies {
+        runtimeOnly 'io.r2dbc:r2dbc-h2'
+        runtimeOnly "com.h2database:h2"
+    }
+    nativeImage {
+        args("--report-unsupported-elements-at-runtime")
+    }
+    // Skip on GraalVM Java11
+    tasks.findByName("testNativeImage").onlyIf { !isGraal() || JavaVersion.current() != JavaVersion.VERSION_11 }
+    tasks.findByName("nativeImage").onlyIf { !isGraal() || JavaVersion.current() != JavaVersion.VERSION_11 }
+}
+project("mssql") {
+    dependencies {
+        runtimeOnly "com.microsoft.sqlserver:mssql-jdbc"
+        runtimeOnly 'io.r2dbc:r2dbc-mssql'
+        testImplementation "org.testcontainers:mssqlserver"
+    }
+    nativeImage {
+    }
+}
+project("postgres") {
+    dependencies {
+        runtimeOnly "org.postgresql:postgresql"
+        runtimeOnly 'io.r2dbc:r2dbc-postgresql'
+        testImplementation "org.testcontainers:postgresql"
+    }
+}
+//project("oracle") {
+//    dependencies {
+//        runtimeOnly "com.oracle.ojdbc:ojdbc8"
+//        testImplementation "org.testcontainers:oracle-xe"
+//    }
+//}
+project("mysql") {
+    dependencies {
+        runtimeOnly 'dev.miku:r2dbc-mysql'
+        runtimeOnly "mysql:mysql-connector-java"
+        testImplementation "org.testcontainers:mysql"
+    }
+}
+project("mariadb") {
+    dependencies {
+        runtimeOnly "org.mariadb.jdbc:mariadb-java-client"
+        runtimeOnly 'org.mariadb:r2dbc-mariadb:0.8.4-rc'
+        testImplementation "org.testcontainers:mariadb"
+    }
+
+    nativeImage {
+        args("--initialize-at-run-time=org.mariadb.r2dbc.MariadbConnectionFactoryProvider,org.mariadb.r2dbc.client.ClientBase,org.mariadb.r2dbc.message.flow.AuthenticationFlow,org.mariadb.r2dbc.util.DefaultHostnameVerifier,org.mariadb.r2dbc.message.server")
+    }
+}
+
+boolean isGraal() {
+    for (String prop : ["jvmci.Compiler", "java.vendor.version"]) {
+        String vv = System.getProperty(prop)
+        if (vv != null && vv.toLowerCase(Locale.ENGLISH).contains("graal")) {
+            return true
+        }
+    }
+    return false
+}

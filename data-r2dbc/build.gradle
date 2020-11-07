@@ -24,6 +24,7 @@ dependencies {
     implementation "io.projectreactor:reactor-core:$reactorVersion"
     implementation "io.projectreactor.netty:reactor-netty:1.0.0"
     api "io.micronaut.data:micronaut-data-jdbc:$micronautDataVersion"
+    api "io.micronaut.data:micronaut-data-model:$micronautDataVersion"
     implementation "io.micronaut:micronaut-http:$micronautVersion"
     api project(":r2dbc-core")
     api "io.r2dbc:r2dbc-spi"

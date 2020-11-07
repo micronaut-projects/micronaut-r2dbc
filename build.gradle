@@ -11,6 +11,10 @@ buildscript {
 }
 
 subprojects { Project subproject ->
+
+    if (subproject.getPath().startsWith(":test-")) {
+        return
+    }
     group "io.micronaut.r2dbc"
 
     boolean isExampleOrBenchmark = subproject.parent.name == "docs-examples" || subproject.name.contains("example") || subproject.name.contains("benchmark")
