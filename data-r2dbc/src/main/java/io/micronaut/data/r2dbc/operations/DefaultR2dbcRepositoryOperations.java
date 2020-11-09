@@ -552,9 +552,17 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                     if (hasGeneratedID) {
                         return Mono.from(result.map((row, metadata) -> {
 
-                            Object id = columnIndexResultSetReader.readDynamic(row, 0, identityProperty.getDataType());
+                            Object id = columnIndexResultSetReader.readDynamic(
+                                    row,
+                                    0,
+                                    identityProperty.getDataType()
+                            );
                             if (!identity.isReadOnly()) {
-                                identity.set(entity, id);
+                                if (identity.getType().isInstance(id)) {
+                                    identity.set(entity, id);
+                                } else {
+                                    identity.convertAndSet(entity, id);
+                                }
                             }
                             return entity;
                         }));
