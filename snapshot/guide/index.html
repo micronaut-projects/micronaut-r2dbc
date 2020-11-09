@@ -293,23 +293,7 @@
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">@Get("/")
-Flowable&lt;Book&gt; list() {
-    return connectionFactory.withConnection(connection -&gt;
-            connection
-                .createStatement("SELECT * FROM BOOK")
-                .execute()
-                .flatMap(result -&gt;
-                    result.map((row, rowMetadata) -&gt;
-                            new Book(
-                                    row.get(1, String.class),
-                                    row.get(2, Integer.class)
-                            )
-                    )
-                )
-    );
-}
-@Get("/all")
+<pre class="highlight"><code class="language-java" data-lang="java">@Get("/all")
 Single&lt;List&lt;Book&gt;&gt; all() {
     return Flowable.fromPublisher(bookRepository.findAll()).toList();
 }</code></pre>
