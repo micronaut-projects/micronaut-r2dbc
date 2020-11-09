@@ -16,13 +16,18 @@
 package example.controllers;
 
 import example.controllers.dto.OwnerDto;
+import example.domain.Owner;
 import example.repositories.OwnerRepository;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.annotation.*;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Controller("/owners")
 class OwnerController {
@@ -41,6 +46,22 @@ class OwnerController {
     @Get("/{name}")
     Maybe<OwnerDto> byName(@NotBlank String name) {
         return ownerRepository.findByName(name);
+    }
+
+    @Post("/")
+    Single<Owner> save(@Valid Owner owner) {
+        return Single.fromPublisher(ownerRepository.save(owner));
+    }
+
+    @Delete("/{id}")
+    Single<HttpResponse<?>> delete(@NotNull Long id) {
+        return Single.fromPublisher(ownerRepository.deleteById(id))
+                     .map(c -> c > 0 ? HttpResponse.noContent() : HttpResponse.notFound());
+    }
+
+    @Put("/")
+    Maybe<Owner> update(@Valid Owner owner) {
+        return Single.fromPublisher(ownerRepository.update(owner)).toMaybe();
     }
 
 }

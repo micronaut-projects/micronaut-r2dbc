@@ -15,14 +15,26 @@
  */
 package example.controllers
 
+import edu.umd.cs.findbugs.annotations.Nullable
 import example.controllers.dto.OwnerDto
 import example.controllers.dto.PetDto
+import example.domain.Owner
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.annotation.Delete
 import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.Put
 import io.micronaut.http.client.annotation.Client
+import io.reactivex.Maybe
+import io.reactivex.Single
 import spock.lang.Specification
 import spock.lang.Stepwise
 
 import javax.inject.Inject
+import javax.validation.Valid
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 @Stepwise
 abstract class AbstractAppSpec extends Specification {
@@ -66,6 +78,35 @@ abstract class AbstractAppSpec extends Specification {
             result.name == "Dino"
     }
 
+    def 'test CRUD'() {
+        when:
+        def owner = ownersClient.save(new Owner(name: "Joe", age: 25))
+
+        then:
+        owner
+        owner.id
+        owner.name == 'Joe'
+        owner.age == 25
+        ownersClient.get(owner.name).id == owner.id
+        ownersClient.list().size() == 3
+
+        when:
+        owner.setAge(22)
+        ownersClient.update(owner)
+
+        then:
+        ownersClient.get(owner.name).age == 22
+
+        when:
+        def status = ownersClient.delete(owner.id).status()
+
+        then:
+        status == HttpStatus.NO_CONTENT
+        ownersClient.delete(owner.id).status() == HttpStatus.NOT_FOUND
+        ownersClient.get(owner.name) == null
+        ownersClient.list().size() == 2
+    }
+
     @Client("/pets")
     static interface PetClient {
         @Get("/")
@@ -82,5 +123,14 @@ abstract class AbstractAppSpec extends Specification {
 
         @Get("/{name}")
         OwnerDto get(String name);
+
+        @Post("/")
+        Owner save(@Valid Owner owner);
+
+        @Delete("/{id}")
+        HttpResponse<?> delete(@NotNull Long id);
+
+        @Put("/")
+        @Nullable Owner update(@Valid Owner owner);
     }
 }

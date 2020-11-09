@@ -2,11 +2,13 @@ package example;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Post;
 import io.micronaut.r2dbc.rxjava2.RxConnectionFactory;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 import javax.inject.Singleton;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller("/books")
@@ -19,7 +21,7 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    // tag::read[]
+    // tag::rxfactory[]
     @Get("/")
     Flowable<Book> list() {
         return connectionFactory.withConnection(connection ->
@@ -36,7 +38,14 @@ public class BookController {
                     )
         );
     }
-    // end::read[]
+    // end::rxfactory[]
+
+    // tag::create[]
+    @Post("/")
+    Single<Book> all(@Valid Book book) {
+        return Single.fromPublisher(bookRepository.save(book));
+    }
+    // end::create[]
 
     // tag::read[]
     @Get("/all")
