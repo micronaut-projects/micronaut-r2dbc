@@ -66,10 +66,10 @@ public class Application {
         hoppy.setName("Hoppy");
         hoppy.setOwner(barney);
 
-        Flowable.fromPublisher(operations.withTransaction((connection) ->
-            Flowable.fromPublisher(ownerRepository.saveAll(Arrays.asList(fred, barney), connection))
+        Flowable.fromPublisher(operations.withTransaction((status) ->
+            Flowable.fromPublisher(ownerRepository.saveAll(Arrays.asList(fred, barney), status.getConnection()))
                     .toList().flatMapPublisher(owners ->
-                    petRepository.saveAll(Arrays.asList(dino, bp, hoppy), connection)
+                    petRepository.saveAll(Arrays.asList(dino, bp, hoppy), status.getConnection())
             )
         )).blockingSubscribe(
                 (pet) -> {},

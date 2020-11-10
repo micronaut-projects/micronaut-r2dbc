@@ -20,20 +20,7 @@ class H2JoinOneSpec extends AbstractR2dbcSpec {
     @Shared @Inject H2PetRepository petRepository
 
     def setupSpec() {
-        Mono.from(ownerRepository.save(new Owner("Fred")))
-            .flatMapMany(owner -> {
-                petRepository.saveAll([
-                        new Pet("Dino", owner),
-                        new Pet("Hoppy", owner),
-                ])
-            }).collectList().block()
-
-        Mono.from(ownerRepository.save(new Owner("Barney")))
-                .flatMapMany(owner -> {
-                    petRepository.saveAll([
-                            new Pet("Rabbid", owner)
-                    ])
-                }).collectList().block()
+        ownerRepository.setupData().block()
     }
 
     void 'test apply join to many to one association'() {

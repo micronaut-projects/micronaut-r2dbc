@@ -23,8 +23,7 @@ import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.model.query.builder.sql.SqlQueryBuilder;
 import io.micronaut.data.model.query.builder.sql.SqlQueryConfiguration;
 import io.micronaut.data.r2dbc.operations.R2dbcRepositoryOperations;
-import io.r2dbc.spi.Connection;
-
+import io.micronaut.transaction.reactive.ReactiveTransactionStatus;
 import java.lang.annotation.*;
 
 /**
@@ -40,8 +39,8 @@ import java.lang.annotation.*;
     implicitQueries = false,
     namedParameters = false,
     typeRoles = @TypeRole(
-            role = R2dbcRepository.PARAMETER_CONNECTION,
-            type = Connection.class
+            role = R2dbcRepository.PARAMETER_TX_STATUS,
+            type = ReactiveTransactionStatus.class
     )
 )
 @SqlQueryConfiguration({
@@ -62,7 +61,7 @@ import java.lang.annotation.*;
 @Repository
 public @interface R2dbcRepository {
 
-    String PARAMETER_CONNECTION = "connection";
+    String PARAMETER_TX_STATUS = "tx-status";
 
     /**
      * @return The dialect to use.

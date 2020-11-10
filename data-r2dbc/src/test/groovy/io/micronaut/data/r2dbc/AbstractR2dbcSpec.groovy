@@ -4,6 +4,7 @@ import io.micronaut.data.model.PersistentEntity
 import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.model.query.builder.sql.SqlQueryBuilder
 import io.micronaut.data.r2dbc.operations.R2dbcOperations
+import io.micronaut.transaction.reactive.ReactiveTransactionStatus
 import io.r2dbc.spi.Connection
 import reactor.core.publisher.Flux
 import spock.lang.Shared
@@ -19,10 +20,10 @@ abstract class AbstractR2dbcSpec extends Specification {
         def statements = getEntities().collect {
             PersistentEntity.of(it)
         }.collect { sqlBuilder.buildBatchCreateTableStatement(it) }
-        Flux.from(r2dbcOperations.withTransaction({ Connection connection ->
+        Flux.from(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<Connection> status ->
             Flux.fromIterable(statements)
                     .flatMap(sql -> {
-                        connection.createStatement(sql).execute()
+                        status.connection.createStatement(sql).execute()
                     })
         })).collectList().block()
     }

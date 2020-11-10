@@ -6,6 +6,7 @@ import io.micronaut.data.tck.entities.Person
 import io.micronaut.data.tck.repositories.PersonReactiveRepository
 import io.micronaut.data.tck.tests.AbstractReactiveRepositorySpec
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import io.micronaut.transaction.reactive.ReactiveTransactionStatus
 import io.r2dbc.spi.Connection
 import io.r2dbc.spi.ConnectionFactory
 import io.reactivex.Single
@@ -39,8 +40,8 @@ class H2ReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
         personReactiveRepository.save(new Person(name: "Tony")).blockingGet()
 
         when:
-        Person person = Single.fromPublisher(r2dbcOperations.withTransaction({ Connection connection ->
-            personReactiveRepository.findByName("Tony", connection).toFlowable()
+        Person person = Single.fromPublisher(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<java.sql.Connection> status ->
+            personReactiveRepository.findByName("Tony", status).toFlowable()
         })).blockingGet()
 
         then:
@@ -49,8 +50,8 @@ class H2ReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
 
     @Override
     void init() {
-        Mono.from(r2dbcOperations.withTransaction({ Connection connection ->
-            connection.createStatement(
+        Mono.from(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<Connection> status ->
+            status.connection.createStatement(
                 "CREATE TABLE `person` (`id` BIGINT AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(255) NOT NULL, `age` INT, `enabled` BIT);"
             ).execute()
         })).block()

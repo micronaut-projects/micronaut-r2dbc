@@ -1,9 +1,6 @@
 ext {
     testContainersVersion = "1.15.0-rc2"
 }
-repositories {
-    maven { url "https://oss.jfrog.org/oss-snapshot-local" }
-}
 configurations.all {
     resolutionStrategy {
         eachDependency { DependencyResolveDetails details ->
