@@ -17,34 +17,13 @@ import java.util.List;
 
 @Controller("/books")
 public class BookController {
-    private final RxConnectionFactory connectionFactory;
     private final BookRepository bookRepository;
 
-    public BookController(RxConnectionFactory connectionFactory, BookRepository bookRepository) {
-        this.connectionFactory = connectionFactory;
+    public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    // tag::rxfactory[]
-    @Get("/")
-    Flowable<Book> list() {
-        return connectionFactory.withConnection(connection ->
-                connection
-                    .createStatement("SELECT * FROM BOOK")
-                    .execute()
-                    .flatMap(result ->
-                        result.map((row, rowMetadata) ->
-                                new Book(
-                                        row.get(1, String.class),
-                                        row.get(2, Integer.class)
-                                )
-                        )
-                    )
-        );
-    }
-    // end::rxfactory[]
-
-    // tag::create[]
+     // tag::create[]
     @Post("/")
     Single<Book> create(@Valid Book book) {
         return Single.fromPublisher(bookRepository.save(book));
@@ -52,14 +31,14 @@ public class BookController {
     // end::create[]
 
     // tag::read[]
-    @Get("/all")
+    @Get("/")
     Flux<Book> all() {
-        return Flux.from(bookRepository.findAll());
+        return bookRepository.findAll(); // <1>
     }
 
     @Get("/{id}")
     Mono<Book> show(Long id) {
-        return Mono.from(bookRepository.findById(id));
+        return bookRepository.findById(id); // <2>
     }
     // end::read[]
 

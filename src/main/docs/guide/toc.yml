@@ -3,6 +3,12 @@ introduction:
 releaseHistory: Release History
 quickStart:
   title: Quick Start
-rxJavaClient: RxJava 2 Client (Experimental)
+dataR2dbc:
+  title: Micronaut Data R2DBC
+  dataQuickStart: Getting Started with Micronaut Data
+  querying: Writing Queries
+  crud: Performing CRUD Operations
+  transactionManagement: Micronaut Data Transactions with R2DBC
+clients: R2DBC Clients
 repository: Repository
 

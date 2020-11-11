@@ -1,0 +1,77 @@
+The quickest way to get started is to create a new Micronaut application with Micronaut Launch and choose the `data-jdbc` and `flyway` features (yes that should be `data-jdbc` and not `data-r2dbc`). This can also be done via the Micronaut CLI:
+
+.Creating an application with the CLI
+[source,bash]
+----
+# For Maven add: --build maven
+$ mn create-app --lang java example --features data-jdbc,flyway
+----
+
+Or via `curl`:
+
+.Creating an application with `curl`
+[source,bash]
+----
+# For Maven add to the URL: &build=maven
+$ curl https://launch.micronaut.io/demo.zip?lang=java&features=data-jdbc,flyway -o demo.zip && unzip demo.zip -d demo && cd demo
+----
+
+Then add a dependency on `micronaut-data-r2dbc`:
+
+dependency:io.micronaut.r2dbc:micronaut-data-r2dbc[version="{version}"]
+
+Followed by a dependency on the R2DBC driver you wish to use:
+
+dependency:dev.miku:r2dbc-mysql[scope="runtime"]
+
+And for flyway the JDBC driver:
+
+dependency:mysql:mysql-connector-java[scope="runtime"]
+
+Now define a SQL script that creates your initial schema in `src/main/resources/db/migration`. For example:
+
+.Example `V1__create-schema.sql`
+[source,sql]
+----
+include::doc-examples/example-java/src/main/resources/db/migration/V1__create-schema.sql[]
+----
+
+You can now configure your application to connect to the database:
+
+.Example `application.yml`
+[source,yaml]
+----
+flyway: # <1>
+  datasources:
+    default:
+      enabled: true
+datasources:
+  default: # <2>
+    url: jdbc:mysql://localhost:3306/mydatabase
+r2dbc:
+  datasources:
+    default: # <3>
+      url: r2dbc:mysql:///mydatabase
+----
+
+<1> The Flyway configuration ensures the schema migration is applied. See https://micronaut-projects.github.io/micronaut-flyway/latest/guide/index.html[Micronaut Flyway] for more information.
+<2> The Flyway configuration needs a JDBC datasource configured, this setting configures one. See https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc[Micronaut JDBC] for more information.
+<3> The property `r2dbc.datasources.default.url` is used to configure the default R2DBC `ConnectionFactory`
+
+Now define a `@MappedEntity` that maps to the `author` table defined in the schema:
+
+snippet::example.Author[project-base="doc-examples/example", source="main", indent="0"]
+
+And a repository interface to access the database that extends from `ReactiveStreamsRepository`:
+
+snippet::example.AuthorRepository[project-base="doc-examples/example", source="main", indent="0"]
+
+<1> The ann:data.r2dbc.annotation.R2dbcRepository[] annotation can be used to specify the datasource and dialect
+<2> You can override methods from the super interface to specialize the default rs:Publisher[] return type with a concrete implementation
+
+You can now inject this interface into controllers and use it to perform R2DBC queries:
+
+snippet::example.AuthorController[project-base="doc-examples/example", source="main", indent="0"]
+
+<1> By returning a reactive type that emits many items you can stream data (either rx:Flowable[] or `Flux`)
+<1> By returning a reactive type that emits a single item you return the entire response (either rx:Single[] or `Mono`)

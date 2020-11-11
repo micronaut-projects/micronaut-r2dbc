@@ -1,34 +1,53 @@
 package example
 
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.r2dbc.rxjava2.RxConnectionFactory
-import io.reactivex.Flowable
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.annotation.*
+import io.reactivex.Single
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+
+import javax.validation.Valid
+import javax.validation.constraints.NotNull
 
 @Controller("/books")
 class BookController {
-    private final RxConnectionFactory connectionFactory
+    private final BookRepository bookRepository
 
-    BookController(RxConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory
+    BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository
     }
+
+     // tag::create[]
+    @Post("/")
+    Single<Book> create(@Valid Book book) {
+        return Single.fromPublisher(bookRepository.save(book))
+    }
+    // end::create[]
 
     // tag::read[]
     @Get("/")
-    Flowable<Book> list() {
-        return connectionFactory.withConnection(connection ->
-                connection
-                    .createStatement("SELECT * FROM BOOKS")
-                    .execute()
-                    .flatMap(result ->
-                            result.map((row, rowMetadata) ->
-                                    new Book(
-                                            row.get(0, String),
-                                            row.get(1, Integer)
-                                    )
-                            )
-                    )
-        )
+    Flux<Book> all() {
+        return bookRepository.findAll() // <1>
+    }
+
+    @Get("/{id}")
+    Mono<Book> show(Long id) {
+        return bookRepository.findById(id) // <2>
     }
     // end::read[]
+
+    // tag::update[]
+    @Put("/{id}")
+    Single<Book> update(@NotNull Long id, @Valid Book book) {
+        return Single.fromPublisher(bookRepository.update(book))
+    }
+    // end::update[]
+
+    // tag::delete[]
+    @Delete("/{id}")
+    Single<HttpResponse<?>> delete(@NotNull Long id) {
+        return Single.fromPublisher(bookRepository.deleteById(id))
+                .map(deleted -> deleted > 0 ? HttpResponse.noContent() : HttpResponse.notFound())
+    }
+    // end::delete[]
 }

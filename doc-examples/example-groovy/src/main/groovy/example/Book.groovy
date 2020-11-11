@@ -1,11 +1,23 @@
 package example
 
-import groovy.transform.Immutable
-import io.micronaut.core.annotation.Introspected
+import io.micronaut.data.annotation.GeneratedValue
+import io.micronaut.data.annotation.Id
+import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.data.annotation.Relation
 
-@Introspected
-@Immutable
+@MappedEntity
 class Book {
-    String title
-    int pages
+    @Id
+    @GeneratedValue
+    Long id
+    final String title
+    final int pages
+    @Relation(Relation.Kind.MANY_TO_ONE)
+    final Author author
+
+    Book(String title, int pages, Author author) {
+        this.title = title
+        this.pages = pages
+        this.author = author
+    }
 }

@@ -91,38 +91,7 @@ class DefaultRxConnection implements RxConnection {
     @Override
     public RxStatement createStatement(String sql) {
         Statement statement = connection.createStatement(sql);
-        return new RxStatement() {
-            @Override
-            public Flowable<? extends RxResult> execute() {
-                return Flowable.fromPublisher(statement.execute())
-                            .map(DefaultRxResult::new);
-            }
-
-            @Override
-            public Statement add() {
-                return statement.add();
-            }
-
-            @Override
-            public Statement bind(int index, Object value) {
-                return statement.bind(index, value);
-            }
-
-            @Override
-            public Statement bind(String name, Object value) {
-                return statement.bind(name, value);
-            }
-
-            @Override
-            public Statement bindNull(int index, Class<?> type) {
-                return statement.bindNull(index, type);
-            }
-
-            @Override
-            public Statement bindNull(String name, Class<?> type) {
-                return statement.bindNull(name, type);
-            }
-        };
+        return new DefaultRxStatement(statement);
     }
 
     /**
@@ -268,6 +237,60 @@ class DefaultRxConnection implements RxConnection {
         @Override
         public RxBatch add(String sql) {
             return new DefaultRxBatch(batch.add(sql));
+        }
+    }
+
+    private final static class DefaultRxStatement implements RxStatement {
+        private final Statement delegate;
+
+        DefaultRxStatement(Statement statement) {
+            this.delegate = statement;
+        }
+
+        @Override
+        public Flowable<? extends RxResult> execute() {
+            return Flowable.fromPublisher(delegate.execute()).map(DefaultRxResult::new);
+        }
+
+        @Override
+        public RxStatement returnGeneratedValues(String... columns) {
+            delegate.returnGeneratedValues(columns);
+            return this;
+        }
+
+        @Override
+        public RxStatement add() {
+            return new DefaultRxStatement(delegate.add());
+        }
+
+        @Override
+        public RxStatement bind(int index, Object value) {
+            delegate.bind(index, value);
+            return this;
+        }
+
+        @Override
+        public RxStatement bind(String name, Object value) {
+            delegate.bind(name, value);
+            return this;
+        }
+
+        @Override
+        public RxStatement bindNull(int index, Class<?> type) {
+            delegate.bindNull(index, type);
+            return this;
+        }
+
+        @Override
+        public RxStatement bindNull(String name, Class<?> type) {
+            delegate.bindNull(name, type);
+            return this;
+        }
+
+        @Override
+        public RxStatement fetchSize(int rows) {
+            delegate.fetchSize(rows);
+            return this;
         }
     }
 }

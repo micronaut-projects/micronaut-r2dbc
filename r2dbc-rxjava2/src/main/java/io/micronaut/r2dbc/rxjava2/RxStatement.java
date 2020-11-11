@@ -30,4 +30,25 @@ public interface RxStatement extends Statement {
      */
     @Override
     Flowable<? extends RxResult> execute();
+
+    @Override
+    RxStatement returnGeneratedValues(String... columns);
+
+    @Override
+    RxStatement add();
+
+    @Override
+    RxStatement bind(int index, Object value);
+
+    @Override
+    RxStatement bind(String name, Object value);
+
+    @Override
+    RxStatement bindNull(int index, Class<?> type);
+
+    @Override
+    RxStatement bindNull(String name, Class<?> type);
+
+    @Override
+    RxStatement fetchSize(int rows);
 }
