@@ -89,9 +89,11 @@ abstract class AbstractAppSpec extends Specification {
 
         when:
         owner.setAge(22)
-        ownersClient.update(owner)
+        def updatedOwner = ownersClient.update(owner)
 
         then:
+        updatedOwner
+        updatedOwner.age == 22
         ownersClient.get(owner.name).age == 22
 
         when:
