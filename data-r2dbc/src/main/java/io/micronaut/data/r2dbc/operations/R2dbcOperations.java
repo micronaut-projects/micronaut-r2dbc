@@ -16,7 +16,6 @@
 package io.micronaut.data.r2dbc.operations;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
-import io.micronaut.transaction.TransactionDefinition;
 import io.micronaut.transaction.reactive.ReactiveTransactionOperations;
 import io.micronaut.transaction.reactive.ReactiveTransactionStatus;
 import io.r2dbc.spi.Connection;
@@ -40,6 +39,7 @@ public interface R2dbcOperations extends ReactiveTransactionOperations<Connectio
 
     /**
      * Execute the given handler with an existing transaction status.
+     * @param status An existing in progress transaction status
      * @param handler The handler
      * @param <T> The emitted type
      * @return A publisher that emits the result type

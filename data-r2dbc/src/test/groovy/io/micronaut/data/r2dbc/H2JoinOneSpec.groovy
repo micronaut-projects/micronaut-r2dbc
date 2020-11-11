@@ -2,12 +2,9 @@ package io.micronaut.data.r2dbc
 
 import io.micronaut.context.annotation.Property
 import io.micronaut.data.model.query.builder.sql.Dialect
-import io.micronaut.data.r2dbc.operations.R2dbcOperations
 import io.micronaut.data.tck.entities.Owner
 import io.micronaut.data.tck.entities.Pet
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
 import spock.lang.Shared
 
 import javax.inject.Inject

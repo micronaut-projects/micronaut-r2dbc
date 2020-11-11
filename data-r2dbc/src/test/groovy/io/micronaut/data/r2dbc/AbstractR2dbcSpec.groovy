@@ -17,14 +17,28 @@ abstract class AbstractR2dbcSpec extends Specification {
 
     def setupSpec() {
         def sqlBuilder = new SqlQueryBuilder(getDialect())
+        List<String> dropStatements = getEntities().collect({
+            PersistentEntity.of(it)
+        }).collect({ sqlBuilder.buildDropTableStatements(it).toList() }).flatten()
         def statements = getEntities().collect {
             PersistentEntity.of(it)
         }.collect { sqlBuilder.buildBatchCreateTableStatement(it) }
         Flux.from(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<Connection> status ->
-            Flux.fromIterable(statements)
-                    .flatMap(sql -> {
-                        status.connection.createStatement(sql).execute()
+            Flux.fromIterable(dropStatements)
+                .flatMap((sql) -> {
+                    status.connection.createStatement(sql).execute()
+                }).onErrorResume((error) -> {
+                    println "Drop table failed: $error.message"
+                    return Flux.empty()
+            }).thenMany(
+                    Flux.fromIterable(statements)
+                            .flatMap(sql -> {
+                                status.connection.createStatement(sql).execute()
+                            }).onErrorResume({ Throwable it ->
+                        println "Create table failed: $it.message"
+                        Flux.empty()
                     })
+            )
         })).collectList().block()
     }
 
