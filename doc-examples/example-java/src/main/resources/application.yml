@@ -5,3 +5,10 @@ flyway:
   datasources:
     default:
       enabled: true
+datasources:
+  default:
+    url: jdbc:h2:mem:devDb;DB_CLOSE_ON_EXIT=FALSE
+r2dbc:
+  datasources:
+    default:
+      url: r2dbc:h2:mem:///devDb;DB_CLOSE_ON_EXIT=FALSE

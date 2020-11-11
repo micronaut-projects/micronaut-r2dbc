@@ -2,12 +2,9 @@ package io.micronaut.data.r2dbc
 
 import io.micronaut.context.annotation.Property
 import io.micronaut.data.model.query.builder.sql.Dialect
-import io.micronaut.data.r2dbc.operations.R2dbcOperations
 import io.micronaut.data.tck.entities.Owner
 import io.micronaut.data.tck.entities.Pet
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
 import spock.lang.Shared
 
 import javax.inject.Inject
@@ -20,20 +17,7 @@ class H2JoinOneSpec extends AbstractR2dbcSpec {
     @Shared @Inject H2PetRepository petRepository
 
     def setupSpec() {
-        Mono.from(ownerRepository.save(new Owner("Fred")))
-            .flatMapMany(owner -> {
-                petRepository.saveAll([
-                        new Pet("Dino", owner),
-                        new Pet("Hoppy", owner),
-                ])
-            }).collectList().block()
-
-        Mono.from(ownerRepository.save(new Owner("Barney")))
-                .flatMapMany(owner -> {
-                    petRepository.saveAll([
-                            new Pet("Rabbid", owner)
-                    ])
-                }).collectList().block()
+        ownerRepository.setupData().block()
     }
 
     void 'test apply join to many to one association'() {

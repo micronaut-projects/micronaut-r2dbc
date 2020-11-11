@@ -26,14 +26,11 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
 import io.micronaut.http.client.annotation.Client
-import io.reactivex.Maybe
-import io.reactivex.Single
 import spock.lang.Specification
 import spock.lang.Stepwise
 
 import javax.inject.Inject
 import javax.validation.Valid
-import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 @Stepwise
@@ -92,9 +89,11 @@ abstract class AbstractAppSpec extends Specification {
 
         when:
         owner.setAge(22)
-        ownersClient.update(owner)
+        def updatedOwner = ownersClient.update(owner)
 
         then:
+        updatedOwner
+        updatedOwner.age == 22
         ownersClient.get(owner.name).age == 22
 
         when:

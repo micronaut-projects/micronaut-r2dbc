@@ -4,14 +4,9 @@ import io.micronaut.data.model.Pageable
 import io.micronaut.data.tck.entities.Person
 import io.micronaut.data.tck.entities.PersonDto
 import io.micronaut.data.tck.repositories.PersonReactiveRepository
-import io.reactivex.CompletableObserver
-import io.reactivex.annotations.NonNull
-import io.reactivex.disposables.Disposable
-import org.jetbrains.annotations.NotNull
+import reactor.core.publisher.Hooks
 import spock.lang.Specification
 import spock.lang.Stepwise
-
-import java.util.concurrent.CompletableFuture
 
 @Stepwise
 abstract class AbstractReactiveRepositorySpec extends Specification {

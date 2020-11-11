@@ -9,6 +9,7 @@ import io.micronaut.data.tck.entities.Person
 import io.micronaut.data.tck.repositories.PersonReactiveRepository
 import io.micronaut.data.tck.tests.AbstractReactiveRepositorySpec
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import io.micronaut.transaction.reactive.ReactiveTransactionStatus
 import io.r2dbc.spi.Connection
 import io.r2dbc.spi.ConnectionFactory
 import reactor.core.publisher.Mono
@@ -40,8 +41,8 @@ class MssqlReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
     void init() {
         def sqlBuilder = new SqlQueryBuilder(Dialect.SQL_SERVER)
         def statement = sqlBuilder.buildBatchCreateTableStatement(PersistentEntity.of(Person))
-        Mono.from(r2dbcOperations.withTransaction({ Connection connection ->
-            connection.createStatement(statement).execute()
+        Mono.from(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<Connection> status ->
+            status.connection.createStatement(statement).execute()
         })).block()
     }
 }

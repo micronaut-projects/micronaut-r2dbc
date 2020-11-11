@@ -10,12 +10,6 @@ subprojects { Project subproject ->
 
     group "io.micronaut.example"
 
-    repositories {
-        jcenter()
-        mavenCentral()
-        maven { url "https://oss.jfrog.org/oss-snapshot-local" }
-    }
-
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
