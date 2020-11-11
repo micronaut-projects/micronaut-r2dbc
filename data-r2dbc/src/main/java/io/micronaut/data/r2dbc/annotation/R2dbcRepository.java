@@ -64,6 +64,12 @@ public @interface R2dbcRepository {
     String PARAMETER_TX_STATUS = "tx-status";
 
     /**
+     * @return The datasource name.
+     */
+    @AliasFor(annotation = Repository.class, member = "value")
+    String value() default "default";
+
+    /**
      * @return The dialect to use.
      */
     @AliasFor(annotation = Repository.class, member = "dialect")

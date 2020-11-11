@@ -420,18 +420,23 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                                 LOG.debug("Transaction Begin for DataSource: {}", dataSourceName);
                             }
                             DefaultReactiveTransactionStatus status = new DefaultReactiveTransactionStatus(connection, true);
-                            Mono<Boolean> resourceSupplier = Mono.from(connection.beginTransaction()).hasElement();
+                            Mono<Boolean> resourceSupplier;
                             if (definition.getIsolationLevel() != TransactionDefinition.DEFAULT.getIsolationLevel()) {
                                 IsolationLevel isolationLevel = getIsolationLevel(definition);
                                 if (LOG.isDebugEnabled()) {
                                     LOG.debug("Setting Isolation Level ({}) for Transaction on DataSource: {}", isolationLevel, dataSourceName);
                                 }
                                 if (isolationLevel != null) {
-                                    resourceSupplier = resourceSupplier
-                                            .then(Mono.from(
-                                                    connection.setTransactionIsolationLevel(isolationLevel)).hasElement());
+                                    resourceSupplier = Mono.from(connection.setTransactionIsolationLevel(isolationLevel))
+                                                            .thenMany(connection.beginTransaction())
+                                                            .hasElements();
+                                } else {
+                                    resourceSupplier = Mono.from(connection.beginTransaction()).hasElement();
                                 }
+                            } else {
+                                resourceSupplier = Mono.from(connection.beginTransaction()).hasElement();
                             }
+
                             return Flux.usingWhen(resourceSupplier,
                                     (b) -> {
                                         try {
