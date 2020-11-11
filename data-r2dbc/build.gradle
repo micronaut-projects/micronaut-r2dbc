@@ -41,7 +41,7 @@ dependencies {
     testImplementation 'jakarta.persistence:jakarta.persistence-api:2.2.3'
     testImplementation "org.codehaus.groovy:groovy-sql:$groovyVersion"
     testImplementation "io.micronaut:micronaut-validation:$micronautVersion"
-    testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0-rc2')
+    testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0')
     testImplementation "org.testcontainers:r2dbc"
 
     // mariadb
