@@ -442,14 +442,10 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                                         try {
                                             return Flux.from(handler.doInTransaction(status)).contextWrite(context ->
                                                     context.put(ReactiveTransactionStatus.STATUS, status)
-                                                            .put(ReactiveTransactionStatus.ATTRIBUTE, definition)
+                                                           .put(ReactiveTransactionStatus.ATTRIBUTE, definition)
                                             );
                                         } catch (Exception e) {
-                                            if (e instanceof RuntimeException) {
-                                                throw (RuntimeException) e;
-                                            } else {
-                                                throw new TransactionSystemException("Error invoking doInTransaction handler: " + e.getMessage(), e);
-                                            }
+                                            return Mono.error(new TransactionSystemException("Error invoking doInTransaction handler: " + e.getMessage(), e));
                                         }
                                     },
                                     (b) -> doCommit(status),
@@ -476,20 +472,16 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
     }
 
     private Publisher<Void> doCommit(DefaultReactiveTransactionStatus status) {
-        try {
-            if (status.isRollbackOnly()) {
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug("Rolling back transaction on DataSource {}.", dataSourceName);
-                }
-                return status.getConnection().rollbackTransaction();
-            } else {
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug("Committing transaction for DataSource {}.", dataSourceName);
-                }
-                return status.getConnection().commitTransaction();
+        if (status.isRollbackOnly()) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Rolling back transaction on DataSource {}.", dataSourceName);
             }
-        } finally {
-            status.completed = true;
+            return Mono.from(status.getConnection().rollbackTransaction()).doFinally(sig -> status.completed = true);
+        } else {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Committing transaction for DataSource {}.", dataSourceName);
+            }
+            return Mono.from(status.getConnection().commitTransaction()).doFinally(sig -> status.completed = true);
         }
     }
 
