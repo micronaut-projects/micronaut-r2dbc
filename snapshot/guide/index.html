@@ -294,8 +294,13 @@
 <div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">@Get("/all")
-Single&lt;List&lt;Book&gt;&gt; all() {
-    return Flowable.fromPublisher(bookRepository.findAll()).toList();
+Flux&lt;Book&gt; all() {
+    return Flux.from(bookRepository.findAll());
+}
+
+@Get("/{id}")
+Mono&lt;Book&gt; show(Long id) {
+    return Mono.from(bookRepository.findById(id));
 }</code></pre>
 </div>
 </div>

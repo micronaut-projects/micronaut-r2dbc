@@ -186,7 +186,7 @@
 <dd>
 <div class="block">Defines an implementation of Micronaut Data's core interfaces for R2DBC.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-io.micronaut.context.BeanContext-">DefaultR2dbcRepositoryOperations(String, ConnectionFactory, List&lt;MediaTypeCodec&gt;, DateTimeProvider&lt;?&gt;, BeanContext)</a></span> - Constructor for class io.micronaut.data.r2dbc.operations.<a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html" title="class in io.micronaut.data.r2dbc.operations">DefaultR2dbcRepositoryOperations</a></dt>
+<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-io.micronaut.context.ApplicationContext-">DefaultR2dbcRepositoryOperations(String, ConnectionFactory, List&lt;MediaTypeCodec&gt;, DateTimeProvider&lt;?&gt;, ApplicationContext)</a></span> - Constructor for class io.micronaut.data.r2dbc.operations.<a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html" title="class in io.micronaut.data.r2dbc.operations">DefaultR2dbcRepositoryOperations</a></dt>
 <dd>
 <div class="block">Default constructor.</div>
 </dd>
@@ -294,7 +294,7 @@
 </a>
 <h2 class="title">P</h2>
 <dl>
-<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/annotation/R2dbcRepository.html#PARAMETER_CONNECTION">PARAMETER_CONNECTION</a></span> - Static variable in annotation type io.micronaut.data.r2dbc.annotation.<a href="io/micronaut/data/r2dbc/annotation/R2dbcRepository.html" title="annotation in io.micronaut.data.r2dbc.annotation">R2dbcRepository</a></dt>
+<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/annotation/R2dbcRepository.html#PARAMETER_TX_STATUS">PARAMETER_TX_STATUS</a></span> - Static variable in annotation type io.micronaut.data.r2dbc.annotation.<a href="io/micronaut/data/r2dbc/annotation/R2dbcRepository.html" title="annotation in io.micronaut.data.r2dbc.annotation">R2dbcRepository</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#persist-io.micronaut.data.model.runtime.InsertOperation-">persist(InsertOperation&lt;T&gt;)</a></span> - Method in class io.micronaut.data.r2dbc.operations.<a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html" title="class in io.micronaut.data.r2dbc.operations">DefaultR2dbcRepositoryOperations</a></dt>
 <dd>&nbsp;</dd>
@@ -579,15 +579,13 @@
 <dd>
 <div class="block">Apply the given function closing the connection on termination.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#withTransaction-io.micronaut.transaction.TransactionDefinition-java.util.function.Function-">withTransaction(TransactionDefinition, Function&lt;Connection, Publisher&lt;T&gt;&gt;)</a></span> - Method in class io.micronaut.data.r2dbc.operations.<a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html" title="class in io.micronaut.data.r2dbc.operations">DefaultR2dbcRepositoryOperations</a></dt>
+<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#withTransaction-io.micronaut.transaction.reactive.ReactiveTransactionStatus-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">withTransaction(ReactiveTransactionStatus&lt;Connection&gt;, ReactiveTransactionOperations.TransactionalCallback&lt;Connection, T&gt;)</a></span> - Method in class io.micronaut.data.r2dbc.operations.<a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html" title="class in io.micronaut.data.r2dbc.operations">DefaultR2dbcRepositoryOperations</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-io.micronaut.transaction.TransactionDefinition-java.util.function.Function-">withTransaction(TransactionDefinition, Function&lt;Connection, Publisher&lt;T&gt;&gt;)</a></span> - Method in interface io.micronaut.data.r2dbc.operations.<a href="io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a></dt>
+<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#withTransaction-io.micronaut.transaction.TransactionDefinition-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">withTransaction(TransactionDefinition, ReactiveTransactionOperations.TransactionalCallback&lt;Connection, T&gt;)</a></span> - Method in class io.micronaut.data.r2dbc.operations.<a href="io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html" title="class in io.micronaut.data.r2dbc.operations">DefaultR2dbcRepositoryOperations</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-io.micronaut.transaction.reactive.ReactiveTransactionStatus-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">withTransaction(ReactiveTransactionStatus&lt;Connection&gt;, ReactiveTransactionOperations.TransactionalCallback&lt;Connection, T&gt;)</a></span> - Method in interface io.micronaut.data.r2dbc.operations.<a href="io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a></dt>
 <dd>
-<div class="block">Execute the given handler with a new transaction.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-java.util.function.Function-">withTransaction(Function&lt;Connection, Publisher&lt;T&gt;&gt;)</a></span> - Method in interface io.micronaut.data.r2dbc.operations.<a href="io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a></dt>
-<dd>
-<div class="block">Execute the given handler with a new transaction.</div>
+<div class="block">Execute the given handler with an existing transaction status.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/r2dbc/rxjava2/RxConnectionFactory.html#withTransaction-io.micronaut.r2dbc.rxjava2.RxConnectionFactory.RxConnectionFunction-">withTransaction(RxConnectionFactory.RxConnectionFunction&lt;T&gt;)</a></span> - Method in interface io.micronaut.r2dbc.rxjava2.<a href="io/micronaut/r2dbc/rxjava2/RxConnectionFactory.html" title="interface in io.micronaut.r2dbc.rxjava2">RxConnectionFactory</a></dt>
 <dd>

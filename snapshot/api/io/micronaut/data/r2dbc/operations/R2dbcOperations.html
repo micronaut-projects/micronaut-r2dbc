@@ -17,8 +17,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":18,"i3":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
+var methods = {"i0":6,"i1":6,"i2":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -98,12 +98,17 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <dl>
+<dt>All Superinterfaces:</dt>
+<dd>io.micronaut.transaction.reactive.ReactiveTransactionOperations&lt;io.r2dbc.spi.Connection&gt;</dd>
+</dl>
+<dl>
 <dt>All Known Implementing Classes:</dt>
 <dd><a href="../../../../../io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html" title="class in io.micronaut.data.r2dbc.operations">DefaultR2dbcRepositoryOperations</a></dd>
 </dl>
 <hr>
 <br>
-<pre>public interface <span class="typeNameLabel">R2dbcOperations</span></pre>
+<pre>public interface <span class="typeNameLabel">R2dbcOperations</span>
+extends io.micronaut.transaction.reactive.ReactiveTransactionOperations&lt;io.r2dbc.spi.Connection&gt;</pre>
 <div class="block">Operations for R2DBC.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -117,6 +122,21 @@ var activeTableTab = "activeTableTab";
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="nested.class.summary">
+<!--   -->
+</a>
+<h3>Nested Class Summary</h3>
+<ul class="blockList">
+<li class="blockList"><a name="nested.classes.inherited.from.class.io.micronaut.transaction.reactive.ReactiveTransactionOperations">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from interface&nbsp;io.micronaut.transaction.reactive.ReactiveTransactionOperations</h3>
+<code>io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback&lt;C,T&gt;</code></li>
+</ul>
+</li>
+</ul>
 <!-- ========== METHOD SUMMARY =========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.summary">
@@ -124,7 +144,7 @@ var activeTableTab = "activeTableTab";
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -142,19 +162,20 @@ var activeTableTab = "activeTableTab";
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>default &lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-java.util.function.Function-">withTransaction</a></span>(java.util.function.Function&lt;io.r2dbc.spi.Connection,org.reactivestreams.Publisher&lt;T&gt;&gt;&nbsp;handler)</code>
-<div class="block">Execute the given handler with a new transaction.</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-io.micronaut.transaction.TransactionDefinition-java.util.function.Function-">withTransaction</a></span>(io.micronaut.transaction.TransactionDefinition&nbsp;definition,
-               java.util.function.Function&lt;io.r2dbc.spi.Connection,org.reactivestreams.Publisher&lt;T&gt;&gt;&nbsp;handler)</code>
-<div class="block">Execute the given handler with a new transaction.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-io.micronaut.transaction.reactive.ReactiveTransactionStatus-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">withTransaction</a></span>(io.micronaut.transaction.reactive.ReactiveTransactionStatus&lt;io.r2dbc.spi.Connection&gt;&nbsp;status,
+               io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback&lt;io.r2dbc.spi.Connection,T&gt;&nbsp;handler)</code>
+<div class="block">Execute the given handler with an existing transaction status.</div>
 </td>
 </tr>
 </table>
+<ul class="blockList">
+<li class="blockList"><a name="methods.inherited.from.class.io.micronaut.transaction.reactive.ReactiveTransactionOperations">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;io.micronaut.transaction.reactive.ReactiveTransactionOperations</h3>
+<code>withTransaction, withTransaction</code></li>
+</ul>
 </li>
 </ul>
 </li>
@@ -184,27 +205,7 @@ io.r2dbc.spi.ConnectionFactory&nbsp;connectionFactory()</pre>
 </dl>
 </li>
 </ul>
-<a name="withConnection-java.util.function.Function-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>withConnection</h4>
-<pre>@NonNull
-&lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;&nbsp;withConnection(@NonNull
-                                                             java.util.function.Function&lt;io.r2dbc.spi.Connection,org.reactivestreams.Publisher&lt;T&gt;&gt;&nbsp;handler)</pre>
-<div class="block">Execute the given handler with a new connection.</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The emitted type</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>handler</code> - The handler</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>A publisher that emits the result type</dd>
-</dl>
-</li>
-</ul>
-<a name="withTransaction-io.micronaut.transaction.TransactionDefinition-java.util.function.Function-">
+<a name="withTransaction-io.micronaut.transaction.reactive.ReactiveTransactionStatus-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -212,31 +213,31 @@ io.r2dbc.spi.ConnectionFactory&nbsp;connectionFactory()</pre>
 <h4>withTransaction</h4>
 <pre>@NonNull
 &lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;&nbsp;withTransaction(@NonNull
-                                                              io.micronaut.transaction.TransactionDefinition&nbsp;definition,
+                                                              io.micronaut.transaction.reactive.ReactiveTransactionStatus&lt;io.r2dbc.spi.Connection&gt;&nbsp;status,
                                                               @NonNull
-                                                              java.util.function.Function&lt;io.r2dbc.spi.Connection,org.reactivestreams.Publisher&lt;T&gt;&gt;&nbsp;handler)</pre>
-<div class="block">Execute the given handler with a new transaction.</div>
+                                                              io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback&lt;io.r2dbc.spi.Connection,T&gt;&nbsp;handler)</pre>
+<div class="block">Execute the given handler with an existing transaction status.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>T</code> - The emitted type</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>definition</code> - The definition</dd>
+<dd><code>status</code> - An existing in progress transaction status</dd>
 <dd><code>handler</code> - The handler</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A publisher that emits the result type</dd>
 </dl>
 </li>
 </ul>
-<a name="withTransaction-java.util.function.Function-">
+<a name="withConnection-java.util.function.Function-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>withTransaction</h4>
+<h4>withConnection</h4>
 <pre>@NonNull
-default&nbsp;&lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;&nbsp;withTransaction(@NonNull
-                                                                      java.util.function.Function&lt;io.r2dbc.spi.Connection,org.reactivestreams.Publisher&lt;T&gt;&gt;&nbsp;handler)</pre>
-<div class="block">Execute the given handler with a new transaction.</div>
+&lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;&nbsp;withConnection(@NonNull
+                                                             java.util.function.Function&lt;io.r2dbc.spi.Connection,org.reactivestreams.Publisher&lt;T&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Execute the given handler with a new connection.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>T</code> - The emitted type</dd>

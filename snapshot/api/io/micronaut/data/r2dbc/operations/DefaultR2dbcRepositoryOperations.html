@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -112,14 +112,14 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd>io.micronaut.data.operations.async.AsyncCapableRepository, io.micronaut.data.operations.reactive.ReactiveCapableRepository, io.micronaut.data.operations.RepositoryOperations, <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a>, <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepositoryOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcRepositoryOperations</a></dd>
+<dd>io.micronaut.data.operations.async.AsyncCapableRepository, io.micronaut.data.operations.reactive.ReactiveCapableRepository, io.micronaut.data.operations.RepositoryOperations, <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a>, <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepositoryOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcRepositoryOperations</a>, io.micronaut.transaction.reactive.ReactiveTransactionOperations&lt;io.r2dbc.spi.Connection&gt;</dd>
 </dl>
 <hr>
 <br>
 <pre>@EachBean(value=io.r2dbc.spi.ConnectionFactory.class)
 public class <span class="typeNameLabel">DefaultR2dbcRepositoryOperations</span>
 extends io.micronaut.data.jdbc.operations.AbstractSqlRepositoryOperations&lt;io.r2dbc.spi.Row,io.r2dbc.spi.Statement&gt;
-implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepositoryOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcRepositoryOperations</a>, <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a></pre>
+implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepositoryOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcRepositoryOperations</a>, <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a>, io.micronaut.transaction.reactive.ReactiveTransactionOperations&lt;io.r2dbc.spi.Connection&gt;</pre>
 <div class="block">Defines an implementation of Micronaut Data's core interfaces for R2DBC.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -145,6 +145,13 @@ implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepos
 </a>
 <h3>Nested classes/interfaces inherited from class&nbsp;io.micronaut.data.jdbc.operations.AbstractSqlRepositoryOperations</h3>
 <code>io.micronaut.data.jdbc.operations.AbstractSqlRepositoryOperations.StatementSupplier&lt;PS&gt;, io.micronaut.data.jdbc.operations.AbstractSqlRepositoryOperations.StoredInsert&lt;T&gt;</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="nested.classes.inherited.from.class.io.micronaut.transaction.reactive.ReactiveTransactionOperations">
+<!--   -->
+</a>
+<h3>Nested classes/interfaces inherited from interface&nbsp;io.micronaut.transaction.reactive.ReactiveTransactionOperations</h3>
+<code>io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback&lt;C,T&gt;</code></li>
 </ul>
 </li>
 </ul>
@@ -177,11 +184,11 @@ implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepos
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected </code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-io.micronaut.context.BeanContext-">DefaultR2dbcRepositoryOperations</a></span>(java.lang.String&nbsp;dataSourceName,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-io.micronaut.context.ApplicationContext-">DefaultR2dbcRepositoryOperations</a></span>(java.lang.String&nbsp;dataSourceName,
                                 io.r2dbc.spi.ConnectionFactory&nbsp;connectionFactory,
                                 java.util.List&lt;io.micronaut.http.codec.MediaTypeCodec&gt;&nbsp;mediaTypeCodecList,
                                 io.micronaut.data.runtime.date.DateTimeProvider&lt;?&gt;&nbsp;dateTimeProvider,
-                                io.micronaut.context.BeanContext&nbsp;beanContext)</code>
+                                io.micronaut.context.ApplicationContext&nbsp;applicationContext)</code>
 <div class="block">Default constructor.</div>
 </td>
 </tr>
@@ -283,10 +290,15 @@ implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepos
 </tr>
 <tr id="i19" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#withTransaction-io.micronaut.transaction.TransactionDefinition-java.util.function.Function-">withTransaction</a></span>(io.micronaut.transaction.TransactionDefinition&nbsp;definition,
-               java.util.function.Function&lt;io.r2dbc.spi.Connection,org.reactivestreams.Publisher&lt;T&gt;&gt;&nbsp;handler)</code>
-<div class="block">Execute the given handler with a new transaction.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#withTransaction-io.micronaut.transaction.reactive.ReactiveTransactionStatus-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">withTransaction</a></span>(io.micronaut.transaction.reactive.ReactiveTransactionStatus&lt;io.r2dbc.spi.Connection&gt;&nbsp;status,
+               io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback&lt;io.r2dbc.spi.Connection,T&gt;&nbsp;handler)</code>
+<div class="block">Execute the given handler with an existing transaction status.</div>
 </td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>&lt;T&gt;&nbsp;reactor.core.publisher.Flux&lt;T&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/operations/DefaultR2dbcRepositoryOperations.html#withTransaction-io.micronaut.transaction.TransactionDefinition-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">withTransaction</a></span>(io.micronaut.transaction.TransactionDefinition&nbsp;definition,
+               io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback&lt;io.r2dbc.spi.Connection,T&gt;&nbsp;handler)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -311,11 +323,11 @@ implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepos
 <code>executeDelete, getEntity, getQueryHints</code></li>
 </ul>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.io.micronaut.data.r2dbc.operations.R2dbcOperations">
+<li class="blockList"><a name="methods.inherited.from.class.io.micronaut.transaction.reactive.ReactiveTransactionOperations">
 <!--   -->
 </a>
-<h3>Methods inherited from interface&nbsp;io.micronaut.data.r2dbc.operations.<a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a></h3>
-<code><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-java.util.function.Function-">withTransaction</a></code></li>
+<h3>Methods inherited from interface&nbsp;io.micronaut.transaction.reactive.ReactiveTransactionOperations</h3>
+<code>withTransaction</code></li>
 </ul>
 </li>
 </ul>
@@ -331,19 +343,20 @@ implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepos
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-io.micronaut.context.BeanContext-">
+<a name="DefaultR2dbcRepositoryOperations-java.lang.String-io.r2dbc.spi.ConnectionFactory-java.util.List-io.micronaut.data.runtime.date.DateTimeProvider-io.micronaut.context.ApplicationContext-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DefaultR2dbcRepositoryOperations</h4>
-<pre>protected&nbsp;DefaultR2dbcRepositoryOperations(@Parameter
-                                           java.lang.String&nbsp;dataSourceName,
-                                           io.r2dbc.spi.ConnectionFactory&nbsp;connectionFactory,
-                                           java.util.List&lt;io.micronaut.http.codec.MediaTypeCodec&gt;&nbsp;mediaTypeCodecList,
-                                           @NonNull
-                                           io.micronaut.data.runtime.date.DateTimeProvider&lt;?&gt;&nbsp;dateTimeProvider,
-                                           io.micronaut.context.BeanContext&nbsp;beanContext)</pre>
+<pre>@Internal
+protected&nbsp;DefaultR2dbcRepositoryOperations(@Parameter
+                                                     java.lang.String&nbsp;dataSourceName,
+                                                     io.r2dbc.spi.ConnectionFactory&nbsp;connectionFactory,
+                                                     java.util.List&lt;io.micronaut.http.codec.MediaTypeCodec&gt;&nbsp;mediaTypeCodecList,
+                                                     @NonNull
+                                                     io.micronaut.data.runtime.date.DateTimeProvider&lt;?&gt;&nbsp;dateTimeProvider,
+                                                     io.micronaut.context.ApplicationContext&nbsp;applicationContext)</pre>
 <div class="block">Default constructor.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -351,7 +364,7 @@ implements <a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepos
 <dd><code>connectionFactory</code> - The associated connection factory</dd>
 <dd><code>mediaTypeCodecList</code> - The media type codec list</dd>
 <dd><code>dateTimeProvider</code> - The date time provider</dd>
-<dd><code>beanContext</code> - The bean context</dd>
+<dd><code>applicationContext</code> - The bean context</dd>
 </dl>
 </li>
 </ul>
@@ -652,29 +665,46 @@ public&nbsp;&lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;&nbsp;withConne
 </dl>
 </li>
 </ul>
-<a name="withTransaction-io.micronaut.transaction.TransactionDefinition-java.util.function.Function-">
+<a name="withTransaction-io.micronaut.transaction.reactive.ReactiveTransactionStatus-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>withTransaction</h4>
+<pre>@NonNull
+public&nbsp;&lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;&nbsp;withTransaction(@NonNull
+                                                                     io.micronaut.transaction.reactive.ReactiveTransactionStatus&lt;io.r2dbc.spi.Connection&gt;&nbsp;status,
+                                                                     @NonNull
+                                                                     io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback&lt;io.r2dbc.spi.Connection,T&gt;&nbsp;handler)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-io.micronaut.transaction.reactive.ReactiveTransactionStatus-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">R2dbcOperations</a></code></span></div>
+<div class="block">Execute the given handler with an existing transaction status.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-io.micronaut.transaction.reactive.ReactiveTransactionStatus-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">withTransaction</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a></code></dd>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>T</code> - The emitted type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>status</code> - An existing in progress transaction status</dd>
+<dd><code>handler</code> - The handler</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A publisher that emits the result type</dd>
+</dl>
+</li>
+</ul>
+<a name="withTransaction-io.micronaut.transaction.TransactionDefinition-io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>withTransaction</h4>
 <pre>@NonNull
-public&nbsp;&lt;T&gt;&nbsp;org.reactivestreams.Publisher&lt;T&gt;&nbsp;withTransaction(@NonNull
-                                                                     io.micronaut.transaction.TransactionDefinition&nbsp;definition,
-                                                                     @NonNull
-                                                                     java.util.function.Function&lt;io.r2dbc.spi.Connection,org.reactivestreams.Publisher&lt;T&gt;&gt;&nbsp;handler)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-io.micronaut.transaction.TransactionDefinition-java.util.function.Function-">R2dbcOperations</a></code></span></div>
-<div class="block">Execute the given handler with a new transaction.</div>
+public&nbsp;&lt;T&gt;&nbsp;reactor.core.publisher.Flux&lt;T&gt;&nbsp;withTransaction(@NonNull
+                                                                   io.micronaut.transaction.TransactionDefinition&nbsp;definition,
+                                                                   @NonNull
+                                                                   io.micronaut.transaction.reactive.ReactiveTransactionOperations.TransactionalCallback&lt;io.r2dbc.spi.Connection,T&gt;&nbsp;handler)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html#withTransaction-io.micronaut.transaction.TransactionDefinition-java.util.function.Function-">withTransaction</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcOperations</a></code></dd>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - The emitted type</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>definition</code> - The definition</dd>
-<dd><code>handler</code> - The handler</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>A publisher that emits the result type</dd>
+<dd><code>withTransaction</code>&nbsp;in interface&nbsp;<code>io.micronaut.transaction.reactive.ReactiveTransactionOperations&lt;io.r2dbc.spi.Connection&gt;</code></dd>
 </dl>
 </li>
 </ul>

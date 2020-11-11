@@ -95,7 +95,7 @@
                          operations=<a href="../../../../../io/micronaut/data/r2dbc/operations/R2dbcRepositoryOperations.html" title="interface in io.micronaut.data.r2dbc.operations">R2dbcRepositoryOperations.class</a>,
                          implicitQueries=false,
                          namedParameters=false,
-                         typeRoles=@TypeRole(role="connection",type=io.r2dbc.spi.Connection.class))
+                         typeRoles=@TypeRole(role="tx-status",type=io.micronaut.transaction.reactive.ReactiveTransactionStatus.class))
  @Retention(value=RUNTIME)
  @Target(value={ANNOTATION_TYPE,TYPE})
  @Documented
@@ -129,7 +129,7 @@ public @interface <span class="memberNameLabel">R2dbcRepository</span></pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/annotation/R2dbcRepository.html#PARAMETER_CONNECTION">PARAMETER_CONNECTION</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/annotation/R2dbcRepository.html#PARAMETER_TX_STATUS">PARAMETER_TX_STATUS</a></span></code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -154,6 +154,10 @@ public @interface <span class="memberNameLabel">R2dbcRepository</span></pre>
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/annotation/R2dbcRepository.html#dialectName--">dialectName</a></span></code>&nbsp;</td>
 </tr>
+<tr class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/data/r2dbc/annotation/R2dbcRepository.html#value--">value</a></span></code>&nbsp;</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -169,13 +173,13 @@ public @interface <span class="memberNameLabel">R2dbcRepository</span></pre>
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a name="PARAMETER_CONNECTION">
+<a name="PARAMETER_TX_STATUS">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>PARAMETER_CONNECTION</h4>
-<pre>public static final&nbsp;java.lang.String&nbsp;PARAMETER_CONNECTION</pre>
+<h4>PARAMETER_TX_STATUS</h4>
+<pre>public static final&nbsp;java.lang.String&nbsp;PARAMETER_TX_STATUS</pre>
 </li>
 </ul>
 </li>
@@ -186,7 +190,29 @@ public @interface <span class="memberNameLabel">R2dbcRepository</span></pre>
 <!--   -->
 </a>
 <h3>Element Detail</h3>
-<a name="dialect--">
+<a name="value--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>value</h4>
+<pre>@AliasFor(annotation=io.micronaut.data.annotation.Repository.class,
+          member="value")
+public abstract&nbsp;java.lang.String&nbsp;value</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The datasource name.</dd>
+</dl>
+<dl>
+<dt>Default:</dt>
+<dd>"default"</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="dialect--">
 <!--   -->
 </a>
 <ul class="blockList">
