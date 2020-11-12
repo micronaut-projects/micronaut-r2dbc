@@ -12,6 +12,6 @@ dependencies {
             api "$p.group:micronaut-$p.name:$p.version"
         }
 
-        api "io.projectreactor.netty:reactor-netty:1.0.0"
+        api "io.projectreactor.netty:reactor-netty:1.0.1"
     }
 }
