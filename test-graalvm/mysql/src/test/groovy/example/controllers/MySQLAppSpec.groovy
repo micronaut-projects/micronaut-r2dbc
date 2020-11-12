@@ -15,6 +15,7 @@
  */
 package example.controllers
 
+import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import org.testcontainers.containers.JdbcDatabaseContainer
@@ -32,5 +33,10 @@ class MySQLAppSpec extends AbstractDBContainerAppSpec implements TestPropertyPro
     @Override
     String getDriverName() {
         return "mysql"
+    }
+
+    @Override
+    Dialect getDatabaseDialect() {
+        return Dialect.MYSQL
     }
 }

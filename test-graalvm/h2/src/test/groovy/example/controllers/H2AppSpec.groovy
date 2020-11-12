@@ -16,6 +16,7 @@
  */
 package example.controllers
 
+
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 
@@ -25,11 +26,9 @@ class H2AppSpec extends AbstractAppSpec implements TestPropertyProvider {
     @Override
     Map<String, String> getProperties() {
         return [
-                "datasources.default.url"                 : "jdbc:h2:mem:devDb;DB_CLOSE_ON_EXIT=FALSE",
-                "datasources.default.driverClassName"     : "org.h2.Driver",
-                "datasources.default.username"            : "sa",
-                "datasources.default.password"            : "",
-                "r2dbc.datasources.default.url"     : "r2dbc:h2:mem:///testdb;DB_CLOSE_ON_EXIT=FALSE"
+            "r2dbc.datasources.default.url" : "r2dbc:h2:mem:///testdb;DB_CLOSE_ON_EXIT=FALSE",
+            "r2dbc.datasources.default.dialect" : "H2",
+            "r2dbc.datasources.default.schema-generate" : "CREATE_DROP"
         ]
     }
 

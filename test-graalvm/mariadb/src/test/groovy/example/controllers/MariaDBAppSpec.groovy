@@ -15,6 +15,7 @@
  */
 package example.controllers
 
+import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.MariaDBContainer
@@ -31,5 +32,10 @@ class MariaDBAppSpec extends AbstractDBContainerAppSpec {
     @Override
     String getDriverName() {
         return "mariadb"
+    }
+
+    @Override
+    Dialect getDatabaseDialect() {
+        return Dialect.MYSQL
     }
 }

@@ -15,6 +15,7 @@
  */
 package example.controllers
 
+import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.test.support.TestPropertyProvider
 import org.testcontainers.containers.JdbcDatabaseContainer
 import spock.lang.AutoCleanup
@@ -30,15 +31,13 @@ abstract class AbstractDBContainerAppSpec extends AbstractAppSpec implements Tes
     Map<String, String> getProperties() {
         dbContainer.start()
         def props = [
-                "datasources.default.url"            : dbContainer.getJdbcUrl(),
-                "datasources.default.driverClassName": dbContainer.getDriverClassName(),
-                "datasources.default.username"       : dbContainer.getUsername(),
-                "datasources.default.password"       : dbContainer.getPassword(),
                 "r2dbc.datasources.default.host"     : dbContainer.getHost(),
                 "r2dbc.datasources.default.port"     : dbContainer.getFirstMappedPort(),
                 "r2dbc.datasources.default.driver"   : getDriverName(),
                 "r2dbc.datasources.default.username" : dbContainer.getUsername(),
-                "r2dbc.datasources.default.password" : dbContainer.getPassword()
+                "r2dbc.datasources.default.password" : dbContainer.getPassword(),
+                "r2dbc.datasources.default.schema-generate" : "CREATE_DROP",
+                "r2dbc.datasources.default.dialect" : getDatabaseDialect()
         ]
         try {
             def database = dbContainer.getDatabaseName()
@@ -51,5 +50,7 @@ abstract class AbstractDBContainerAppSpec extends AbstractAppSpec implements Tes
     abstract JdbcDatabaseContainer getJdbcDatabaseContainer();
 
     abstract String getDriverName();
+
+    abstract Dialect getDatabaseDialect()
 
 }

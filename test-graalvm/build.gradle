@@ -32,14 +32,15 @@ subprojects { Project subproject ->
     }
 
     dependencies {
+        annotationProcessor "io.micronaut:micronaut-graal"
+        annotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
         runtimeOnly "io.micronaut.sql:micronaut-jdbc-hikari"
-        runtimeOnly("io.micronaut.flyway:micronaut-flyway")
         runtimeOnly "ch.qos.logback:logback-classic"
 
         implementation "io.micronaut:micronaut-http-client"
+        implementation project(":data-r2dbc")
         implementation project(":test-graalvm:common")
         testImplementation project(":test-graalvm:common-tests")
-        testAnnotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
         testImplementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
         testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
         testImplementation "org.testcontainers:spock"
@@ -55,6 +56,7 @@ subprojects { Project subproject ->
 
 project("common") {
     dependencies {
+        annotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
         implementation "io.micronaut:micronaut-http-client"
         annotationProcessor "io.micronaut:micronaut-graal"
         implementation project(":data-r2dbc")
@@ -88,6 +90,10 @@ project("mssql") {
         runtimeOnly "com.microsoft.sqlserver:mssql-jdbc"
         runtimeOnly 'io.r2dbc:r2dbc-mssql'
         testImplementation "org.testcontainers:mssqlserver"
+    }
+
+    nativeImage {
+        args('-H:+AddAllCharsets')
     }
 }
 project("postgres") {

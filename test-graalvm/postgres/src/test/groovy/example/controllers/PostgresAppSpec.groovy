@@ -15,6 +15,7 @@
  */
 package example.controllers
 
+import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.PostgreSQLContainer
@@ -25,7 +26,7 @@ class PostgresAppSpec extends AbstractDBContainerAppSpec {
 
     @Override
     JdbcDatabaseContainer getJdbcDatabaseContainer() {
-        return new PostgreSQLContainer(DockerImageName.parse("postgres:9.6.12"))
+        return new PostgreSQLContainer(DockerImageName.parse("postgres:10"))
     }
 
     @Override
@@ -33,4 +34,8 @@ class PostgresAppSpec extends AbstractDBContainerAppSpec {
         return "postgres"
     }
 
+    @Override
+    Dialect getDatabaseDialect() {
+        return Dialect.POSTGRES
+    }
 }
