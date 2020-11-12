@@ -35,7 +35,7 @@ dependencies {
     testCompileOnly "io.micronaut:micronaut-inject-groovy:$micronautVersion"
     testImplementation "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
     testImplementation "com.fasterxml.jackson.core:jackson-databind:2.11.3"
-    testImplementation 'jakarta.persistence:jakarta.persistence-api:2.2.3'
+    testImplementation 'jakarta.persistence:jakarta.persistence-api:3.0.0'
     testImplementation "org.codehaus.groovy:groovy-sql:$groovyVersion"
     testImplementation "io.micronaut:micronaut-validation:$micronautVersion"
     testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0')
