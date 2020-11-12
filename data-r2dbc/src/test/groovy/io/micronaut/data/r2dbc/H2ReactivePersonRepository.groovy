@@ -11,5 +11,7 @@ import io.reactivex.Single
 @R2dbcRepository(dialect = Dialect.H2)
 interface H2ReactivePersonRepository extends PersonReactiveRepository {
 
+    Single<Person> save(String name, int age)
+
     Single<Person> findByName(String name, ReactiveTransactionStatus<Connection> connection)
 }
