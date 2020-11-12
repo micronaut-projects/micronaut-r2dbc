@@ -77,6 +77,7 @@ public class BookControllerTest implements TestPropertyProvider {
                 "datasources.default.username", container.getUsername(),
                 "datasources.default.password", container.getPassword(),
                 "datasources.default.database", container.getDatabaseName(),
+                "datasources.default.driverClassName", container.getDriverClassName(),
                 "r2dbc.datasources.default.host", container.getHost(),
                 "r2dbc.datasources.default.port", container.getFirstMappedPort(),
                 "r2dbc.datasources.default.driver", "mysql",

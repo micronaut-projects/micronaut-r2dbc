@@ -13,6 +13,7 @@ micronaut {
 }
 
 dependencies {
+    annotationProcessor("io.micronaut:micronaut-graal")
     annotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
     implementation platform(project(":r2dbc-bom"))
     implementation project(":r2dbc-core")
@@ -21,7 +22,7 @@ dependencies {
     implementation("io.micronaut.flyway:micronaut-flyway")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     runtimeOnly 'dev.miku:r2dbc-mysql'
-    runtimeOnly "mysql:mysql-connector-java"
+    implementation "mysql:mysql-connector-java"
 
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
@@ -33,4 +34,8 @@ dependencies {
             strictly('2.2.1')
         }
     }
+}
+
+nativeImage {
+    args('-H:+AddAllCharsets')
 }
