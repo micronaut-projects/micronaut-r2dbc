@@ -6,6 +6,8 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.test.support.TestPropertyProvider;
+import io.reactivex.Flowable;
+import io.reactivex.Single;
 import org.junit.jupiter.api.*;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -26,6 +28,15 @@ public class BookControllerTest implements TestPropertyProvider {
     @Inject
     BookClient bookClient;
 
+    @Inject
+    R2dbcOperations operations;
+
+    @Inject
+    AuthorRepository authorRepository;
+
+    @Inject
+    BookRepository bookRepository;
+
     @BeforeAll
     static void setupData(R2dbcOperations operations, AuthorRepository authorRepository, BookRepository bookRepository) {
         // tag::programmatic-tx[]
@@ -41,6 +52,17 @@ public class BookControllerTest implements TestPropertyProvider {
             )).then()
         )).block();
         // end::programmatic-tx[]
+
+        // tag::programmatic-tx-status[]
+        Flowable.fromPublisher(operations.withTransaction(status -> // <1>
+                Flowable.fromPublisher(authorRepository.save(new Author("Michael Crichton")))
+                        .flatMap((author -> operations.withTransaction(status, (s) -> // <2>
+                                bookRepository.saveAll(Arrays.asList(
+                                        new Book("Jurassic Park", 300, author),
+                                        new Book("Disclosure", 400, author)
+                                )))))
+        )).blockingSubscribe();
+        // end::programmatic-tx-status[]
     }
 
     @AfterAll
@@ -54,7 +76,7 @@ public class BookControllerTest implements TestPropertyProvider {
     void testListBooks() {
         List<Book> list = bookClient.list();
         Assertions.assertEquals(
-                3,
+                5,
                 list.size()
         );
     }
@@ -63,7 +85,7 @@ public class BookControllerTest implements TestPropertyProvider {
     void testListBooksMicronautData() {
         List<Book> list = bookClient.list();
         Assertions.assertEquals(
-                3,
+                5,
                 list.size()
         );
     }

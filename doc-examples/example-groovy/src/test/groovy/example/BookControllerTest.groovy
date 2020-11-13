@@ -6,6 +6,7 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
+import io.reactivex.Flowable
 import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.utility.DockerImageName
 import reactor.core.publisher.Flux
@@ -40,6 +41,17 @@ class BookControllerTest extends Specification implements TestPropertyProvider {
                         )).then()
         )).block()
         // end::programmatic-tx[]
+
+        // tag::programmatic-tx-status[]
+        Flowable.fromPublisher(operations.withTransaction(status -> // <1>
+                Flowable.fromPublisher(authorRepository.save(new Author("Michael Crichton")))
+                        .flatMap((author -> operations.withTransaction(status, (s) -> // <2>
+                                bookRepository.saveAll([
+                                        new Book("Jurassic Park", 300, author),
+                                        new Book("Disclosure", 400, author)
+                                ]))))
+        )).blockingSubscribe()
+        // end::programmatic-tx-status[]
     }
 
     def cleanupSpec() {

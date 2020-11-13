@@ -7,8 +7,12 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import io.micronaut.transaction.reactive.ReactiveTransactionStatus
 import io.r2dbc.spi.Connection
-import org.junit.jupiter.api.*
+import io.reactivex.Flowable
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.testcontainers.containers.MySQLContainer
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -37,6 +41,20 @@ class BookControllerTest : TestPropertyProvider {
                     .flatMap { author: Author -> bookRepository.save(Book("Along Came a Spider", 300, author)) }.then()
         }).block()
         // end::programmatic-tx[]
+
+        // tag::programmatic-tx-status[]
+        Flowable.fromPublisher(operations.withTransaction { status: ReactiveTransactionStatus<Connection> ->  // <1>
+            Flowable.fromPublisher(authorRepository.save(Author("Michael Crichton")))
+                    .flatMap { author: Author ->
+                        operations.withTransaction(status) {   // <2>
+                            bookRepository.saveAll(listOf(
+                                    Book("Jurassic Park", 300, author),
+                                    Book("Disclosure", 400, author)
+                            ))
+                        }
+                    }
+        }).blockingSubscribe()
+        // end::programmatic-tx-status[]
     }
 
     @AfterAll
@@ -75,7 +93,7 @@ class BookControllerTest : TestPropertyProvider {
                 "r2dbc.datasources.default.port" to container!!.firstMappedPort.toString(),
                 "r2dbc.datasources.default.driver" to "mysql",
                 "r2dbc.datasources.default.username" to container!!.username,
-                "r2dbc.datasources.default.password" to  container!!.password,
+                "r2dbc.datasources.default.password" to container!!.password,
                 "r2dbc.datasources.default.database" to container!!.databaseName
         )
     }

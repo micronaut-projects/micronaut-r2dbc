@@ -23,3 +23,10 @@ To ensure this doesn't happen it is recommended that you annotate write operatio
 snippet::example.BookRepository[project-base="doc-examples/example", source="main", indent="0", tags="mandatory"]
 
 If the transaction is somehow lost during the reactive flow there are a couple of ways you can solve the problem. One way is to use the `withTransaction` method of the api:data.r2dbc.operations.R2dbcOperations[] interface to obtain the current `ReactiveTransactionStatus`, you can then pass this instance into another execution of the `withTransaction` method or pass it directly as the last argument to any method declared on the repository itself.
+
+An example of the former approach is presented below, using RxJava 2 this time which will cause propagation loss:
+
+snippet::example.BookControllerTest[project-base="doc-examples/example", source="test", indent="0", tags="programmatic-tx-status"]
+
+<1> An other `withTransaction` call starts the transaction
+<2> An inner call ensures the existing transaction is propagated
