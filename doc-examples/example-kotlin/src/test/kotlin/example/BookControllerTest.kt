@@ -68,7 +68,7 @@ class BookControllerTest : TestPropertyProvider {
     fun testListBooks() {
         val list = bookClient.list()
         assertEquals(
-                3,
+                5,
                 list.size
         )
     }
@@ -77,7 +77,7 @@ class BookControllerTest : TestPropertyProvider {
     fun testListBooksMicronautData() {
         val list = bookClient.list()
         assertEquals(
-                3,
+                5,
                 list.size
         )
     }

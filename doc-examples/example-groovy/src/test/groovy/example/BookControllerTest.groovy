@@ -63,7 +63,7 @@ class BookControllerTest extends Specification implements TestPropertyProvider {
         List<Book> list = bookClient.list()
 
         then:
-        list.size() == 3
+        list.size() == 5
     }
 
     @Override
