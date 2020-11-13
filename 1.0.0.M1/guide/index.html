@@ -1,0 +1,1148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Micronaut R2DBC</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <link rel="stylesheet" href="../css/highlight/agate.css">
+    <script src="../js/highlight.pack.js"></script>
+    <script src="../js/guide.js"></script>
+    <script src="../js/multi-language-sample.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="../css/multi-language-sample.css"/>
+    <script src="../js/docs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+    <script type="text/javascript">
+        function addJsClass(el) {
+            var classes = document.body.className.split(" ");
+            classes.push("js");
+            document.body.className = classes.join(" ");
+        }
+    </script>
+
+</head>
+
+<body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
+
+<div id="table-of-content-nav-link" class="desktop">
+    <a id="theme-switcher" title="Switch to dark theme" href="javascript:switchTheme(true)"><i class="fa fa-moon-o"></i></a>
+    <a title="Collapse/Open Table of contents" title="Hide Table of Contents" href="javascript:hideTableOfContents();" class="button">[ + ]</a>
+</div>
+
+<div id="main">
+    <div id="navigation" class="no-print">
+        <div class="navTitle">
+            <span id="logo"><a href="http://micronaut.io" title="Go to Micronaut Website"><img src="../img/micronaut-logo-white.svg" alt="Micronaut"/></a></span>
+        </div>
+        <div class="navLinks">
+            <ul>
+                    <li><div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)" class="desktop">
+                            <a href="../guide/index.html" class="button">Table of contents</a>
+                            <div id="nav-summary-childs" style="display:none;">
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#quickStart"><strong>3</strong><span>Quick Start</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#dataR2dbc"><strong>4</strong><span>Micronaut Data R2DBC</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#clients"><strong>5</strong><span>R2DBC Clients</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
+                                
+                            </div>
+                        </div>
+                    </li>
+
+                <li id="table-of-content-nav-link-mobile" class="mobile">
+                    <a title="Scroll to Table of contents" href="javascript:scrollToTop();" class="button">Toc</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Configuration Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Conf</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    
+    <div id="table-of-content">
+        <div class="toc-content">
+
+        <h2>Table of Contents</h2>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-introduction"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-quickStart"><a href="#quickStart"><strong>3</strong><span>Quick Start</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-dataR2dbc"><a href="#dataR2dbc"><strong>4</strong><span>Micronaut Data R2DBC</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-dataQuickStart"><a href="#dataQuickStart"><strong>4.1</strong><span>Getting Started with Micronaut Data</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-querying"><a href="#querying"><strong>4.2</strong><span>Writing Queries</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-crud"><a href="#crud"><strong>4.3</strong><span>Performing CRUD Operations</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-transactionManagement"><a href="#transactionManagement"><strong>4.4</strong><span>Micronaut Data Transactions with R2DBC</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-clients"><a href="#clients"><strong>5</strong><span>R2DBC Clients</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
+        
+        </div>
+    </div>
+    
+    <div class="docs-content">
+    <div class="project">
+        <h1>Micronaut R2DBC</h1>
+        <p></p>
+        <p>Integration with Micronaut and R2DBC</p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option value='https://micronaut-projects.github.io/micronaut-r2dbc/snapshot/guide/index.html'>SNAPSHOT</option><option selected='selected' value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M1/guide/index.html'>1.0.0.M1</option></select></p>
+    </div>
+    
+<h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/introduction.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>This module provides integration between Micronaut and R2DBC.</p>
+</div>
+
+<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>For this project, you can find a list of releases (with release notes) here:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-r2dbc/releases">https://github.com/micronaut-projects/micronaut-r2dbc/releases</a></p>
+</div>
+
+<h1 id="quickStart"><a class="anchor" href="#quickStart"></a>3 Quick Start</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/quickStart.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To get started using this module you should first apply the <code>micronaut-r2dbc-bom</code>. For example with Gradle:</p>
+</div>
+<div class="listingblock">
+<div class="title">Applying the BOM in Gradle</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">implementation platform(project("io.micronaut.r2dbc:micronaut-r2dbc-bom:1.0.0.M1"))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or in Maven:</p>
+</div>
+<div class="listingblock">
+<div class="title">Applying the BOM in Maven</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.r2dbc&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-r2dbc-bom&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0.M1&lt;/version&gt;
+    &lt;type&gt;pom&lt;/type&gt;
+    &lt;scope&gt;import&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you should add a dependency on <code>micronaut-r2dbc-core</code>:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut:io.micronaut.r2dbc:micronaut-r2dbc-core")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;artifactId&gt;io.micronaut.r2dbc&lt;/artifactId&gt;
+    &lt;version&gt;micronaut-r2dbc-core&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>Followed by a dependency on any of the R2DBC drivers, for example for H2:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut:io.r2dbc:r2dbc-h2")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;artifactId&gt;io.r2dbc&lt;/artifactId&gt;
+    &lt;version&gt;r2dbc-h2&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>You can then configure the R2DBC connection URL in your application configuration, for example in <code>application.yml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">r2dbc:
+  datasources:
+    default:
+      url: "r2dbc:h2:mem:///mydb"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And then inject the R2DBC <code>ConnectionFactory</code> anywhere you need it.</p>
+</div>
+
+<h1 id="dataR2dbc"><a class="anchor" href="#dataR2dbc"></a>4 Micronaut Data R2DBC</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/dataR2dbc.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The R2DBC module features support for defining reactive Micronaut Data repositories that use the underlying R2DBC driver to automatically implement queries for your at compilation time.</p>
+</div>
+
+<h2 id="dataQuickStart"><a class="anchor" href="#dataQuickStart"></a>4.1 Getting Started with Micronaut Data</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/dataR2dbc/dataQuickStart.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The quickest way to get started is to create a new Micronaut application with Micronaut Launch and choose the <code>data-jdbc</code> and <code>flyway</code> features (yes that should be <code>data-jdbc</code> and not <code>data-r2dbc</code>). This can also be done via the Micronaut CLI:</p>
+</div>
+<div class="listingblock">
+<div class="title">Creating an application with the CLI</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># For Maven add: --build maven
+$ mn create-app --lang java example --features data-jdbc,flyway</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or via <code>curl</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">Creating an application with <code>curl</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># For Maven add to the URL: &amp;build=maven
+$ curl https://launch.micronaut.io/demo.zip?lang=java&amp;features=data-jdbc,flyway -o demo.zip &amp;&amp; unzip demo.zip -d demo &amp;&amp; cd demo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then add a dependency on <code>micronaut-data-r2dbc</code>:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.r2dbc:micronaut-data-r2dbc:1.0.0.M1")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.r2dbc&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-data-r2dbc&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0.M1&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>Followed by a dependency on the R2DBC driver you wish to use:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtime(<span class="hljs-string">"dev.miku:r2dbc-mysql")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;dev.miku&lt;/groupId&gt;
+    &lt;artifactId&gt;r2dbc-mysql&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>And for flyway the JDBC driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtime(<span class="hljs-string">"mysql:mysql-connector-java")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>Now define a SQL script that creates your initial schema in <code>src/main/resources/db/migration</code>. For example:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>V1__create-schema.sql</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sql hljs" data-lang="sql">CREATE TABLE book(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), pages INT, author_id BIGINT NOT NULL);
+CREATE TABLE author(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can now configure your application to connect to the database:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>application.yml</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">flyway: <i class="conum" data-value="1"></i><b>(1)</b>
+  datasources:
+    default:
+      enabled: true
+datasources:
+  default: <i class="conum" data-value="2"></i><b>(2)</b>
+    url: jdbc:mysql://localhost:3306/mydatabase
+r2dbc:
+  datasources:
+    default: <i class="conum" data-value="3"></i><b>(3)</b>
+      url: r2dbc:mysql:///mydatabase</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The Flyway configuration ensures the schema migration is applied. See <a href="https://micronaut-projects.github.io/micronaut-flyway/latest/guide/index.html">Micronaut Flyway</a> for more information.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The Flyway configuration needs a JDBC datasource configured, this setting configures one. See <a href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc">Micronaut JDBC</a> for more information.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The property <code>r2dbc.datasources.default.url</code> is used to configure the default R2DBC <code>ConnectionFactory</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now define a <code>@MappedEntity</code> that maps to the <code>author</code> table defined in the schema:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package example;
+
+import io.micronaut.data.annotation.*;
+
+@MappedEntity
+public class Author {
+    @GeneratedValue
+    @Id
+    private Long id;
+    private final String name;
+
+    public Author(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+
+import io.micronaut.data.annotation.*
+
+@MappedEntity
+class Author {
+    @GeneratedValue
+    @Id
+    Long id
+    final String name
+
+    Author(String name) {
+        this.name = name
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+
+import io.micronaut.data.annotation.GeneratedValue
+import io.micronaut.data.annotation.Id
+import io.micronaut.data.annotation.MappedEntity
+
+@MappedEntity
+data class Author(val name: String) {
+    @GeneratedValue
+    @Id
+    var id: Long? = null
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And a repository interface to access the database that extends from <code>ReactiveStreamsRepository</code>:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package example;
+
+import edu.umd.cs.findbugs.annotations.NonNull;
+import io.micronaut.data.model.query.builder.sql.Dialect;
+import io.micronaut.data.r2dbc.annotation.R2dbcRepository;
+import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import javax.validation.constraints.NotNull;
+
+@R2dbcRepository(dialect = Dialect.MYSQL) <b class="conum">(1)</b>
+public interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
+    @NonNull
+    @Override
+    Mono&lt;Author&gt; findById(@NonNull @NotNull Long aLong); <b class="conum">(2)</b>
+
+    @NonNull
+    @Override
+    Flux&lt;Author&gt; findAll();
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+
+import edu.umd.cs.findbugs.annotations.NonNull
+import io.micronaut.data.model.query.builder.sql.Dialect
+import io.micronaut.data.r2dbc.annotation.R2dbcRepository
+import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+
+import javax.validation.constraints.NotNull
+
+@R2dbcRepository(dialect = Dialect.MYSQL) <b class="conum">(1)</b>
+interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
+    @NonNull
+    @Override
+    Mono&lt;Author&gt; findById(@NonNull @NotNull Long aLong) <b class="conum">(2)</b>
+
+    @NonNull
+    @Override
+    Flux&lt;Author&gt; findAll()
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+
+import io.micronaut.data.model.query.builder.sql.Dialect
+import io.micronaut.data.r2dbc.annotation.R2dbcRepository
+import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+import javax.validation.constraints.NotNull
+
+@R2dbcRepository(dialect = Dialect.MYSQL) <b class="conum">(1)</b>
+interface AuthorRepository : ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
+    override fun findById(id: @NotNull Long): Mono&lt;Author&gt; <b class="conum">(2)</b>
+    override fun findAll(): Flux&lt;Author&gt;
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <a href="../api/io/micronaut/data/r2dbc/annotation/R2dbcRepository.html">@R2dbcRepository</a> annotation can be used to specify the datasource and dialect</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>You can override methods from the super interface to specialize the default <a href="https://docs.oracle.com/javase/8/docs/api/org/reactivestreams/Publisher.html">Publisher</a> return type with a concrete implementation</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can now inject this interface into controllers and use it to perform R2DBC queries:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package example;
+
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+@Controller("/authors")
+public class AuthorController {
+    private final AuthorRepository repository;
+
+    public AuthorController(AuthorRepository repository) {
+        this.repository = repository;
+    }
+
+    @Get
+    Flux&lt;Author&gt; all() { <b class="conum">(1)</b>
+        return repository.findAll();
+    }
+
+    @Get("/id")
+    Mono&lt;Author&gt; get(Long id) { <b class="conum">(2)</b>
+        return repository.findById(id);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+
+@Controller("/authors")
+class AuthorController {
+    private final AuthorRepository repository
+
+    AuthorController(AuthorRepository repository) {
+        this.repository = repository
+    }
+
+    @Get
+    Flux&lt;Author&gt; all() { <b class="conum">(1)</b>
+        return repository.findAll()
+    }
+
+    @Get("/id")
+    Mono&lt;Author&gt; get(Long id) { <b class="conum">(2)</b>
+        return repository.findById(id)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+
+@Controller("/authors")
+class AuthorController(private val repository: AuthorRepository) {
+    @Get
+    fun all(): Flux&lt;Author&gt; { <b class="conum">(1)</b>
+        return repository.findAll()
+    }
+
+    @Get("/id")
+    fun get(id: Long): Mono&lt;Author&gt; { <b class="conum">(2)</b>
+        return repository.findById(id)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>By returning a reactive type that emits many items you can stream data (either <a href="http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Flowable.html">Flowable</a> or <code>Flux</code>)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>By returning a reactive type that emits a single item you return the entire response (either <a href="http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Single.html">Single</a> or <code>Mono</code>)</td>
+</tr>
+</table>
+</div>
+
+<h2 id="querying"><a class="anchor" href="#querying"></a>4.2 Writing Queries</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/dataR2dbc/querying.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To write queries with Micronaut Data R2DBC you can use all the same patterns as defined in the <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#querying">Micronaut Data documentation on querying</a>.</p>
+</div>
+<div class="paragraph">
+<p>The method pattern is essentially:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://micronaut-projects.github.io/micronaut-data/latest/img/finderpattern.svg" alt="finderpattern">
+</div>
+<div class="title">Figure 1. Query Method Pattern</div>
+</div>
+<div class="paragraph">
+<p>The Reactive return type is used to figure out whether the query is for a single result or multiple. If you use for example <a href="http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Single.html">Single</a> or Reactor&#8217;s <code>Mono</code> type a single result will be returned, whilst a <a href="http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Flowable.html">Flowable</a> or Reactor <code>Flux</code> will return multiple records.</p>
+</div>
+<div class="paragraph">
+<p>You can pass a <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/model/Pageable.html">Pageable</a> instance to any query to paginate results, although note that the <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/model/Page.html">Page</a> return type is not supported since it is an implicitly blocking API.</p>
+</div>
+
+<h2 id="crud"><a class="anchor" href="#crud"></a>4.3 Performing CRUD Operations</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/dataR2dbc/crud.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/repository/reactive/ReactiveStreamsCrudRepository.html">ReactiveStreamsCrudRepository</a> interface exposes methods to perform Create, Read, Update and Delete (CRUD) operations reactively.</p>
+</div>
+<div class="paragraph">
+<p>To create a new instance you can use the <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/repository/reactive/ReactiveStreamsCrudRepository.html#save-S-">save</a> method:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Post("/")
+Single&lt;Book&gt; create(@Valid Book book) {
+    return Single.fromPublisher(bookRepository.save(book));
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">@Post("/")
+Single&lt;Book&gt; create(@Valid Book book) {
+    return Single.fromPublisher(bookRepository.save(book))
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">@Post("/")
+fun create(book: @Valid Book): Single&lt;Book&gt; {
+    return Single.fromPublisher(bookRepository.save(book))
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To read objects you can use <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/repository/reactive/ReactiveStreamsCrudRepository.html#findAll--">findAll</a> or <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/repository/reactive/ReactiveStreamsCrudRepository.html#findById-ID-">findById</a>:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Get("/")
+Flux&lt;Book&gt; all() {
+    return bookRepository.findAll(); <b class="conum">(1)</b>
+}
+
+@Get("/{id}")
+Mono&lt;Book&gt; show(Long id) {
+    return bookRepository.findById(id); <b class="conum">(2)</b>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">@Get("/")
+Flux&lt;Book&gt; all() {
+    return bookRepository.findAll() <b class="conum">(1)</b>
+}
+
+@Get("/{id}")
+Mono&lt;Book&gt; show(Long id) {
+    return bookRepository.findById(id) <b class="conum">(2)</b>
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">@Get("/")
+fun all(): Flux&lt;Book&gt; {
+    return bookRepository.findAll() <b class="conum">(1)</b>
+}
+
+@Get("/{id}")
+fun show(id: Long): Mono&lt;Book&gt; {
+    return bookRepository.findById(id) <b class="conum">(2)</b>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To perform an update you can use the <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/repository/reactive/ReactiveStreamsCrudRepository.html#update-S-">update</a> method:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Put("/{id}")
+Single&lt;Book&gt; update(@NotNull Long id, @Valid Book book) {
+    return Single.fromPublisher(bookRepository.update(book));
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">@Put("/{id}")
+Single&lt;Book&gt; update(@NotNull Long id, @Valid Book book) {
+    return Single.fromPublisher(bookRepository.update(book))
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">@Put("/{id}")
+fun update(id: Long, book: @Valid Book): Single&lt;Book&gt; {
+    return Single.fromPublisher(bookRepository.update(book))
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally to delete an instance you can use the <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/repository/reactive/ReactiveStreamsCrudRepository.html#deleteById-ID-">deleteById</a> method:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@Delete("/{id}")
+Single&lt;HttpResponse&lt;?&gt;&gt; delete(@NotNull Long id) {
+    return Single.fromPublisher(bookRepository.deleteById(id))
+            .map(deleted -&gt; deleted &gt; 0 ? HttpResponse.noContent() : HttpResponse.notFound());
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">@Delete("/{id}")
+Single&lt;HttpResponse&lt;?&gt;&gt; delete(@NotNull Long id) {
+    return Single.fromPublisher(bookRepository.deleteById(id))
+            .map(deleted -&gt; deleted &gt; 0 ? HttpResponse.noContent() : HttpResponse.notFound())
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">@Delete("/{id}")
+fun delete(id: Long): Single&lt;HttpResponse&lt;*&gt;&gt; {
+    return Single.fromPublisher(bookRepository.deleteById(id))
+            .map { deleted: Long -&gt; if (deleted &gt; 0) HttpResponse.noContent() else HttpResponse.notFound&lt;Any&gt;() }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information on the possible write operations, see the documentation on <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#dataUpdates">Data Updates</a> in the Micronaut Data documentation which also apply to R2DBC.</p>
+</div>
+
+<h2 id="transactionManagement"><a class="anchor" href="#transactionManagement"></a>4.4 Micronaut Data Transactions with R2DBC</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/dataR2dbc/transactionManagement.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>Micronaut Data R2DBC features Reactive transaction management support whereby you can declare <code>javax.transaction.Transactional</code> on your methods and a reactive transaction will be initiated, for example:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package example;
+
+import reactor.core.publisher.Mono;
+
+import javax.inject.Singleton;
+import javax.transaction.Transactional;
+import java.util.Arrays;
+
+@Singleton
+public class AuthorService {
+    private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
+
+    public AuthorService(AuthorRepository authorRepository, BookRepository bookRepository) { <b class="conum">(1)</b>
+        this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
+    }
+
+    @Transactional <b class="conum">(2)</b>
+    Mono&lt;Void&gt; setupData() {
+        return Mono.from(authorRepository.save(new Author("Stephen King")))
+                .flatMapMany((author -&gt; bookRepository.saveAll(Arrays.asList(
+                        new Book("The Stand", 1000, author),
+                        new Book("The Shining", 400, author)
+                ))))
+                .then(Mono.from(authorRepository.save(new Author("James Patterson"))))
+                .flatMapMany((author -&gt;
+                        bookRepository.save(new Book("Along Came a Spider", 300, author))
+                )).then();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+
+import reactor.core.publisher.Mono
+
+import javax.inject.Singleton
+import javax.transaction.Transactional
+
+@Singleton
+class AuthorService {
+    private final AuthorRepository authorRepository
+    private final BookRepository bookRepository
+
+    AuthorService(AuthorRepository authorRepository, BookRepository bookRepository) { <b class="conum">(1)</b>
+        this.authorRepository = authorRepository
+        this.bookRepository = bookRepository
+    }
+
+    @Transactional <b class="conum">(2)</b>
+    Mono&lt;Void&gt; setupData() {
+        return Mono.from(authorRepository.save(new Author("Stephen King")))
+                .flatMapMany((author -&gt; bookRepository.saveAll([
+                        new Book("The Stand", 1000, author),
+                        new Book("The Shining", 400, author)
+                ])))
+                .then(Mono.from(authorRepository.save(new Author("James Patterson"))))
+                .flatMapMany((author -&gt;
+                        bookRepository.save(new Book("Along Came a Spider", 300, author))
+                )).then()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+
+import reactor.core.publisher.Mono
+import javax.inject.Singleton
+import javax.transaction.Transactional
+
+@Singleton
+open class AuthorService(
+        private val authorRepository: AuthorRepository,
+        private val bookRepository: BookRepository) { <b class="conum">(1)</b>
+
+    @Transactional <b class="conum">(2)</b>
+    open fun setupData(): Mono&lt;Void&gt; {
+        return Mono.from(authorRepository.save(Author("Stephen King")))
+                .flatMapMany { author: Author -&gt;
+                    bookRepository.saveAll(listOf(
+                            Book("The Stand", 1000, author),
+                            Book("The Shining", 400, author)
+                    ))
+                }
+                .then(Mono.from(authorRepository.save(Author("James Patterson"))))
+                .flatMapMany { author: Author -&gt;
+                    bookRepository.save(Book("Along Came a Spider", 300, author))
+                }.then()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Supporting repositories are injected</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>@Transactional</code> is used to declare a transaction</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This same declarative logic can be done programmatically as well by injecting the <a href="../api/io/micronaut/data/r2dbc/operations/R2dbcOperations.html">R2dbcOperations</a> interface:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">Mono.from(operations.withTransaction(status -&gt;
+    Flux.from(authorRepository.save(new Author("Stephen King")))
+            .flatMap((author -&gt; bookRepository.saveAll(Arrays.asList(
+                    new Book("The Stand", 1000, author),
+                    new Book("The Shining", 400, author)
+            ))))
+    .thenMany(Flux.from(authorRepository.save(new Author("James Patterson"))))
+        .flatMap((author -&gt;
+                bookRepository.save(new Book("Along Came a Spider", 300, author))
+    )).then()
+)).block();</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">Mono.from(operations.withTransaction(status -&gt;
+        Flux.from(authorRepository.save(new Author("Stephen King")))
+                .flatMap((author -&gt; bookRepository.saveAll([
+                        new Book("The Stand", 1000, author),
+                        new Book("The Shining", 400, author)
+                ])))
+                .thenMany(Flux.from(authorRepository.save(new Author("James Patterson"))))
+                .flatMap((author -&gt;
+                        bookRepository.save(new Book("Along Came a Spider", 300, author))
+                )).then()
+)).block()</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">Mono.from(operations.withTransaction {
+    Flux.from(authorRepository.save(Author("Stephen King")))
+            .flatMap { author: Author -&gt;
+                bookRepository.saveAll(listOf(
+                        Book("The Stand", 1000, author),
+                        Book("The Shining", 400, author)
+                ))
+            }
+            .thenMany(Flux.from(authorRepository.save(Author("James Patterson"))))
+            .flatMap { author: Author -&gt; bookRepository.save(Book("Along Came a Spider", 300, author)) }.then()
+}).block()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above case the <code>withTransaction</code> method is used to initiate a transaction.</p>
+</div>
+<div class="paragraph">
+<p>Note however, that transaction management is possibly one of the most challenging areas to get right in reactive programming since you need to propagate the transaction across the reactive flow.</p>
+</div>
+<div class="paragraph">
+<p>Most R2DBC drivers are implemented in <a href="https://projectreactor.io/">Project Reactor</a> which has the ability to <a href="https://projectreactor.io/docs/core/release/reference/#context">propagate a context</a> across reactive operators and Micronaut Data R2DBC will populate this context and ensure the transaction is re-used if it is found within it.</p>
+</div>
+<div class="paragraph">
+<p>However, it is still pretty easy for the context to be lost since different libraries that implement Reactive Streams don&#8217;t propagate contexts between each other so if you include RxJava or any other reactive operator library it is likely the context will be lost.</p>
+</div>
+<div class="paragraph">
+<p>To ensure this doesn&#8217;t happen it is recommended that you annotate write operations that participate within a transaction as <code>MANDATORY</code> which ensures it is not possible to run these methods without a surrounding transaction present so that if the transaction is somehow lost within the reactive flow it doesn&#8217;t cause operations to be run in separate transactions:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">@NonNull
+@Override
+@Transactional(Transactional.TxType.MANDATORY)
+&lt;S extends Book&gt; Publisher&lt;S&gt; save(@NonNull @Valid @NotNull S entity);
+
+@NonNull
+@Override
+@Transactional(Transactional.TxType.MANDATORY)
+&lt;S extends Book&gt; Publisher&lt;S&gt; saveAll(@NonNull @Valid @NotNull Iterable&lt;S&gt; entities);</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">@NonNull
+@Override
+@Transactional(Transactional.TxType.MANDATORY)
+&lt;S extends Book&gt; Publisher&lt;S&gt; save(@NonNull @Valid @NotNull S entity);
+
+@NonNull
+@Override
+@Transactional(Transactional.TxType.MANDATORY)
+&lt;S extends Book&gt; Publisher&lt;S&gt; saveAll(@NonNull @Valid @NotNull Iterable&lt;S&gt; entities);</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">@Transactional(Transactional.TxType.MANDATORY)
+override fun &lt;S : Book?&gt; save(entity: @Valid @NotNull S): Publisher&lt;S&gt;
+
+@Transactional(Transactional.TxType.MANDATORY)
+override fun &lt;S : Book?&gt; saveAll(entities: @Valid @NotNull Iterable&lt;S&gt;): Publisher&lt;S&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the transaction is somehow lost during the reactive flow there are a couple of ways you can solve the problem. One way is to use the <code>withTransaction</code> method of the <a href="../api/io/micronaut/data/r2dbc/operations/R2dbcOperations.html">R2dbcOperations</a> interface to obtain the current <code>ReactiveTransactionStatus</code>, you can then pass this instance into another execution of the <code>withTransaction</code> method or pass it directly as the last argument to any method declared on the repository itself.</p>
+</div>
+<div class="paragraph">
+<p>An example of the former approach is presented below, using RxJava 2 this time which will cause propagation loss:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">Flowable.fromPublisher(operations.withTransaction(status -&gt; <b class="conum">(1)</b>
+        Flowable.fromPublisher(authorRepository.save(new Author("Michael Crichton")))
+                .flatMap((author -&gt; operations.withTransaction(status, (s) -&gt; <b class="conum">(2)</b>
+                        bookRepository.saveAll(Arrays.asList(
+                                new Book("Jurassic Park", 300, author),
+                                new Book("Disclosure", 400, author)
+                        )))))
+)).blockingSubscribe();</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">Flowable.fromPublisher(operations.withTransaction(status -&gt; <b class="conum">(1)</b>
+        Flowable.fromPublisher(authorRepository.save(new Author("Michael Crichton")))
+                .flatMap((author -&gt; operations.withTransaction(status, (s) -&gt; <b class="conum">(2)</b>
+                        bookRepository.saveAll([
+                                new Book("Jurassic Park", 300, author),
+                                new Book("Disclosure", 400, author)
+                        ]))))
+)).blockingSubscribe()</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">Flowable.fromPublisher(operations.withTransaction { status: ReactiveTransactionStatus&lt;Connection&gt; -&gt;  <b class="conum">(1)</b>
+    Flowable.fromPublisher(authorRepository.save(Author("Michael Crichton")))
+            .flatMap { author: Author -&gt;
+                operations.withTransaction(status) {   <b class="conum">(2)</b>
+                    bookRepository.saveAll(listOf(
+                            Book("Jurassic Park", 300, author),
+                            Book("Disclosure", 400, author)
+                    ))
+                }
+            }
+}).blockingSubscribe()</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>An outer <code>withTransaction</code> call starts the transaction</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>An inner call ensures the existing transaction is propagated</td>
+</tr>
+</table>
+</div>
+
+<h1 id="clients"><a class="anchor" href="#clients"></a>5 R2DBC Clients</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/clients.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>By default R2DBC is not opinonated about clients, therefore you can use the R2DBC <code>ConnectionFactory</code> with any <a href="https://r2dbc.io/clients/">external R2DBC client</a> you choose.</p>
+</div>
+<div class="sect2">
+<h3 id="_rxjava_2_client_experimental">RxJava 2 Client (Experimental)</h3>
+<div class="paragraph">
+<p>As part of this project there is an experimental RxJava 2 client which you can add with the following dependency:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut:io.micronaut.r2dbc:micronaut-r2dbc-rxjava2")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;artifactId&gt;io.micronaut.r2dbc&lt;/artifactId&gt;
+    &lt;version&gt;micronaut-r2dbc-rxjava2&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>Which allows you to inject a <code>RxConnectionFactory</code> bean that allows you to do basic operations with R2DBC and RxJava 2.</p>
+</div>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>6 Repository</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/repository.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can find the source code of this project in this repository:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-r2dbc">https://github.com/micronaut-projects/micronaut-r2dbc</a></p>
+</div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
