@@ -28,5 +28,5 @@ An example of the former approach is presented below, using RxJava 2 this time w
 
 snippet::example.BookControllerTest[project-base="doc-examples/example", source="test", indent="0", tags="programmatic-tx-status"]
 
-<1> An other `withTransaction` call starts the transaction
+<1> An outer `withTransaction` call starts the transaction
 <2> An inner call ensures the existing transaction is propagated
