@@ -112,7 +112,7 @@
         <h1>Micronaut R2DBC</h1>
         <p></p>
         <p>Integration with Micronaut and R2DBC</p>
-        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-r2dbc/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M1/guide/index.html'>1.0.0.M1</option></select></p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option value='https://micronaut-projects.github.io/micronaut-r2dbc/snapshot/guide/index.html'>SNAPSHOT</option><option selected='selected' value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M2/guide/index.html'>1.0.0.M2</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M1/guide/index.html'>1.0.0.M1</option></select></p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
@@ -159,7 +159,7 @@
 <div class="listingblock">
 <div class="title">Applying the BOM in Gradle</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">implementation platform(project("io.micronaut.r2dbc:micronaut-r2dbc-bom:1.0.0.BUILD-SNAPSHOT"))</code></pre>
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">implementation platform(project("io.micronaut.r2dbc:micronaut-r2dbc-bom:1.0.0.M2"))</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -171,7 +171,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
     &lt;groupId&gt;io.micronaut.r2dbc&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-r2dbc-bom&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0.BUILD-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.0.0.M2&lt;/version&gt;
     &lt;type&gt;pom&lt;/type&gt;
     &lt;scope&gt;import&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
@@ -283,7 +283,7 @@ $ curl https://launch.micronaut.io/demo.zip?lang=java&amp;features=data-jdbc,fly
 <p>        <div class="listingblock multi-language-sample">
 <div class="title"></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.r2dbc:micronaut-data-r2dbc:1.0.0.BUILD-SNAPSHOT")</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.r2dbc:micronaut-data-r2dbc:1.0.0.M2")</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -291,7 +291,7 @@ $ curl https://launch.micronaut.io/demo.zip?lang=java&amp;features=data-jdbc,fly
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.micronaut.r2dbc&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-data-r2dbc&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0.BUILD-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.0.0.M2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
