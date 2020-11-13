@@ -1027,6 +1027,60 @@ override fun &lt;S : Book?&gt; saveAll(entities: @Valid @NotNull Iterable&lt;S&g
 <div class="paragraph">
 <p>If the transaction is somehow lost during the reactive flow there are a couple of ways you can solve the problem. One way is to use the <code>withTransaction</code> method of the <a href="../api/io/micronaut/data/r2dbc/operations/R2dbcOperations.html">R2dbcOperations</a> interface to obtain the current <code>ReactiveTransactionStatus</code>, you can then pass this instance into another execution of the <code>withTransaction</code> method or pass it directly as the last argument to any method declared on the repository itself.</p>
 </div>
+<div class="paragraph">
+<p>An example of the former approach is presented below, using RxJava 2 this time which will cause propagation loss:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">Flowable.fromPublisher(operations.withTransaction(status -&gt; <b class="conum">(1)</b>
+        Flowable.fromPublisher(authorRepository.save(new Author("Michael Crichton")))
+                .flatMap((author -&gt; operations.withTransaction(status, (s) -&gt; <b class="conum">(2)</b>
+                        bookRepository.saveAll(Arrays.asList(
+                                new Book("Jurassic Park", 300, author),
+                                new Book("Disclosure", 400, author)
+                        )))))
+)).blockingSubscribe();</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">Flowable.fromPublisher(operations.withTransaction(status -&gt; <b class="conum">(1)</b>
+        Flowable.fromPublisher(authorRepository.save(new Author("Michael Crichton")))
+                .flatMap((author -&gt; operations.withTransaction(status, (s) -&gt; <b class="conum">(2)</b>
+                        bookRepository.saveAll([
+                                new Book("Jurassic Park", 300, author),
+                                new Book("Disclosure", 400, author)
+                        ]))))
+)).blockingSubscribe()</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">Flowable.fromPublisher(operations.withTransaction { status: ReactiveTransactionStatus&lt;Connection&gt; -&gt;  <b class="conum">(1)</b>
+    Flowable.fromPublisher(authorRepository.save(Author("Michael Crichton")))
+            .flatMap { author: Author -&gt;
+                operations.withTransaction(status) {   <b class="conum">(2)</b>
+                    bookRepository.saveAll(listOf(
+                            Book("Jurassic Park", 300, author),
+                            Book("Disclosure", 400, author)
+                    ))
+                }
+            }
+}).blockingSubscribe()</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>An other <code>withTransaction</code> call starts the transaction</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>An inner call ensures the existing transaction is propagated</td>
+</tr>
+</table>
+</div>
 
 <h1 id="clients"><a class="anchor" href="#clients"></a>5 R2DBC Clients</h1>
 
