@@ -8,7 +8,7 @@ dependencies {
     api platform("io.r2dbc:r2dbc-bom:$r2dbcVersion")
     constraints {
         for (Project p : rootProject.subprojects) {
-            if (p.name == "r2dbc-bom" || p.name.contains('example')) continue
+            if (p.name == "r2dbc-bom" || p.name.contains('example') || p.group.contains('test-') || p.name.contains('test-')) continue
             api "$p.group:micronaut-$p.name:$p.version"
         }
 
