@@ -22,11 +22,11 @@ dependency:io.micronaut.r2dbc:micronaut-data-r2dbc[version="{version}"]
 
 Followed by a dependency on the R2DBC driver you wish to use:
 
-dependency:dev.miku:r2dbc-mysql[scope="runtime"]
+dependency:dev.miku:r2dbc-mysql[scope="runtimeOnly"]
 
 And for flyway the JDBC driver:
 
-dependency:mysql:mysql-connector-java[scope="runtime"]
+dependency:mysql:mysql-connector-java[scope="runtimeOnly"]
 
 Now define a SQL script that creates your initial schema in `src/main/resources/db/migration`. For example:
 
