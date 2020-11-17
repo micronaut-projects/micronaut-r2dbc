@@ -20,6 +20,13 @@ import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.*;
 import io.reactivex.Flowable;
 
+
+/**
+ * Specialization of {@link Connection} for RxJava.
+ *
+ * @author graemerocher
+ * @since 1.0.0
+ */
 @Experimental
 public interface RxConnection extends Connection {
     /**

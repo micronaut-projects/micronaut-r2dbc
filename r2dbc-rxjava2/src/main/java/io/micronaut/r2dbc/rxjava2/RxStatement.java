@@ -19,6 +19,13 @@ import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.Statement;
 import io.reactivex.Flowable;
 
+
+/**
+ * Specialization of {@link Statement} for RxJava.
+ *
+ * @author graemerocher
+ * @since 1.0.0
+ */
 @Experimental
 public interface RxStatement extends Statement {
     /**
