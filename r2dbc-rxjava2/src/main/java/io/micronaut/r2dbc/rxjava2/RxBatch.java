@@ -20,6 +20,12 @@ import io.micronaut.core.annotation.Experimental;
 import io.r2dbc.spi.Batch;
 import io.reactivex.Flowable;
 
+/**
+ * Specialization of {@link Batch} for RxJava.
+ *
+ * @author graemerocher
+ * @since 1.0.0
+ */
 @Experimental
 public interface RxBatch extends Batch {
     /**

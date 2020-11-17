@@ -22,6 +22,13 @@ import io.reactivex.Flowable;
 
 import java.util.function.Function;
 
+
+/**
+ * Specialization of {@link ConnectionFactory} for RxJava.
+ *
+ * @author graemerocher
+ * @since 1.0.0
+ */
 @Experimental
 public interface RxConnectionFactory extends ConnectionFactory {
     /**

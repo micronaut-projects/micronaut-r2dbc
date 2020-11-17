@@ -240,7 +240,7 @@ class DefaultRxConnection implements RxConnection {
         }
     }
 
-    private final static class DefaultRxStatement implements RxStatement {
+    private static final class DefaultRxStatement implements RxStatement {
         private final Statement delegate;
 
         DefaultRxStatement(Statement statement) {

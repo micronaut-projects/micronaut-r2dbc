@@ -26,6 +26,12 @@ import io.micronaut.r2dbc.R2dbcConnectionFactoryBean;
 import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactoryOptions;
 
+/**
+ * Replacement connection factory for RxJava 2.
+ *
+ * @author graemerocher
+ * @since 1.0.0
+ */
 @Factory
 @Internal
 @Experimental

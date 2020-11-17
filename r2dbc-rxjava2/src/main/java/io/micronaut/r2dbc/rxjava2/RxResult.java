@@ -22,6 +22,13 @@ import io.r2dbc.spi.RowMetadata;
 import io.reactivex.Flowable;
 import java.util.function.BiFunction;
 
+
+/**
+ * Specialization of {@link Result} for RxJava.
+ *
+ * @author graemerocher
+ * @since 1.0.0
+ */
 @Experimental
 public interface RxResult extends Result {
     /**
