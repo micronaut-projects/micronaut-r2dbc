@@ -115,7 +115,7 @@ jobs:
             config/spotless.license.java
             config/checkstyle/checkstyle.xml
       - name: Create Pull Request - master
-        uses: peter-evans/create-pull-request@v2
+        uses: peter-evans/create-pull-request@v3.5.0
         with:
           path: target
           token: ${{ secrets.GH_TOKEN }}
@@ -142,7 +142,7 @@ jobs:
           echo ::set-output name=skip::${skip}
       - name: Create Pull Request - ${{ steps.branch.outputs.branch }}
         if: steps.branch.outputs.branch != '' && steps.skip.outputs.skip != 'true'
-        uses: peter-evans/create-pull-request@v2
+        uses: peter-evans/create-pull-request@v3.5.0
         with:
           path: branch
           token: ${{ secrets.GH_TOKEN }}
