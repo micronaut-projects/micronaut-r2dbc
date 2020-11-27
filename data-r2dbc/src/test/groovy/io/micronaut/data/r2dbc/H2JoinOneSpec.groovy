@@ -4,6 +4,7 @@ import io.micronaut.context.annotation.Property
 import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.tck.entities.Owner
 import io.micronaut.data.tck.entities.Pet
+import io.micronaut.data.tck.entities.Product
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Shared
 

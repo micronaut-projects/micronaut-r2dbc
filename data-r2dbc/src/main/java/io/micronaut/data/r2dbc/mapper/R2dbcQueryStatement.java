@@ -23,6 +23,7 @@ import io.micronaut.data.runtime.mapper.QueryStatement;
 import io.r2dbc.spi.Statement;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -79,10 +80,11 @@ public class R2dbcQueryStatement implements QueryStatement<Statement, Integer> {
     @NonNull
     @Override
     public QueryStatement<Statement, Integer> setTimestamp(Statement statement, Integer name, Date date) {
-        if (date == null) {
+        LocalDateTime localDate = convertRequired(date, LocalDateTime.class);
+        if (localDate == null) {
             statement.bindNull(name, Date.class);
         } else {
-            statement.bind(name, date);
+            statement.bind(name, localDate);
         }
         return this;
     }
