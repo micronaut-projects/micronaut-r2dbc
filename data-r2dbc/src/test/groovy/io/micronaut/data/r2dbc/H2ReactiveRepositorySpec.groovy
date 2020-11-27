@@ -4,7 +4,6 @@ import io.micronaut.context.annotation.Property
 import io.micronaut.data.r2dbc.operations.R2dbcOperations
 import io.micronaut.data.tck.entities.Person
 import io.micronaut.data.tck.repositories.PersonReactiveRepository
-import io.micronaut.data.tck.tests.AbstractReactiveRepositorySpec
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.transaction.reactive.ReactiveTransactionStatus
 import io.r2dbc.spi.Connection
@@ -24,6 +23,10 @@ class H2ReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
 
     @Inject
     @Shared
+    H2ReactiveProductRepository productReactiveRepository
+
+    @Inject
+    @Shared
     ConnectionFactory connectionFactory
 
     @Inject
@@ -33,6 +36,11 @@ class H2ReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
     @Override
     PersonReactiveRepository getPersonRepository() {
         return personReactiveRepository
+    }
+
+    @Override
+    ProductReactiveRepository getProductRepository() {
+        return productReactiveRepository
     }
 
     void 'test with transactional connection'() {
@@ -53,6 +61,11 @@ class H2ReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
         Mono.from(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<Connection> status ->
             status.connection.createStatement(
                 "CREATE TABLE `person` (`id` BIGINT AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(255) NOT NULL, `age` INT, `enabled` BIT);"
+            ).execute()
+        })).block()
+        Mono.from(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<Connection> status ->
+            status.connection.createStatement(
+                "CREATE TABLE `product` (`id` BIGINT AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(255) NOT NULL, `price` DECIMAL, `date_created` DATETIME NULL, `last_updated` DATETIME NULL);"
             ).execute()
         })).block()
     }

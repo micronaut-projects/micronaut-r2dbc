@@ -6,8 +6,8 @@ import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.model.query.builder.sql.SqlQueryBuilder
 import io.micronaut.data.r2dbc.operations.R2dbcOperations
 import io.micronaut.data.tck.entities.Person
+import io.micronaut.data.tck.entities.Product
 import io.micronaut.data.tck.repositories.PersonReactiveRepository
-import io.micronaut.data.tck.tests.AbstractReactiveRepositorySpec
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.transaction.reactive.ReactiveTransactionStatus
 import io.r2dbc.spi.Connection
@@ -26,6 +26,10 @@ class MssqlReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
 
     @Inject
     @Shared
+    MssqlProductRepository productReactiveRepository
+
+    @Inject
+    @Shared
     ConnectionFactory connectionFactory
 
     @Inject
@@ -38,9 +42,14 @@ class MssqlReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
     }
 
     @Override
+    ProductReactiveRepository getProductRepository() {
+        return productReactiveRepository
+    }
+
+    @Override
     void init() {
         def sqlBuilder = new SqlQueryBuilder(Dialect.SQL_SERVER)
-        def statement = sqlBuilder.buildBatchCreateTableStatement(PersistentEntity.of(Person))
+        def statement = sqlBuilder.buildBatchCreateTableStatement(PersistentEntity.of(Person), PersistentEntity.of(Product))
         Mono.from(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<Connection> status ->
             status.connection.createStatement(statement).execute()
         })).block()

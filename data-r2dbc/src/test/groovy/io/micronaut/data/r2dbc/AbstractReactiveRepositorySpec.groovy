@@ -3,20 +3,25 @@ package io.micronaut.data.r2dbc
 import io.micronaut.data.model.Pageable
 import io.micronaut.data.tck.entities.Person
 import io.micronaut.data.tck.entities.PersonDto
+import io.micronaut.data.tck.entities.Product
 import io.micronaut.data.tck.repositories.PersonReactiveRepository
-import reactor.core.publisher.Hooks
 import spock.lang.Specification
 import spock.lang.Stepwise
+
+import java.time.LocalDateTime
 
 @Stepwise
 abstract class AbstractReactiveRepositorySpec extends Specification {
 
     abstract PersonReactiveRepository getPersonRepository()
 
+    abstract ProductReactiveRepository getProductRepository()
+
     abstract void init()
 
     def setupSpec() {
         init()
+        productRepository.deleteAll().blockingGet()
         personRepository.deleteAll().blockingGet()
         personRepository.saveAll([
                 new Person(name: "Jeff"),
@@ -62,6 +67,19 @@ abstract class AbstractReactiveRepositorySpec extends Specification {
         personRepository.count("Fred").blockingGet() == 1
         personRepository.list(Pageable.from(1)).toList().blockingGet().isEmpty()
         personRepository.list(Pageable.from(0, 1)).toList().blockingGet().size() == 1
+    }
+
+    void "test save with timestamp"() {
+        given:
+        def start = LocalDateTime.now()
+
+        when:"timestamp is saved"
+        def product = new Product("Fun Product", 12.34)
+        productRepository.save(product).blockingGet()
+
+        then:"the instance is persisted"
+        product.dateCreated != null
+        product.dateCreated.isAfter(start)
     }
 
     void "test delete by id"() {
