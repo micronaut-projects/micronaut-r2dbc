@@ -48,7 +48,7 @@ subprojects { Project subproject ->
     }
 
     nativeImage {
-        args("-H:+TraceClassInitialization")
+        args("-H:+ReportExceptionStackTraces")
     }
 
     mainClassName = "example.Application"
