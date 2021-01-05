@@ -43,7 +43,7 @@ subprojects { Project subproject ->
                 }
             }
             dependencies {
-                testImplementation platform('org.testcontainers:testcontainers-bom:1.15.0')
+                testImplementation platform('org.testcontainers:testcontainers-bom:1.15.1')
             }
         }
     }
