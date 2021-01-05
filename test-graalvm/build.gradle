@@ -118,7 +118,7 @@ project("mysql") {
 }
 project("mariadb") {
     dependencies {
-        implementation 'org.mariadb:r2dbc-mariadb:0.8.4-rc'
+        implementation "org.mariadb:r2dbc-mariadb:1.0.0"
 
         testRuntimeOnly "org.mariadb.jdbc:mariadb-java-client"
         testImplementation "org.testcontainers:mariadb"
