@@ -669,23 +669,10 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                     statement.returnGeneratedValues(identityProperty.getPersistedName());
                 }
 
-                // workaround for bug in MariaDB driver
-                if (isMariaDB) {
-                    Iterator<T> iterator = operation.iterator();
-                    while (iterator.hasNext()) {
-                        T entity = iterator.next();
-                        setInsertParameters(insert, entity, statement);
-                        if (iterator.hasNext()) {
-                            statement.add();
-                        }
-                        results.add(entity);
-                    }
-                } else {
-                    for (T entity : operation) {
-                        setInsertParameters(insert, entity, statement);
-                        statement.add();
-                        results.add(entity);
-                    }
+                for (T entity : operation) {
+                    setInsertParameters(insert, entity, statement);
+                    statement.add();
+                    results.add(entity);
                 }
 
                 Iterator<T> i = results.iterator();
