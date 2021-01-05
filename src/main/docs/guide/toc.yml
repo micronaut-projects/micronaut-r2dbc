@@ -3,9 +3,9 @@ introduction:
 releaseHistory: Release History
 quickStart:
   title: Quick Start
+availableDrivers: Available Drivers
 dataR2dbc:
   title: Micronaut Data R2DBC
-  dataQuickStart: Getting Started with Micronaut Data
   querying: Writing Queries
   crud: Performing CRUD Operations
   transactionManagement: Micronaut Data Transactions with R2DBC

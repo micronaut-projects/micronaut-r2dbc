@@ -1,0 +1,51 @@
+The following drivers are available as of this writing.
+
+==== H2
+
+R2DBC Driver:
+
+dependency:io.r2dbc:r2dbc-h2[scope="runtimeOnly"]
+
+And for Flyway migrations the JDBC driver:
+
+dependency:com.h2database:h2[scope="runtimeOnly"]
+
+==== MySQL
+
+R2DBC Driver:
+
+dependency:dev.miku:r2dbc-mysql[scope="runtimeOnly"]
+
+And for Flyway migrations the JDBC driver:
+
+dependency:mysql:mysql-connector-java[scope="runtimeOnly"]
+
+==== MariaDB
+
+R2DBC Driver:
+
+dependency:org.mariadb:r2dbc-mariadb[scope="runtimeOnly", version="1.0.0"]
+
+And for Flyway migrations the JDBC driver:
+
+dependency:org.mariadb.jdbc:mariadb-java-client[scope="runtimeOnly"]
+
+==== Postgresql
+
+R2DBC Driver:
+
+dependency:io.r2dbc:r2dbc-postgresql[scope="runtimeOnly"]
+
+And for Flyway migrations the JDBC driver:
+
+dependency:org.postgresql:postgresql[scope="runtimeOnly"]
+
+==== SQL Server
+
+R2DBC Driver:
+
+dependency:io.r2dbc:r2dbc-mssql[scope="runtimeOnly"]
+
+And for Flyway migrations the JDBC driver:
+
+dependency:com.microsoft.sqlserver:mssql-jdbc[scope="runtimeOnly"]
