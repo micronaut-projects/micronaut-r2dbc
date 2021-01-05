@@ -49,11 +49,13 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#quickStart"><strong>3</strong><span>Quick Start</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#dataR2dbc"><strong>4</strong><span>Micronaut Data R2DBC</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#availableDrivers"><strong>4</strong><span>Available Drivers</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#clients"><strong>5</strong><span>R2DBC Clients</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#dataR2dbc"><strong>5</strong><span>Micronaut Data R2DBC</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#clients"><strong>6</strong><span>R2DBC Clients</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>7</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -90,19 +92,19 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-quickStart"><a href="#quickStart"><strong>3</strong><span>Quick Start</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-dataR2dbc"><a href="#dataR2dbc"><strong>4</strong><span>Micronaut Data R2DBC</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-availableDrivers"><a href="#availableDrivers"><strong>4</strong><span>Available Drivers</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-dataQuickStart"><a href="#dataQuickStart"><strong>4.1</strong><span>Getting Started with Micronaut Data</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-dataR2dbc"><a href="#dataR2dbc"><strong>5</strong><span>Micronaut Data R2DBC</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-querying"><a href="#querying"><strong>4.2</strong><span>Writing Queries</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-querying"><a href="#querying"><strong>5.1</strong><span>Writing Queries</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-crud"><a href="#crud"><strong>4.3</strong><span>Performing CRUD Operations</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-crud"><a href="#crud"><strong>5.2</strong><span>Performing CRUD Operations</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-transactionManagement"><a href="#transactionManagement"><strong>4.4</strong><span>Micronaut Data Transactions with R2DBC</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-transactionManagement"><a href="#transactionManagement"><strong>5.3</strong><span>Micronaut Data Transactions with R2DBC</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-clients"><a href="#clients"><strong>5</strong><span>R2DBC Clients</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-clients"><a href="#clients"><strong>6</strong><span>R2DBC Clients</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>7</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -157,118 +159,13 @@
 
 
 <div class="paragraph">
-<p>To get started using this module you should first apply the <code>micronaut-r2dbc-bom</code>. For example with Gradle:</p>
-</div>
-<div class="listingblock">
-<div class="title">Applying the BOM in Gradle</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">implementation platform(project("io.micronaut.r2dbc:micronaut-r2dbc-bom:1.0.0.BUILD-SNAPSHOT"))</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Or in Maven:</p>
-</div>
-<div class="listingblock">
-<div class="title">Applying the BOM in Maven</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
-    &lt;groupId&gt;io.micronaut.r2dbc&lt;/groupId&gt;
-    &lt;artifactId&gt;micronaut-r2dbc-bom&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0.BUILD-SNAPSHOT&lt;/version&gt;
-    &lt;type&gt;pom&lt;/type&gt;
-    &lt;scope&gt;import&lt;/scope&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Then you should add a dependency on <code>micronaut-r2dbc-core</code>:</p>
-</div>
-<div class="paragraph">
-<p>        <div class="listingblock multi-language-sample">
-<div class="title"></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut:io.micronaut.r2dbc:micronaut-r2dbc-core")</span></code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
-    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
-    &lt;artifactId&gt;io.micronaut.r2dbc&lt;/artifactId&gt;
-    &lt;version&gt;micronaut-r2dbc-core&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-</p>
-</div>
-<div class="paragraph">
-<p>Followed by a dependency on any of the R2DBC drivers, for example for H2:</p>
-</div>
-<div class="paragraph">
-<p>        <div class="listingblock multi-language-sample">
-<div class="title"></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut:io.r2dbc:r2dbc-h2")</span></code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
-    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
-    &lt;artifactId&gt;io.r2dbc&lt;/artifactId&gt;
-    &lt;version&gt;r2dbc-h2&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-</p>
-</div>
-<div class="paragraph">
-<p>You can then configure the R2DBC connection URL in your application configuration, for example in <code>application.yml</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">r2dbc:
-  datasources:
-    default:
-      url: "r2dbc:h2:mem:///mydb"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And then inject the R2DBC <code>ConnectionFactory</code> anywhere you need it.</p>
-</div>
-
-<h1 id="dataR2dbc"><a class="anchor" href="#dataR2dbc"></a>4 Micronaut Data R2DBC</h1>
-
-<div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
-/src/main/docs/guide/dataR2dbc.adoc"'>
-        <i class='fa fa-pencil-square-o'></i> Improve this doc
-    </button>
-</div>
-
-
-<div class="paragraph">
-<p>The R2DBC module features support for defining reactive Micronaut Data repositories that use the underlying R2DBC driver to automatically implement queries for your at compilation time.</p>
-</div>
-
-<h2 id="dataQuickStart"><a class="anchor" href="#dataQuickStart"></a>4.1 Getting Started with Micronaut Data</h2>
-
-<div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
-/src/main/docs/guide/dataR2dbc/dataQuickStart.adoc"'>
-        <i class='fa fa-pencil-square-o'></i> Improve this doc
-    </button>
-</div>
-
-
-<div class="paragraph">
-<p>The quickest way to get started is to create a new Micronaut application with Micronaut Launch and choose the <code>data-jdbc</code> and <code>flyway</code> features (yes that should be <code>data-jdbc</code> and not <code>data-r2dbc</code>). This can also be done via the Micronaut CLI:</p>
+<p>The quickest way to get started is to create a new Micronaut application with <a href="https://micronaut.io/launch/">Micronaut Launch</a> and choose the <code>data-r2dbc</code>, <code>mysql</code> and <code>flyway</code> features. This can also be done via the Micronaut 2.2 and above CLI:</p>
 </div>
 <div class="listingblock">
 <div class="title">Creating an application with the CLI</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># For Maven add: --build maven
-$ mn create-app --lang java example --features data-jdbc,flyway</code></pre>
+$ mn create-app --lang java example --features data-r2dbc,flyway,mysql</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -278,32 +175,11 @@ $ mn create-app --lang java example --features data-jdbc,flyway</code></pre>
 <div class="title">Creating an application with <code>curl</code></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># For Maven add to the URL: &amp;build=maven
-$ curl https://launch.micronaut.io/demo.zip?lang=java&amp;features=data-jdbc,flyway -o demo.zip &amp;&amp; unzip demo.zip -d demo &amp;&amp; cd demo</code></pre>
+$ curl https://launch.micronaut.io/demo.zip?lang=java&amp;features=data-r2dbc,flyway,mysql -o demo.zip &amp;&amp; unzip demo.zip -d demo &amp;&amp; cd demo</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Then add a dependency on <code>micronaut-data-r2dbc</code>:</p>
-</div>
-<div class="paragraph">
-<p>        <div class="listingblock multi-language-sample">
-<div class="title"></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.r2dbc:micronaut-data-r2dbc:1.0.0.BUILD-SNAPSHOT")</span></code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
-    &lt;groupId&gt;io.micronaut.r2dbc&lt;/groupId&gt;
-    &lt;artifactId&gt;micronaut-data-r2dbc&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0.BUILD-SNAPSHOT&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-</p>
-</div>
-<div class="paragraph">
-<p>Followed by a dependency on the R2DBC driver you wish to use:</p>
+<p>The generated application will use MySQL since we passed the <code>mysql</code> feature adding dependency on the R2DBC driver for MySQL:</p>
 </div>
 <div class="paragraph">
 <p>        <div class="listingblock multi-language-sample">
@@ -344,6 +220,18 @@ $ curl https://launch.micronaut.io/demo.zip?lang=java&amp;features=data-jdbc,fly
 </div>
 </p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To create configurations for other drivers you can select the appropriate feature: <code>oracle</code>, <code>postgres</code>, <code>sqlserver</code>, <code>h2</code> or <code>mariadb</code>.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Now define a SQL script that creates your initial schema in <code>src/main/resources/db/migration</code>. For example:</p>
 </div>
@@ -355,7 +243,7 @@ CREATE TABLE author(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(
 </div>
 </div>
 <div class="paragraph">
-<p>You can now configure your application to connect to the database:</p>
+<p>You can now configure your application to connect to the database using <code>src/main/resources/application.yml</code> which contains the application configuration:</p>
 </div>
 <div class="listingblock">
 <div class="title">Example <code>application.yml</code></div>
@@ -386,6 +274,18 @@ r2dbc:
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>The property <code>r2dbc.datasources.default.url</code> is used to configure the default R2DBC <code>ConnectionFactory</code></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The R2DBC <code>ConnectionFactory</code> object can be injected anywhere in your code with dependency injection.
+</td>
 </tr>
 </table>
 </div>
@@ -638,7 +538,261 @@ class AuthorController(private val repository: AuthorRepository) {
 </table>
 </div>
 
-<h2 id="querying"><a class="anchor" href="#querying"></a>4.2 Writing Queries</h2>
+<h1 id="availableDrivers"><a class="anchor" href="#availableDrivers"></a>4 Available Drivers</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
+/src/main/docs/guide/availableDrivers.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The following drivers are available as of this writing.</p>
+</div>
+<div class="sect3">
+<h4 id="_h2">H2</h4>
+<div class="paragraph">
+<p>R2DBC Driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"io.r2dbc:r2dbc-h2")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.r2dbc&lt;/groupId&gt;
+    &lt;artifactId&gt;r2dbc-h2&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>And for Flyway migrations the JDBC driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"com.h2database:h2")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+    &lt;artifactId&gt;h2&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_mysql">MySQL</h4>
+<div class="paragraph">
+<p>R2DBC Driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"dev.miku:r2dbc-mysql")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;dev.miku&lt;/groupId&gt;
+    &lt;artifactId&gt;r2dbc-mysql&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>And for Flyway migrations the JDBC driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"mysql:mysql-connector-java")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_mariadb">MariaDB</h4>
+<div class="paragraph">
+<p>R2DBC Driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"org.mariadb:r2dbc-mariadb:1.0.0")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;org.mariadb&lt;/groupId&gt;
+    &lt;artifactId&gt;r2dbc-mariadb&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>And for Flyway migrations the JDBC driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"org.mariadb.jdbc:mariadb-java-client")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;org.mariadb.jdbc&lt;/groupId&gt;
+    &lt;artifactId&gt;mariadb-java-client&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_postgresql">Postgresql</h4>
+<div class="paragraph">
+<p>R2DBC Driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"io.r2dbc:r2dbc-postgresql")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.r2dbc&lt;/groupId&gt;
+    &lt;artifactId&gt;r2dbc-postgresql&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>And for Flyway migrations the JDBC driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"org.postgresql:postgresql")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
+    &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sql_server">SQL Server</h4>
+<div class="paragraph">
+<p>R2DBC Driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"io.r2dbc:r2dbc-mssql")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.r2dbc&lt;/groupId&gt;
+    &lt;artifactId&gt;r2dbc-mssql&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>And for Flyway migrations the JDBC driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"com.microsoft.sqlserver:mssql-jdbc")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;com.microsoft.sqlserver&lt;/groupId&gt;
+    &lt;artifactId&gt;mssql-jdbc&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+</div>
+
+<h1 id="dataR2dbc"><a class="anchor" href="#dataR2dbc"></a>5 Micronaut Data R2DBC</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
+/src/main/docs/guide/dataR2dbc.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The R2DBC module features support for defining reactive Micronaut Data repositories that use the underlying R2DBC driver to automatically implement queries for your at compilation time.</p>
+</div>
+
+<h2 id="querying"><a class="anchor" href="#querying"></a>5.1 Writing Queries</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
@@ -667,7 +821,7 @@ class AuthorController(private val repository: AuthorRepository) {
 <p>You can pass a <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/model/Pageable.html">Pageable</a> instance to any query to paginate results, although note that the <a href="https://micronaut-projects.github.io/micronaut-data/latest/api/io/micronaut/data/model/Page.html">Page</a> return type is not supported since it is an implicitly blocking API.</p>
 </div>
 
-<h2 id="crud"><a class="anchor" href="#crud"></a>4.3 Performing CRUD Operations</h2>
+<h2 id="crud"><a class="anchor" href="#crud"></a>5.2 Performing CRUD Operations</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
@@ -810,7 +964,7 @@ fun delete(id: Long): Single&lt;HttpResponse&lt;*&gt;&gt; {
 <p>For more information on the possible write operations, see the documentation on <a href="https://micronaut-projects.github.io/micronaut-data/latest/guide/#dataUpdates">Data Updates</a> in the Micronaut Data documentation which also apply to R2DBC.</p>
 </div>
 
-<h2 id="transactionManagement"><a class="anchor" href="#transactionManagement"></a>4.4 Micronaut Data Transactions with R2DBC</h2>
+<h2 id="transactionManagement"><a class="anchor" href="#transactionManagement"></a>5.3 Micronaut Data Transactions with R2DBC</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
@@ -1090,7 +1244,7 @@ override fun &lt;S : Book?&gt; saveAll(entities: @Valid @NotNull Iterable&lt;S&g
 </table>
 </div>
 
-<h1 id="clients"><a class="anchor" href="#clients"></a>5 R2DBC Clients</h1>
+<h1 id="clients"><a class="anchor" href="#clients"></a>6 R2DBC Clients</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
@@ -1131,7 +1285,7 @@ override fun &lt;S : Book?&gt; saveAll(entities: @Valid @NotNull Iterable&lt;S&g
 </div>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>6 Repository</h1>
+<h1 id="repository"><a class="anchor" href="#repository"></a>7 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
