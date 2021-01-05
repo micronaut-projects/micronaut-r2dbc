@@ -42,7 +42,7 @@ dependencies {
     testImplementation "org.testcontainers:r2dbc"
 
     // mariadb
-    testImplementation 'org.mariadb:r2dbc-mariadb:0.8.4-rc'
+    testImplementation 'org.mariadb:r2dbc-mariadb:1.0.0'
     testImplementation "org.testcontainers:mariadb"
     testImplementation 'org.mariadb.jdbc:mariadb-java-client'
 
