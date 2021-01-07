@@ -15,6 +15,7 @@ subprojects { Project subproject ->
     repositories {
         mavenCentral()
         jcenter()
+        maven { url "https://oss.jfrog.org/oss-snapshot-local" }
     }
 
     if (subproject.getPath().startsWith(":test-")) {
