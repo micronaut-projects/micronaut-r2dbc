@@ -17,7 +17,8 @@ abstract class AbstractReactiveRepositorySpec extends Specification {
 
     abstract ProductReactiveRepository getProductRepository()
 
-    abstract void init()
+    protected void init() {
+    }
 
     def setupSpec() {
         init()

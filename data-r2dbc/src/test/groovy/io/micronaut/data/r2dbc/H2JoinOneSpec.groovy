@@ -7,12 +7,13 @@ import io.micronaut.data.tck.entities.Pet
 import io.micronaut.data.tck.entities.Product
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Shared
+import spock.lang.Specification
 
 import javax.inject.Inject
 
 @MicronautTest(rollback = false)
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:h2:mem:///testdb;DB_CLOSE_ON_EXIT=FALSE")
-class H2JoinOneSpec extends AbstractR2dbcSpec {
+@H2Properties
+class H2JoinOneSpec extends Specification {
 
     @Shared @Inject H2OwnerRepository ownerRepository
     @Shared @Inject H2PetRepository petRepository
@@ -33,15 +34,5 @@ class H2JoinOneSpec extends AbstractR2dbcSpec {
 
         then:
         rabbid.owner.name == "Barney"
-    }
-
-    @Override
-    protected Dialect getDialect() {
-        return Dialect.H2
-    }
-
-    @Override
-    protected List<Class<? extends Object>> getEntities() {
-        return [Pet, Owner]
     }
 }

@@ -68,7 +68,6 @@ public class R2dbcSchemaGenerator {
 
             SchemaGenerate schemaGenerate = configuration.getSchemaGenerate();
             if (schemaGenerate != null && schemaGenerate != SchemaGenerate.NONE) {
-                String name = configuration.getName();
                 List<String> packages = configuration.getPackages();
 
                 Collection<BeanIntrospection<Object>> introspections;
