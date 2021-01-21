@@ -26,6 +26,9 @@ import io.r2dbc.spi.Row;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -96,12 +99,20 @@ public class ColumnIndexR2dbcResultReader implements ResultReader<Row, Integer> 
 
     @Override
     public Date readDate(Row resultSet, Integer name) {
-        return resultSet.get(name, Date.class);
+        final LocalDate localDate = resultSet.get(name, LocalDate.class);
+        if (localDate != null) {
+            return java.sql.Date.valueOf(localDate);
+        }
+        return null;
     }
 
     @Override
     public Date readTimestamp(Row resultSet, Integer index) {
-        return resultSet.get(index, Date.class);
+        final LocalDateTime localDateTime = resultSet.get(index, LocalDateTime.class);
+        if (localDateTime != null) {
+            return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        }
+        return null;
     }
 
     @Nullable
