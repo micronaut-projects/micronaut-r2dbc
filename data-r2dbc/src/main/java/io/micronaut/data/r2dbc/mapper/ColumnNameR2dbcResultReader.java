@@ -23,6 +23,9 @@ import io.micronaut.data.runtime.mapper.ResultReader;
 import io.r2dbc.spi.Row;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -55,12 +58,20 @@ public class ColumnNameR2dbcResultReader implements ResultReader<Row, String> {
 
     @Override
     public Date readDate(Row resultSet, String name) {
-        return resultSet.get(name, Date.class);
+        final LocalDate localDate = resultSet.get(name, LocalDate.class);
+        if (localDate != null) {
+            return java.sql.Date.valueOf(localDate);
+        }
+        return null;
     }
 
     @Override
     public Date readTimestamp(Row resultSet, String index) {
-        return resultSet.get(index, Date.class);
+        final LocalDateTime localDateTime = resultSet.get(index, LocalDateTime.class);
+        if (localDateTime != null) {
+            return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        }
+        return null;
     }
 
     @Nullable
