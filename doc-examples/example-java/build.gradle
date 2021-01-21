@@ -29,7 +29,7 @@ dependencies {
     testImplementation "org.testcontainers:mysql"
 
 
-    testImplementation('io.micronaut.test:micronaut-test-core:2.2.1') {
+    testImplementation('io.micronaut.test:micronaut-test-core:2.3.2') {
         version {
             strictly('2.2.1')
         }
