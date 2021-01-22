@@ -24,7 +24,7 @@ import io.micronaut.data.annotation.MappedEntity;
 public class Owner {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(GeneratedValue.Type.IDENTITY)
     private Long id;
     private String name;
     private int age;

@@ -110,12 +110,16 @@ project("postgres") {
         testImplementation "org.testcontainers:postgresql"
     }
 }
-//project("oracle") {
-//    dependencies {
-//        runtimeOnly "com.oracle.ojdbc:ojdbc8"
-//        testImplementation "org.testcontainers:oracle-xe"
-//    }
-//}
+project("oracle") {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        runtimeOnly "com.oracle.database.jdbc:oracle-r2dbc:0.1.0"
+        runtimeOnly "com.oracle.database.jdbc:ojdbc11:21.1.0.0"
+        testImplementation "org.testcontainers:oracle-xe"
+    }
+}
 project("mysql") {
     dependencies {
         runtimeOnly 'dev.miku:r2dbc-mysql'
