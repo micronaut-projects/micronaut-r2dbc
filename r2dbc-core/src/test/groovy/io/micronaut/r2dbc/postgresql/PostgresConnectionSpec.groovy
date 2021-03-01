@@ -16,7 +16,7 @@ import spock.lang.Specification
 import javax.inject.Inject
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:postgresql:///databasename?TC_IMAGE_TAG=9.6.8")
+@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:postgresql:///databasename?TC_IMAGE_TAG=10")
 @Property(name = "r2dbc.datasources.default.options.applicationName", value = "test")
 class PostgresConnectionSpec extends Specification {
     @Inject BasicR2dbcProperties props
