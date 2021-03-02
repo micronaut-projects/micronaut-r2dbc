@@ -1,34 +1,33 @@
 package io.micronaut.data.r2dbc
 
-import io.micronaut.context.annotation.Property
+import io.micronaut.context.ApplicationContext
 import io.micronaut.data.r2dbc.operations.R2dbcOperations
 import io.micronaut.data.tck.repositories.PersonReactiveRepository
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.r2dbc.spi.ConnectionFactory
+import org.testcontainers.containers.PostgreSQLContainer
+import spock.lang.AutoCleanup
 import spock.lang.Shared
 
-import javax.inject.Inject
-
-@MicronautTest(rollback = false)
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:postgresql:///databasename?TC_IMAGE_TAG=10")
-@Property(name = "r2dbc.datasources.default.schema-generate", value = "CREATE_DROP")
-@Property(name = "r2dbc.datasources.default.dialect", value = "POSTGRES")
 class PostgresReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
-    @Inject
     @Shared
     PostgresPersonRepository personReactiveRepository
 
-    @Inject
     @Shared
     PostgresProductRepository productReactiveRepository
 
-    @Inject
     @Shared
     ConnectionFactory connectionFactory
 
-    @Inject
     @Shared
     R2dbcOperations r2dbcOperations
+
+    @Shared
+    @AutoCleanup
+    ApplicationContext applicationContext
+
+    @Shared
+    @AutoCleanup
+    PostgreSQLContainer container
 
     @Override
     PersonReactiveRepository getPersonRepository() {
@@ -38,5 +37,22 @@ class PostgresReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
     @Override
     ProductReactiveRepository getProductRepository() {
         return productReactiveRepository
+    }
+
+    @Override
+    protected void init() {
+        container = new PostgreSQLContainer("postgres:10")
+        container.start()
+        applicationContext = ApplicationContext.run(
+                'r2dbc.datasources.default.url': "r2dbc:postgresql://localhost:${container.getFirstMappedPort()}/${container.getDatabaseName()}",
+                'r2dbc.datasources.default.username': container.getUsername(),
+                'r2dbc.datasources.default.password': container.getPassword(),
+                "r2dbc.datasources.default.schema-generate":"CREATE_DROP",
+                "r2dbc.datasources.default.dialect": "POSTGRES"
+        )
+        personReactiveRepository = applicationContext.getBean(PostgresPersonRepository)
+        productReactiveRepository = applicationContext.getBean(PostgresProductRepository)
+        connectionFactory = applicationContext.getBean(ConnectionFactory)
+        r2dbcOperations = applicationContext.getBean(R2dbcOperations)
     }
 }
