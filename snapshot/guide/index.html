@@ -102,6 +102,8 @@
         
         <div class="toc-item" style="margin-left:10px" id="toc-item-transactionManagement"><a href="#transactionManagement"><strong>5.3</strong><span>Micronaut Data Transactions with R2DBC</span></a></div>
         
+        <div class="toc-item" style="margin-left:10px" id="toc-item-entityEvents"><a href="#entityEvents"><strong>5.4</strong><span>Reactive &amp; Entity Events</span></a></div>
+        
         <div class="toc-item" style="margin-left:0px" id="toc-item-clients"><a href="#clients"><strong>6</strong><span>R2DBC Clients</span></a></div>
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>7</strong><span>Repository</span></a></div>
@@ -1242,6 +1244,23 @@ override fun &lt;S : Book?&gt; saveAll(entities: @Valid @NotNull Iterable&lt;S&g
 <td>An inner call ensures the existing transaction is propagated</td>
 </tr>
 </table>
+</div>
+
+<h2 id="entityEvents"><a class="anchor" href="#entityEvents"></a>5.4 Reactive & Entity Events</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master
+/src/main/docs/guide/dataR2dbc/entityEvents.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>Micronaut Data R2DBC supports persistence events introduced in Micronaut Data 2.3 and above however it should be noted that these should not block and should only perform operations that don&#8217;t incur any network I/O and if they do a new thread should execute this logic.</p>
+</div>
+<div class="paragraph">
+<p>Note that persistence events are most commonly used to pre-populate database properties prior to performing an insert (for example encoding a password etc.) these types of operations typically don&#8217;t involve blocking I/O and are safe to perform.</p>
 </div>
 
 <h1 id="clients"><a class="anchor" href="#clients"></a>6 R2DBC Clients</h1>
