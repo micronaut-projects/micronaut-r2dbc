@@ -56,6 +56,7 @@ class PostgresReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
         productReactiveRepository = applicationContext.getBean(PostgresProductRepository)
         connectionFactory = applicationContext.getBean(ConnectionFactory)
         r2dbcOperations = applicationContext.getBean(R2dbcOperations)
+        super.init()
     }
 
     private void waitForPostgres(PostgreSQLContainer container) {

@@ -14,6 +14,8 @@ import javax.inject.Inject
 
 @MicronautTest(rollback = false)
 @Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mysql:///databasename?TC_IMAGE_TAG=5.7.22")
+@Property(name = "r2dbc.datasources.default.schema-generate", value = "CREATE_DROP")
+@Property(name = "r2dbc.datasources.default.dialect", value = "MYSQL")
 class MySqlReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
     @Inject
     @Shared
@@ -39,19 +41,5 @@ class MySqlReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
     @Override
     ProductReactiveRepository getProductRepository() {
         return productReactiveRepository
-    }
-
-    @Override
-    void init() {
-        Mono.from(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<Connection> status ->
-            status.connection.createStatement(
-                    "CREATE TABLE `person` (`id` BIGINT AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(255) NOT NULL, `age` INT, `enabled` BIT);"
-            ).execute()
-        })).block()
-        Mono.from(r2dbcOperations.withTransaction({ ReactiveTransactionStatus<Connection> status ->
-            status.connection.createStatement(
-                "CREATE TABLE `product` (`id` BIGINT AUTO_INCREMENT PRIMARY KEY,`name` VARCHAR(255) NOT NULL, `price` DECIMAL, `date_created` DATETIME NULL, `last_updated` DATETIME NULL);"
-            ).execute()
-        })).block()
     }
 }
