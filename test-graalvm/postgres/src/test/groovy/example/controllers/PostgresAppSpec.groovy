@@ -20,8 +20,10 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.utility.DockerImageName
+import spock.lang.IgnoreIf
 
 @MicronautTest
+@IgnoreIf({env["GITHUB_WORKFLOW"]})
 class PostgresAppSpec extends AbstractDBContainerAppSpec {
 
     @Override

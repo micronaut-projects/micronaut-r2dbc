@@ -7,8 +7,10 @@ import io.micronaut.data.tck.repositories.PersonReactiveRepository
 import io.r2dbc.spi.ConnectionFactory
 import org.testcontainers.containers.PostgreSQLContainer
 import spock.lang.AutoCleanup
+import spock.lang.IgnoreIf
 import spock.lang.Shared
 
+@IgnoreIf({env["GITHUB_WORKFLOW"]})
 class PostgresReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
     @Shared
     PostgresPersonRepository personReactiveRepository
@@ -44,7 +46,6 @@ class PostgresReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
     protected void init() {
         container = new PostgreSQLContainer("postgres:10")
         container.start()
-        waitForPostgres(container)
         applicationContext = ApplicationContext.run(
                 'r2dbc.datasources.default.url': "r2dbc:postgresql://localhost:${container.getFirstMappedPort()}/${container.getDatabaseName()}",
                 'r2dbc.datasources.default.username': container.getUsername(),
@@ -59,14 +60,4 @@ class PostgresReactiveRepositorySpec extends AbstractReactiveRepositorySpec {
         super.init()
     }
 
-    private void waitForPostgres(PostgreSQLContainer container) {
-        int max = 10000
-        int total = 0
-        while (SocketUtils.isTcpPortAvailable(container.getFirstMappedPort())) {
-            println "Waiting for Postgres to be available"
-            total += 100
-            if (total > max) break
-            sleep(100)
-        }
-    }
 }
