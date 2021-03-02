@@ -7,6 +7,7 @@ subprojects { Project subproject ->
 
     apply plugin: "java"
     apply plugin: "groovy"
+    apply plugin: 'com.adarshr.test-logger'
 
     group "io.micronaut.example"
 
@@ -45,6 +46,10 @@ subprojects { Project subproject ->
         testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
         testImplementation "org.testcontainers:spock"
         testImplementation "org.testcontainers:jdbc"
+    }
+
+    testlogger {
+        showFullStackTraces true
     }
 
     nativeImage {
