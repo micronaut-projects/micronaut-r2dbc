@@ -11,6 +11,7 @@ import io.r2dbc.spi.Result
 import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
 import io.reactivex.Flowable
+import spock.lang.IgnoreIf
 import spock.lang.Specification
 
 import javax.inject.Inject
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @MicronautTest
 @Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:postgresql:///databasename?TC_IMAGE_TAG=10")
 @Property(name = "r2dbc.datasources.default.options.applicationName", value = "test")
+@IgnoreIf({env["GITHUB_WORKFLOW"]})
 class PostgresConnectionSpec extends Specification {
     @Inject BasicR2dbcProperties props
     @Inject ConnectionFactoryOptions options
