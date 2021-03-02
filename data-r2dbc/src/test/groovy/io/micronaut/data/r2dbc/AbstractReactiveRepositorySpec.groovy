@@ -18,10 +18,6 @@ abstract class AbstractReactiveRepositorySpec extends Specification {
     abstract ProductReactiveRepository getProductRepository()
 
     protected void init() {
-    }
-
-    def setupSpec() {
-        init()
         productRepository.deleteAll().blockingGet()
         personRepository.deleteAll().blockingGet()
         personRepository.saveAll([
@@ -31,6 +27,9 @@ abstract class AbstractReactiveRepositorySpec extends Specification {
     }
 
     void "test no value"() {
+        given:
+        init()
+
         expect:
         personRepository.getMaxId().isEmpty().blockingGet()
     }

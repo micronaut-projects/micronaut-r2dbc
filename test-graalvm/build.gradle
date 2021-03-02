@@ -1,12 +1,13 @@
 plugins {
-    id 'io.micronaut.application' version "1.2.0" apply false
-    id 'io.micronaut.library'  version "1.2.0" apply false
+    id 'io.micronaut.application' version "1.3.3" apply false
+    id 'io.micronaut.library'  version "1.3.3" apply false
 }
 
 subprojects { Project subproject ->
 
     apply plugin: "java"
     apply plugin: "groovy"
+    apply plugin: 'com.adarshr.test-logger'
 
     group "io.micronaut.example"
 
@@ -47,6 +48,10 @@ subprojects { Project subproject ->
         testImplementation "org.testcontainers:jdbc"
     }
 
+    testlogger {
+        showFullStackTraces true
+    }
+
     nativeImage {
         args("-H:+ReportExceptionStackTraces")
     }
@@ -76,7 +81,9 @@ project("common-tests") {
 project("h2") {
     dependencies {
         runtimeOnly 'io.r2dbc:r2dbc-h2'
-        runtimeOnly "com.h2database:h2"
+        runtimeOnly("com.h2database:h2:1.4.200") {
+            force = true
+        }
     }
     nativeImage {
         args("--report-unsupported-elements-at-runtime")
@@ -118,7 +125,7 @@ project("mysql") {
 }
 project("mariadb") {
     dependencies {
-        implementation "org.mariadb:r2dbc-mariadb:1.0.0"
+        implementation "org.mariadb:r2dbc-mariadb"
 
         testRuntimeOnly "org.mariadb.jdbc:mariadb-java-client"
         testImplementation "org.testcontainers:mariadb"

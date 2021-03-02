@@ -12,5 +12,6 @@
     </root>
 
     <logger name="io.micronaut.data.query" level="trace" />
+    <logger name="io.micronaut.http" level="trace" />
     <logger name="io.micronaut.data.r2dbc" level="trace" />
 </configuration>

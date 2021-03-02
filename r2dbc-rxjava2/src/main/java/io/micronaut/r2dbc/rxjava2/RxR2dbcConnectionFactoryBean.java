@@ -15,16 +15,16 @@
  */
 package io.micronaut.r2dbc.rxjava2;
 
-import io.micronaut.context.annotation.Context;
-import io.micronaut.context.annotation.EachBean;
+import edu.umd.cs.findbugs.annotations.Nullable;
+import io.micronaut.context.BeanContext;
+import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
-import io.micronaut.context.annotation.Replaces;
+import io.micronaut.context.annotation.Secondary;
 import io.micronaut.core.annotation.Experimental;
 import io.micronaut.core.annotation.Internal;
-import io.micronaut.r2dbc.BasicR2dbcProperties;
-import io.micronaut.r2dbc.R2dbcConnectionFactoryBean;
+import io.micronaut.inject.InjectionPoint;
+import io.micronaut.inject.qualifiers.Qualifiers;
 import io.r2dbc.spi.ConnectionFactory;
-import io.r2dbc.spi.ConnectionFactoryOptions;
 
 /**
  * Replacement connection factory for RxJava 2.
@@ -35,42 +35,27 @@ import io.r2dbc.spi.ConnectionFactoryOptions;
 @Factory
 @Internal
 @Experimental
-public class RxR2dbcConnectionFactoryBean extends R2dbcConnectionFactoryBean {
-    @Override
-    @EachBean(BasicR2dbcProperties.class)
-    @Replaces(
-            factory = R2dbcConnectionFactoryBean.class,
-            bean = ConnectionFactoryOptions.Builder.class
-    )
-    protected ConnectionFactoryOptions.Builder connectionFactoryOptionsBuilder(BasicR2dbcProperties basicR2dbcProperties) {
-        return super.connectionFactoryOptionsBuilder(basicR2dbcProperties);
-    }
-
-    @Override
-    @EachBean(ConnectionFactoryOptions.Builder.class)
-    @Replaces(
-            factory = R2dbcConnectionFactoryBean.class,
-            bean = ConnectionFactoryOptions.class
-    )
-    protected ConnectionFactoryOptions connectionFactoryOptions(ConnectionFactoryOptions.Builder builder) {
-        return super.connectionFactoryOptions(builder);
-    }
+public class RxR2dbcConnectionFactoryBean {
 
     /**
      * Method that exposes the {@link ConnectionFactory}.
      *
-     * @param options the options
+     * @param injectionPoint The injection point
+     * @param beanContext The bean context
      * @return The connection factory
      */
-    @Override
-    @EachBean(ConnectionFactoryOptions.class)
-    @Context
-    @Replaces(
-            factory = R2dbcConnectionFactoryBean.class,
-            bean = ConnectionFactory.class
-    )
-    protected RxConnectionFactory connectionFactory(ConnectionFactoryOptions options) {
-        ConnectionFactory connectionFactory = super.connectionFactory(options);
-        return new DefaultRxConnectionFactory(connectionFactory);
+    @Secondary
+    @Bean
+    protected RxConnectionFactory connectionFactory(@Nullable InjectionPoint<?> injectionPoint, BeanContext beanContext) {
+        if (injectionPoint != null) {
+            final String n = injectionPoint.getAnnotationMetadata().stringValue("javax.inject.Named").orElse(null);
+            if (n != null) {
+                return new DefaultRxConnectionFactory(beanContext.getBean(ConnectionFactory.class, Qualifiers.byName(n)));
+            } else {
+                return new DefaultRxConnectionFactory(beanContext.getBean(ConnectionFactory.class));
+            }
+        } else {
+            return new DefaultRxConnectionFactory(beanContext.getBean(ConnectionFactory.class));
+        }
     }
 }
