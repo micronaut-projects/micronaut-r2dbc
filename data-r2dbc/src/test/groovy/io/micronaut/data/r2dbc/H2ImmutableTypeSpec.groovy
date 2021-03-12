@@ -13,7 +13,7 @@ class H2ImmutableTypeSpec extends Specification {
 
     void "test insert instance with nullable read-only values"() {
         when:
-        def result = repository.save(new ImmutablePet(null, null))
+        def result = repository.save(new ImmutablePet(null, null)).block()
 
         then:
         result.id
