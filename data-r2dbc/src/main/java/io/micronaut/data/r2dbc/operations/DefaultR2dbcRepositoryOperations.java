@@ -777,6 +777,8 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                             } else {
                                 identity.convertAndSet(entity, id);
                             }
+                        } else {
+                            entity = identity.withValue(entity, id);
                         }
                     }
                     if (hasPostPersistEventListeners) {
@@ -834,14 +836,17 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                                     0,
                                     identityProperty.getDataType()
                             );
+                            T finalEntity = resolvedEntity;
                             if (!identity.isReadOnly()) {
                                 if (identity.getType().isInstance(id)) {
                                     identity.set(resolvedEntity, id);
                                 } else {
                                     identity.convertAndSet(resolvedEntity, id);
                                 }
+                            } else {
+                                finalEntity = identity.withValue(resolvedEntity, id);
                             }
-                            T finalEntity = resolvedEntity;
+
                             if (pe.hasPostPersistEventListeners()) {
                                 finalEntity = triggerPostPersist(resolvedEntity, insert.getPersistentEntity(), insert.getIdentityProperty().getAnnotationMetadata());
                             }
