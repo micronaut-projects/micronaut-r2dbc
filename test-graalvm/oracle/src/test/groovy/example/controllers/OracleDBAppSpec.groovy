@@ -18,27 +18,32 @@ package example.controllers
 import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import org.testcontainers.containers.JdbcDatabaseContainer
-import org.testcontainers.containers.PostgreSQLContainer
+import org.testcontainers.containers.OracleContainer
 import org.testcontainers.utility.DockerImageName
-import spock.lang.IgnoreIf
 import testgraalvm.controllers.AbstractDBContainerAppSpec
 
 @MicronautTest
-@IgnoreIf({env["GITHUB_WORKFLOW"]})
-class PostgresAppSpec extends AbstractDBContainerAppSpec {
+class OracleDBAppSpec extends AbstractDBContainerAppSpec {
 
     @Override
     JdbcDatabaseContainer getJdbcDatabaseContainer() {
-        return new PostgreSQLContainer(DockerImageName.parse("postgres:10"))
+        return new OracleContainer(DockerImageName.parse("registry.gitlab.com/micronaut-projects/micronaut-graal-tests/oracle-database:18.4.0-xe"))
     }
 
     @Override
     String getDriverName() {
-        return "postgres"
+        return "oracle"
+    }
+
+    @Override
+    Map<String, String> getProperties() {
+        return super.getProperties() + [
+                "r2dbc.datasources.default.database":jdbcDatabaseContainer.getSid()
+        ]
     }
 
     @Override
     Dialect getDatabaseDialect() {
-        return Dialect.POSTGRES
+        Dialect.ORACLE
     }
 }

@@ -56,7 +56,7 @@ subprojects { Project subproject ->
         args("-H:+ReportExceptionStackTraces")
     }
 
-    mainClassName = "example.Application"
+    mainClassName = "testgraalvm.Application"
 }
 
 project("common") {
@@ -110,12 +110,35 @@ project("postgres") {
         testImplementation "org.testcontainers:postgresql"
     }
 }
-//project("oracle") {
-//    dependencies {
-//        runtimeOnly "com.oracle.ojdbc:ojdbc8"
-//        testImplementation "org.testcontainers:oracle-xe"
-//    }
-//}
+if (Boolean.getBoolean('test.oracle')) {
+    project("oracle") {
+        repositories {
+            mavenLocal()
+        }
+        // hack until driver available in central
+        def urlFile = { url, name ->
+            File file = new File("$buildDir/download/${name}.jar")
+            file.parentFile.mkdirs()
+            if (!file.exists()) {
+                new URL(url).withInputStream { downloadStream ->
+                    file.withOutputStream { fileOut ->
+                        fileOut << downloadStream
+                    }
+                }
+            }
+            files(file.absolutePath)
+        }
+        dependencies {
+            runtimeOnly urlFile('https://github.com/oracle/oracle-r2dbc/releases/download/0.1.0/oracle-r2dbc-0.1.0.jar', 'oracle-r2dbc')
+            runtimeOnly "com.oracle.database.jdbc:ojdbc11:21.1.0.0"
+            testImplementation "org.testcontainers:oracle-xe"
+        }
+        // Not enough memory on Github Actions to test native images :(
+        tasks.findByName("testNativeImage").enabled(false)
+        tasks.findByName("nativeImage").enabled(false)
+
+    }
+}
 project("mysql") {
     dependencies {
         runtimeOnly 'dev.miku:r2dbc-mysql'

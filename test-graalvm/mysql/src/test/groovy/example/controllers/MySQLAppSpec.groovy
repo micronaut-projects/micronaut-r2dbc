@@ -21,6 +21,7 @@ import io.micronaut.test.support.TestPropertyProvider
 import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.utility.DockerImageName
+import testgraalvm.controllers.AbstractDBContainerAppSpec
 
 @MicronautTest
 class MySQLAppSpec extends AbstractDBContainerAppSpec implements TestPropertyProvider {

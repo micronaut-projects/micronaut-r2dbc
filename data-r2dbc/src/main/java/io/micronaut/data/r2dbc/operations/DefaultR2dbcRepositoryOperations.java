@@ -33,6 +33,7 @@ import io.micronaut.data.intercept.annotation.DataMethod;
 import io.micronaut.data.jdbc.operations.AbstractSqlRepositoryOperations;
 import io.micronaut.data.model.DataType;
 import io.micronaut.data.model.Page;
+import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.model.runtime.*;
 import io.micronaut.data.operations.async.AsyncRepositoryOperations;
 import io.micronaut.data.operations.reactive.ReactiveRepositoryOperations;
@@ -676,6 +677,12 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                                 }
                             }
                             return c;
+                        })).switchIfEmpty(Mono.fromCallable(() -> {
+                            Argument<?> argument = preparedQuery.getResultArgument().getFirstTypeVariable().orElse(null);
+                            return (Number) columnIndexResultSetReader.convertRequired(
+                                    0L,
+                                    argument
+                            );
                         }));
             }));
         }
@@ -722,8 +729,8 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                             if (num > 0) {
                                 triggerPostRemove(entity, persistentEntity, annotationMetadata);
                             }
-                            return num;
-                        })
+                            return (long) num;
+                        }).defaultIfEmpty(0L)
                     )
                 );
             })
@@ -734,59 +741,79 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
         @Override
         public <T> Flux<T> persistAll(@NonNull InsertBatchOperation<T> operation) {
             StoredInsert<T> insert = resolveInsert(operation);
-            return Flux.from(withNewOrExistingTransaction(operation, status -> {
-                List<T> results = new ArrayList<>(10);
-                boolean generateId = insert.isGenerateId();
-                String insertSql = insert.getSql();
-                BeanProperty<T, Object> identity = insert.getIdentityProperty();
-                RuntimePersistentProperty<?> identityProperty = insert.getIdentity();
-                final boolean hasGeneratedID = generateId && identity != null;
-                final RuntimePersistentEntity<T> persistentEntity = insert.getPersistentEntity();
+            if (insert.doesSupportBatch()) {
 
-                if (QUERY_LOG.isDebugEnabled()) {
-                    QUERY_LOG.debug("Executing SQL Insert: {}", insertSql);
-                }
-                Statement statement = status.getConnection().createStatement(insertSql);
-                if (hasGeneratedID) {
-                    statement.returnGeneratedValues(identityProperty.getPersistedName());
-                }
+                return Flux.from(withNewOrExistingTransaction(operation, status -> {
+                    List<T> results = new ArrayList<>(10);
+                    boolean generateId = insert.isGenerateId();
+                    String insertSql = insert.getSql();
+                    BeanProperty<T, Object> identity = insert.getIdentityProperty();
+                    RuntimePersistentProperty<?> identityProperty = insert.getIdentity();
+                    final boolean hasGeneratedID = generateId && identity != null &&
+                            insert.getDialect() != Dialect.ORACLE; // Oracle doesn't support batch inserts with returning IDs
+                    final RuntimePersistentEntity<T> persistentEntity = insert.getPersistentEntity();
 
-                final boolean hasPrePersistEventListeners = persistentEntity.hasPrePersistEventListeners();
-                final AnnotationMetadata annotationMetadata = operation.getAnnotationMetadata();
-                for (T entity : operation) {
-                    if (hasPrePersistEventListeners) {
-                        entity = triggerPrePersist(entity, persistentEntity, annotationMetadata);
-                        if (entity == null) {
-                            continue;
-                        }
+                    if (QUERY_LOG.isDebugEnabled()) {
+                        QUERY_LOG.debug("Executing SQL Insert: {}", insertSql);
                     }
-                    setInsertParameters(insert, entity, statement);
-                    statement.add();
-                    results.add(entity);
-                }
-
-                Iterator<T> i = results.iterator();
-                final boolean hasPostPersistEventListeners = persistentEntity.hasPostPersistEventListeners();
-                return Flux.from(statement.execute()).flatMap(result -> result.map((row, metadata) -> {
-                    T entity = i.next();
+                    Statement statement = status.getConnection().createStatement(insertSql);
                     if (hasGeneratedID) {
-                        Object id = columnIndexResultSetReader.readDynamic(row, 0, identityProperty.getDataType());
-                        if (!identity.isReadOnly()) {
-                            if (identity.getType().isInstance(id)) {
-                                identity.set(entity, id);
-                            } else {
-                                identity.convertAndSet(entity, id);
+                        statement.returnGeneratedValues(identityProperty.getPersistedName());
+                    }
+
+                    final boolean hasPrePersistEventListeners = persistentEntity.hasPrePersistEventListeners();
+                    final AnnotationMetadata annotationMetadata = operation.getAnnotationMetadata();
+                    for (T entity : operation) {
+                        if (hasPrePersistEventListeners) {
+                            entity = triggerPrePersist(entity, persistentEntity, annotationMetadata);
+                            if (entity == null) {
+                                continue;
                             }
-                        } else if (identity.hasSetterOrConstructorArgument()) {
-                            entity = identity.withValue(entity, id);
                         }
+                        setInsertParameters(insert, entity, statement);
+                        statement.add();
+                        results.add(entity);
                     }
-                    if (hasPostPersistEventListeners) {
-                        triggerPostPersist(entity, persistentEntity, annotationMetadata);
+
+                    Iterator<T> i = results.iterator();
+                    final boolean hasPostPersistEventListeners = persistentEntity.hasPostPersistEventListeners();
+                    final Flux<T> resultEmitter = Flux.from(statement.execute())
+                            .flatMap(result -> result.map((row, metadata) -> {
+                                T entity = i.next();
+                                if (hasGeneratedID) {
+                                    Object id = columnIndexResultSetReader.readDynamic(row, 0, identityProperty.getDataType());
+                                    if (!identity.isReadOnly()) {
+                                        if (identity.getType().isInstance(id)) {
+                                            identity.set(entity, id);
+                                        } else {
+                                            identity.convertAndSet(entity, id);
+                                        }
+                                    } else if (identity.hasSetterOrConstructorArgument()) {
+                                        entity = identity.withValue(entity, id);
+                                    }
+                                }
+                                if (hasPostPersistEventListeners) {
+                                    triggerPostPersist(entity, persistentEntity, annotationMetadata);
+                                }
+                                return entity;
+                            }));
+                    if (!hasGeneratedID) {
+                        return resultEmitter
+                                .switchIfEmpty(Flux.fromIterable(results))
+                                .map((entity) -> {
+                                    if (hasPostPersistEventListeners) {
+                                        triggerPostPersist(entity, persistentEntity, annotationMetadata);
+                                    }
+                                    return entity;
+                                });
+                    } else {
+                        return resultEmitter;
                     }
-                    return entity;
                 }));
-            }));
+            } else {
+                return Flux.fromIterable(operation.split())
+                        .flatMap(this::persist);
+            }
         }
 
         @NonNull

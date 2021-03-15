@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example.domain;
+package testgraalvm.domain;
 
 
 import io.micronaut.data.annotation.GeneratedValue;
@@ -24,7 +24,7 @@ import io.micronaut.data.annotation.MappedEntity;
 public class Owner {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(GeneratedValue.Type.IDENTITY)
     private Long id;
     private String name;
     private int age;

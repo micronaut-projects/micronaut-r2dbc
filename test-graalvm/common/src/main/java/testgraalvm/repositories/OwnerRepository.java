@@ -1,7 +1,7 @@
-package example.repositories;
+package testgraalvm.repositories;
 
-import example.controllers.dto.PetDto;
-import example.domain.Pet;
+import testgraalvm.controllers.dto.OwnerDto;
+import testgraalvm.domain.Owner;
 import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository;
 import io.micronaut.transaction.TransactionDefinition;
 import io.micronaut.transaction.annotation.TransactionalAdvice;
@@ -14,10 +14,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @TransactionalAdvice(isolation = TransactionDefinition.Isolation.SERIALIZABLE)
-public interface PetRepository extends ReactiveStreamsCrudRepository<Pet, Long> {
-    Flowable<PetDto> list();
+public interface OwnerRepository extends ReactiveStreamsCrudRepository<Owner, Long> {
+    Flowable<OwnerDto> list();
 
-    Maybe<PetDto> findByName(String name);
+    Maybe<OwnerDto> findByName(String name);
 
-    <S extends Pet> Publisher<S> saveAll(@Valid @NotNull Iterable<S> entities, Connection connection);
+    Maybe<Owner> getByName(String name);
+
+    <S extends Owner> Publisher<S> saveAll(@Valid @NotNull Iterable<S> entities, Connection connection);
 }

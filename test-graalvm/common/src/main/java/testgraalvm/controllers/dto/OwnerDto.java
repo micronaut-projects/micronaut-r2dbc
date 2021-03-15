@@ -13,32 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example.controllers;
+package testgraalvm.controllers.dto;
 
-import example.controllers.dto.PetDto;
-import example.repositories.PetRepository;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
+import io.micronaut.core.annotation.Introspected;
 
-@Controller("/pets")
-class PetController {
+@Introspected
+public class OwnerDto {
 
-    private final PetRepository petRepository;
+    private Long id;
+    private String name;
+    private int age;
 
-    PetController(PetRepository petRepository) {
-        this.petRepository = petRepository;
+    public Long getId() {
+        return id;
     }
 
-    @Get
-    Flowable<PetDto> all() {
-        return petRepository.list();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Get("/{name}")
-    Maybe<PetDto> byName(String name) {
-        return petRepository.findByName(name);
+    public String getName() {
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 }

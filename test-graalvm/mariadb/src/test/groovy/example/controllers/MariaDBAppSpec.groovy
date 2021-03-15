@@ -20,6 +20,7 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.MariaDBContainer
 import org.testcontainers.utility.DockerImageName
+import testgraalvm.controllers.AbstractDBContainerAppSpec
 
 @MicronautTest
 class MariaDBAppSpec extends AbstractDBContainerAppSpec {

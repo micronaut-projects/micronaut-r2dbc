@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example.controllers.dto;
+package testgraalvm.controllers.dto;
 
+import testgraalvm.domain.Pet;
 import io.micronaut.core.annotation.Introspected;
 
 @Introspected
-public class OwnerDto {
+public class  PetDto {
 
     private Long id;
     private String name;
-    private int age;
+    private Pet.PetType type;
 
     public Long getId() {
         return id;
@@ -40,11 +41,11 @@ public class OwnerDto {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
+    public Pet.PetType getType() {
+        return type;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setType(Pet.PetType type) {
+        this.type = type;
     }
 }
