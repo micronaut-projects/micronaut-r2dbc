@@ -777,7 +777,7 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                             } else {
                                 identity.convertAndSet(entity, id);
                             }
-                        } else {
+                        } else if (identity.hasSetterOrConstructorArgument()) {
                             entity = identity.withValue(entity, id);
                         }
                     }
@@ -843,7 +843,7 @@ public class DefaultR2dbcRepositoryOperations extends AbstractSqlRepositoryOpera
                                 } else {
                                     identity.convertAndSet(resolvedEntity, id);
                                 }
-                            } else {
+                            } else if (identity.hasSetterOrConstructorArgument()) {
                                 finalEntity = identity.withValue(resolvedEntity, id);
                             }
 
