@@ -133,6 +133,10 @@ if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_11)) {
             runtimeOnly "com.oracle.database.jdbc:ojdbc11:21.1.0.0"
             testImplementation "org.testcontainers:oracle-xe"
         }
+        // Not enough memory on Github Actions to test native images :(
+        tasks.findByName("testNativeImage").enabled(false)
+        tasks.findByName("nativeImage").enabled(false)
+
     }
 }
 project("mysql") {
