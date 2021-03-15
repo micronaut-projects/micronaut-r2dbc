@@ -15,7 +15,9 @@ include 'test-graalvm'
 include 'test-graalvm:postgres'
 include 'test-graalvm:mysql'
 include 'test-graalvm:mariadb'
-include 'test-graalvm:oracle'
+if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_11)) {
+    include 'test-graalvm:oracle'
+}
 include 'test-graalvm:h2'
 include 'test-graalvm:mssql'
 include 'test-graalvm:common'
