@@ -19,12 +19,14 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.data.exceptions.DataAccessException;
+import io.micronaut.data.model.DataType;
 import io.micronaut.data.runtime.mapper.QueryStatement;
 import io.r2dbc.spi.Statement;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Implementation of {@link QueryStatement} for R2DBC.
@@ -33,6 +35,43 @@ import java.util.Date;
  * @since 1.0.0
  */
 public class R2dbcQueryStatement implements QueryStatement<Statement, Integer> {
+    @Override
+    public QueryStatement<Statement, Integer> setDynamic(@NonNull Statement statement, @NonNull Integer index, @NonNull DataType dataType, Object value) {
+        if (value == null) {
+            switch (dataType) {
+                case BYTE:
+                    statement.bindNull(index, Byte.class);
+                break;
+                case CHARACTER:
+                    statement.bindNull(index, Character.class);
+                break;
+                case INTEGER:
+                    statement.bindNull(index, Integer.class);
+                break;
+                case LONG:
+                    statement.bindNull(index, Long.class);
+                break;
+                case FLOAT:
+                    statement.bindNull(index, Float.class);
+                break;
+                case SHORT:
+                    statement.bindNull(index, Short.class);
+                break;
+                case DOUBLE:
+                    statement.bindNull(index, Double.class);
+                break;
+                case BOOLEAN:
+                    statement.bindNull(index, Boolean.class);
+                break;
+                default:
+                    return QueryStatement.super.setDynamic(statement, index, dataType, value);
+            }
+            return this;
+        } else {
+            return QueryStatement.super.setDynamic(statement, index, dataType, value);
+        }
+    }
+
     @Override
     public QueryStatement<Statement, Integer> setValue(Statement statement, Integer index, Object value) throws DataAccessException {
         if (value == null) {
@@ -70,7 +109,7 @@ public class R2dbcQueryStatement implements QueryStatement<Statement, Integer> {
     @Override
     public QueryStatement<Statement, Integer> setDate(Statement statement, Integer name, Date date) {
         if (date == null) {
-            statement.bindNull(name, Date.class);
+            statement.bindNull(name, LocalDateTime.class);
         } else {
             statement.bind(name, date);
         }
@@ -82,7 +121,7 @@ public class R2dbcQueryStatement implements QueryStatement<Statement, Integer> {
     public QueryStatement<Statement, Integer> setTimestamp(Statement statement, Integer name, Date date) {
         LocalDateTime localDate = convertRequired(date, LocalDateTime.class);
         if (localDate == null) {
-            statement.bindNull(name, Date.class);
+            statement.bindNull(name, LocalDateTime.class);
         } else {
             statement.bind(name, localDate);
         }
