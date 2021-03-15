@@ -56,7 +56,7 @@ subprojects { Project subproject ->
         args("-H:+ReportExceptionStackTraces")
     }
 
-    mainClassName = "example.Application"
+    mainClassName = "testgraalvm.Application"
 }
 
 project("common") {
