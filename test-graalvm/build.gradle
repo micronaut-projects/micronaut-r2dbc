@@ -114,8 +114,21 @@ project("oracle") {
     repositories {
         mavenLocal()
     }
+    // hack until driver available in central
+    def urlFile = { url, name ->
+        File file = new File("$buildDir/download/${name}.jar")
+        file.parentFile.mkdirs()
+        if (!file.exists()) {
+            new URL(url).withInputStream { downloadStream ->
+                file.withOutputStream { fileOut ->
+                    fileOut << downloadStream
+                }
+            }
+        }
+        files(file.absolutePath)
+    }
     dependencies {
-        runtimeOnly "com.oracle.database.jdbc:oracle-r2dbc:0.1.0"
+        runtimeOnly urlFile('https://github.com/oracle/oracle-r2dbc/releases/download/0.1.0/oracle-r2dbc-0.1.0.jar', 'oracle-r2dbc')
         runtimeOnly "com.oracle.database.jdbc:ojdbc11:21.1.0.0"
         testImplementation "org.testcontainers:oracle-xe"
     }

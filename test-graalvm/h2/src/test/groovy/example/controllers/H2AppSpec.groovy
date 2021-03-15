@@ -19,6 +19,7 @@ package example.controllers
 
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
+import testgraalvm.controllers.AbstractAppSpec
 
 @MicronautTest
 class H2AppSpec extends AbstractAppSpec implements TestPropertyProvider {

@@ -20,6 +20,7 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.MSSQLServerContainer
+import testgraalvm.controllers.AbstractDBContainerAppSpec
 
 @MicronautTest
 class SqlServerAppSpec extends AbstractDBContainerAppSpec implements TestPropertyProvider {

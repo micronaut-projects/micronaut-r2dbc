@@ -21,6 +21,7 @@ import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.utility.DockerImageName
 import spock.lang.IgnoreIf
+import testgraalvm.controllers.AbstractDBContainerAppSpec
 
 @MicronautTest
 @IgnoreIf({env["GITHUB_WORKFLOW"]})

@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example.controllers;
+package testgraalvm.controllers;
 
-import example.controllers.dto.OwnerDto;
-import example.domain.Owner;
-import example.repositories.OwnerRepository;
+import testgraalvm.controllers.dto.OwnerDto;
+import testgraalvm.domain.Owner;
+import testgraalvm.repositories.OwnerRepository;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;

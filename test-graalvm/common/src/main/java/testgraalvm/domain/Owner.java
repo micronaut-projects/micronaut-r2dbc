@@ -13,38 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example.domain;
+package testgraalvm.domain;
 
-import io.micronaut.core.annotation.Introspected;
+
 import io.micronaut.data.annotation.GeneratedValue;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
-import io.micronaut.data.annotation.Relation;
 
 @MappedEntity
-public class Pet {
+public class Owner {
 
     @Id
     @GeneratedValue(GeneratedValue.Type.IDENTITY)
     private Long id;
-
     private String name;
+    private int age;
 
-    @Relation(Relation.Kind.MANY_TO_ONE)
-    private Owner owner;
-
-    private PetType type = PetType.DOG;
-
-    public PetType getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public Owner getOwner() {
-        return owner;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public Long getId() {
@@ -55,31 +53,12 @@ public class Pet {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setType(PetType type) {
-        this.type = type;
-    }
-
-    @Introspected
-    public enum PetType {
-        DOG,
-        CAT
-    }
-
     @Override
     public String toString() {
-        return "Pet{" +
+        return "Owner{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", owner=" + owner +
-                ", type=" + type +
+                ", age=" + age +
                 '}';
     }
 }

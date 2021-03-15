@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example.controllers
+package testgraalvm.controllers
 
 import edu.umd.cs.findbugs.annotations.Nullable
-import example.controllers.dto.OwnerDto
-import example.controllers.dto.PetDto
-import example.domain.Owner
+import testgraalvm.controllers.dto.OwnerDto
+import testgraalvm.controllers.dto.PetDto
+import testgraalvm.domain.Owner
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Delete

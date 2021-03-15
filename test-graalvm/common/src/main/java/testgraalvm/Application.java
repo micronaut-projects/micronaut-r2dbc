@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example;
+package testgraalvm;
 
-import example.domain.Owner;
-import example.domain.Pet;
-import example.repositories.OwnerRepository;
-import example.repositories.PetRepository;
+import testgraalvm.domain.Owner;
+import testgraalvm.domain.Pet;
+import testgraalvm.repositories.OwnerRepository;
+import testgraalvm.repositories.PetRepository;
 import io.micronaut.context.event.StartupEvent;
 import io.micronaut.data.r2dbc.operations.R2dbcOperations;
 import io.micronaut.runtime.Micronaut;
 import io.micronaut.runtime.event.annotation.EventListener;
 import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 
 import javax.inject.Singleton;
 import java.util.Arrays;
@@ -67,8 +68,7 @@ public class Application {
         hoppy.setOwner(barney);
 
         Flowable.fromPublisher(operations.withTransaction((status) ->
-            Flowable.fromPublisher(ownerRepository.saveAll(Arrays.asList(fred, barney), status.getConnection()))
-                    .toList().flatMapPublisher(owners ->
+            Flowable.fromPublisher(ownerRepository.saveAll(Arrays.asList(fred, barney), status.getConnection())).toList().flatMapPublisher(owners ->
                     petRepository.saveAll(Arrays.asList(dino, bp, hoppy), status.getConnection())
             )
         )).blockingSubscribe(

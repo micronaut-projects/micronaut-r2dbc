@@ -20,6 +20,7 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import org.testcontainers.containers.JdbcDatabaseContainer
 import org.testcontainers.containers.OracleContainer
 import org.testcontainers.utility.DockerImageName
+import testgraalvm.controllers.AbstractDBContainerAppSpec
 
 @MicronautTest
 class OracleDBAppSpec extends AbstractDBContainerAppSpec {
