@@ -110,7 +110,7 @@ project("postgres") {
         testImplementation "org.testcontainers:postgresql"
     }
 }
-if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_11)) {
+if (Boolean.getBoolean('test.oracle')) {
     project("oracle") {
         repositories {
             mavenLocal()
