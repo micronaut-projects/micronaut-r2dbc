@@ -4,6 +4,6 @@ By default R2DBC is not opinonated about clients, therefore you can use the R2DB
 
 As part of this project there is an experimental RxJava 2 client which you can add with the following dependency:
 
-dependency::io.micronaut.r2dbc:micronaut-r2dbc-rxjava2[version="{version}]
+dependency:io.micronaut.r2dbc:micronaut-r2dbc-rxjava2[version="{version}]
 
 Which allows you to inject a `RxConnectionFactory` bean that allows you to do basic operations with R2DBC and RxJava 2.
