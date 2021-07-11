@@ -13,7 +13,7 @@ dependencies {
     annotationProcessor "io.micronaut:micronaut-graal:$micronautVersion"
     annotationProcessor "io.micronaut.docs:micronaut-docs-asciidoc-config-props:$micronautDocsVersion"
     implementation "io.micronaut.reactor:micronaut-reactor"
-    implementation "io.projectreactor.netty:reactor-netty:1.0.5"
+    implementation "io.projectreactor.netty:reactor-netty:1.0.8"
     api "io.projectreactor:reactor-core:$reactorVersion"
     api "io.micronaut.data:micronaut-data-jdbc:$micronautDataVersion"
     api "io.micronaut.data:micronaut-data-model:$micronautDataVersion"
@@ -31,11 +31,11 @@ dependencies {
     testAnnotationProcessor "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
     testCompileOnly "io.micronaut:micronaut-inject-groovy:$micronautVersion"
     testCompileOnly "io.micronaut.data:micronaut-data-processor:$micronautDataVersion"
-    testImplementation "com.fasterxml.jackson.core:jackson-databind:2.12.2"
+    testImplementation "com.fasterxml.jackson.core:jackson-databind:2.12.4"
     testImplementation "jakarta.persistence:jakarta.persistence-api:$jakartaPersistenceVersion"
     testImplementation "org.codehaus.groovy:groovy-sql:$groovyVersion"
     testImplementation "io.micronaut:micronaut-validation:$micronautVersion"
-    testImplementation platform('org.testcontainers:testcontainers-bom:1.15.2')
+    testImplementation platform('org.testcontainers:testcontainers-bom:1.15.3')
     testImplementation "org.testcontainers:r2dbc"
 
     // mariadb
