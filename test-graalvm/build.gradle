@@ -61,6 +61,7 @@ subprojects { Project subproject ->
 
 project("common") {
     dependencies {
+        implementation 'jakarta.inject:jakarta.inject-api:2.0.0'
         annotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
         implementation "io.micronaut:micronaut-http-client"
         annotationProcessor "io.micronaut:micronaut-graal"
@@ -70,6 +71,7 @@ project("common") {
 project("common-tests") {
     dependencies {
         api("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion")
+        implementation 'jakarta.inject:jakarta.inject-api:2.0.0'
         implementation project(":test-graalvm:common")
         implementation "io.micronaut:micronaut-http-client"
         implementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
