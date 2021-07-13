@@ -92,7 +92,7 @@ public class BookControllerTest implements TestPropertyProvider {
 
     @Override
     public Map<String, String> getProperties() {
-        container = new MySQLContainer<>(DockerImageName.parse("mysql").withTag("5"));
+        container = new MySQLContainer<>(DockerImageName.parse("mysql").withTag("5.7.34"));
         container.start();
         return CollectionUtils.mapOf(
                 "datasources.default.url", container.getJdbcUrl(),
@@ -105,7 +105,8 @@ public class BookControllerTest implements TestPropertyProvider {
                 "r2dbc.datasources.default.driver", "mysql",
                 "r2dbc.datasources.default.username", container.getUsername(),
                 "r2dbc.datasources.default.password", container.getPassword(),
-                "r2dbc.datasources.default.database", container.getDatabaseName()
+                "r2dbc.datasources.default.database", container.getDatabaseName(),
+                "r2dbc.datasources.default.options.tlsVersion", "TLSv1.2"
         );
     }
 

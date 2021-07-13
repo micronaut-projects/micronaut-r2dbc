@@ -15,7 +15,7 @@ import spock.lang.Specification
 import jakarta.inject.Inject
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mysql:///databasename?TC_IMAGE_TAG=5.7.34")
+@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mysql:///databasename?TC_IMAGE_TAG=5.7.34&tlsVersion=TLSv1.2")
 class MySqlConnectionSpec extends Specification  {
     @Inject BasicR2dbcProperties props
     @Inject ConnectionFactoryOptions options

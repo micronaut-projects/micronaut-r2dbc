@@ -29,7 +29,7 @@ import io.micronaut.http.client.annotation.Client
 import spock.lang.Specification
 import spock.lang.Stepwise
 
-import jakarta.inject.Inject
+import javax.inject.Inject
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 

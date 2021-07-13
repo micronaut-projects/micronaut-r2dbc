@@ -35,7 +35,8 @@ class SomeEntityRepositoryTest() : TestPropertyProvider {
             "r2dbc.datasources.default.driver" to "mysql",
             "r2dbc.datasources.default.username" to container!!.username,
             "r2dbc.datasources.default.password" to container!!.password,
-            "r2dbc.datasources.default.database" to container!!.databaseName
+            "r2dbc.datasources.default.database" to container!!.databaseName,
+            "r2dbc.datasources.default.options.tlsVersion" to "TLSv1.2"
         )
     }
 }
