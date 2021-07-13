@@ -8,7 +8,7 @@ import io.r2dbc.spi.ConnectionFactoryOptions
 import io.r2dbc.spi.Option
 import spock.lang.Specification
 
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @MicronautTest(rebuildContext = true)
 class H2ConnectionFactoryConfigurationSpec extends Specification {

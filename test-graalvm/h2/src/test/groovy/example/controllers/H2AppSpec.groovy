@@ -27,7 +27,7 @@ class H2AppSpec extends AbstractAppSpec implements TestPropertyProvider {
     @Override
     Map<String, String> getProperties() {
         return [
-            "r2dbc.datasources.default.url" : "r2dbc:h2:mem:///testdb;DB_CLOSE_ON_EXIT=FALSE",
+            "r2dbc.datasources.default.url" : "r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=30",
             "r2dbc.datasources.default.dialect" : "H2",
             "r2dbc.datasources.default.schema-generate" : "CREATE_DROP"
         ]

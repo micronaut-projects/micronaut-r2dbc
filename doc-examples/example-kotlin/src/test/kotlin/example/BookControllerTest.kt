@@ -17,7 +17,7 @@ import org.testcontainers.containers.MySQLContainer
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.*
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @MicronautTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -94,7 +94,8 @@ class BookControllerTest : TestPropertyProvider {
                 "r2dbc.datasources.default.driver" to "mysql",
                 "r2dbc.datasources.default.username" to container!!.username,
                 "r2dbc.datasources.default.password" to container!!.password,
-                "r2dbc.datasources.default.database" to container!!.databaseName
+                "r2dbc.datasources.default.database" to container!!.databaseName,
+                "r2dbc.datasources.default.options.tlsVersion" to "TLSv1.2"
         )
     }
 

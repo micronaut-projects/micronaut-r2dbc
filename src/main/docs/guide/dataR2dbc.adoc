@@ -1,1 +1,1 @@
-The R2DBC module features support for defining reactive Micronaut Data repositories that use the underlying R2DBC driver to automatically implement queries for your at compilation time.
+Micronaut Data builds on this module and provides support for Reactive repositories. See the documentation on https://micronaut-projects.github.io/micronaut-data/latest/guide/#r2dbc[Micronaut Data R2DBC] for more information and the <<quickStart, Quick Start>> section for a demonstration on how to create an application.
