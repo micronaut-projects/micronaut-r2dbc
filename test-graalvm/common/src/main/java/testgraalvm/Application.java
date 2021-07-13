@@ -27,7 +27,7 @@ import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import java.util.Arrays;
 
 @Singleton

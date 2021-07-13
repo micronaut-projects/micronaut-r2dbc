@@ -2,8 +2,6 @@ rootProject.name = 'r2dbc'
 
 include 'r2dbc-bom'
 include 'r2dbc-core'
-include 'r2dbc-rxjava2'
-include 'data-r2dbc'
 
 // examples
 include 'doc-examples:example-groovy'

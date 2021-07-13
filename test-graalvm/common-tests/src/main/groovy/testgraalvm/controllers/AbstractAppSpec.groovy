@@ -15,7 +15,7 @@
  */
 package testgraalvm.controllers
 
-import edu.umd.cs.findbugs.annotations.Nullable
+import io.micronaut.core.annotation.Nullable
 import testgraalvm.controllers.dto.OwnerDto
 import testgraalvm.controllers.dto.PetDto
 import testgraalvm.domain.Owner
@@ -29,7 +29,7 @@ import io.micronaut.http.client.annotation.Client
 import spock.lang.Specification
 import spock.lang.Stepwise
 
-import javax.inject.Inject
+import jakarta.inject.Inject
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 

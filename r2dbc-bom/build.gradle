@@ -13,6 +13,6 @@ dependencies {
         }
 
         api "org.mariadb:r2dbc-mariadb:1.0.1"
-        api "io.projectreactor.netty:reactor-netty:1.0.5"
+        api "io.projectreactor.netty:reactor-netty:1.0.8"
     }
 }

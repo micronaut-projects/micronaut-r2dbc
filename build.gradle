@@ -1,9 +1,10 @@
 buildscript {
     repositories {
-        maven { url "https://repo.grails.org/grails/core" }
+        mavenCentral()
+        gradlePluginPortal()
     }
     dependencies {
-        classpath "io.micronaut.build.internal:micronaut-gradle-plugins:3.0.3"
+        classpath "io.micronaut.build.internal:micronaut-gradle-plugins:4.0.0"
     }
 }
 
@@ -40,7 +41,8 @@ subprojects { Project subproject ->
                 }
             }
             dependencies {
-                testImplementation platform('org.testcontainers:testcontainers-bom:1.15.2')
+                implementation 'jakarta.inject:jakarta.inject-api:2.0.0'
+                testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
             }
         }
     }

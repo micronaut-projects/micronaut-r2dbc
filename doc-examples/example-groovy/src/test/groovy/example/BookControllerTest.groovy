@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono
 import spock.lang.Shared
 import spock.lang.Specification
 
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @MicronautTest
 class BookControllerTest extends Specification implements TestPropertyProvider {
