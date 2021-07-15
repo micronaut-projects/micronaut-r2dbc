@@ -4,12 +4,6 @@ releaseHistory: Release History
 quickStart:
   title: Quick Start
 availableDrivers: Available Drivers
-dataR2dbc:
-  title: Micronaut Data R2DBC
-  querying: Writing Queries
-  crud: Performing CRUD Operations
-  transactionManagement: Micronaut Data Transactions with R2DBC
-  entityEvents: Reactive & Entity Events
-clients: R2DBC Clients
+dataR2dbc: Micronaut Data R2DBC
 repository: Repository
 

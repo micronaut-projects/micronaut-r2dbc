@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono
 import spock.lang.Shared
 import spock.lang.Specification
 
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @MicronautTest
 class BookControllerTest extends Specification implements TestPropertyProvider {
@@ -68,7 +68,7 @@ class BookControllerTest extends Specification implements TestPropertyProvider {
 
     @Override
     Map<String, String> getProperties() {
-        container = new MySQLContainer<>(DockerImageName.parse("mysql").withTag("5"))
+        container = new MySQLContainer<>(DockerImageName.parse("mysql").withTag("5.7"))
         container.start()
         return CollectionUtils.mapOf(
                 "datasources.default.url", container.getJdbcUrl(),
@@ -80,7 +80,8 @@ class BookControllerTest extends Specification implements TestPropertyProvider {
                 "r2dbc.datasources.default.driver", "mysql",
                 "r2dbc.datasources.default.username", container.getUsername(),
                 "r2dbc.datasources.default.password", container.getPassword(),
-                "r2dbc.datasources.default.database", container.getDatabaseName()
+                "r2dbc.datasources.default.database", container.getDatabaseName(),
+                "r2dbc.datasources.default.options.tlsVersion", "TLSv1.2"
         )
     }
 

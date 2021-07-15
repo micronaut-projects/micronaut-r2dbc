@@ -39,7 +39,10 @@ subprojects { Project subproject ->
         runtimeOnly "ch.qos.logback:logback-classic"
 
         implementation "io.micronaut:micronaut-http-client"
-        implementation project(":data-r2dbc")
+        implementation project(":r2dbc-core")
+        implementation("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion") {
+            exclude module:'micronaut-r2dbc-core'
+        }
         implementation project(":test-graalvm:common")
         testImplementation project(":test-graalvm:common-tests")
         testImplementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
@@ -61,15 +64,21 @@ subprojects { Project subproject ->
 
 project("common") {
     dependencies {
+        implementation 'jakarta.inject:jakarta.inject-api:2.0.0'
         annotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
         implementation "io.micronaut:micronaut-http-client"
         annotationProcessor "io.micronaut:micronaut-graal"
-        implementation project(":data-r2dbc")
+        implementation "io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion", {
+            exclude module:'micronaut-r2dbc-core'
+        }
     }
 }
 project("common-tests") {
     dependencies {
-        api project(":data-r2dbc")
+        api("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion") {
+            exclude module:'micronaut-r2dbc-core'
+        }
+        implementation 'jakarta.inject:jakarta.inject-api:2.0.0'
         implementation project(":test-graalvm:common")
         implementation "io.micronaut:micronaut-http-client"
         implementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
@@ -112,24 +121,8 @@ project("postgres") {
 }
 if (Boolean.getBoolean('test.oracle')) {
     project("oracle") {
-        repositories {
-            mavenLocal()
-        }
-        // hack until driver available in central
-        def urlFile = { url, name ->
-            File file = new File("$buildDir/download/${name}.jar")
-            file.parentFile.mkdirs()
-            if (!file.exists()) {
-                new URL(url).withInputStream { downloadStream ->
-                    file.withOutputStream { fileOut ->
-                        fileOut << downloadStream
-                    }
-                }
-            }
-            files(file.absolutePath)
-        }
         dependencies {
-            runtimeOnly urlFile('https://github.com/oracle/oracle-r2dbc/releases/download/0.1.0/oracle-r2dbc-0.1.0.jar', 'oracle-r2dbc')
+            runtimeOnly 'com.oracle.database.r2dbc:oracle-r2dbc:0.2.0'
             runtimeOnly "com.oracle.database.jdbc:ojdbc11:21.1.0.0"
             testImplementation "org.testcontainers:oracle-xe"
         }

@@ -15,7 +15,7 @@
  */
 package testgraalvm.controllers
 
-import edu.umd.cs.findbugs.annotations.Nullable
+import io.micronaut.core.annotation.Nullable
 import testgraalvm.controllers.dto.OwnerDto
 import testgraalvm.controllers.dto.PetDto
 import testgraalvm.domain.Owner
