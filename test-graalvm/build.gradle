@@ -39,7 +39,10 @@ subprojects { Project subproject ->
         runtimeOnly "ch.qos.logback:logback-classic"
 
         implementation "io.micronaut:micronaut-http-client"
-        implementation("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion")
+        implementation project(":r2dbc-core")
+        implementation("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion") {
+            exclude module:'micronaut-r2dbc-core'
+        }
         implementation project(":test-graalvm:common")
         testImplementation project(":test-graalvm:common-tests")
         testImplementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
@@ -65,12 +68,16 @@ project("common") {
         annotationProcessor("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
         implementation "io.micronaut:micronaut-http-client"
         annotationProcessor "io.micronaut:micronaut-graal"
-        implementation "io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion"
+        implementation "io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion", {
+            exclude module:'micronaut-r2dbc-core'
+        }
     }
 }
 project("common-tests") {
     dependencies {
-        api("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion")
+        api("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion") {
+            exclude module:'micronaut-r2dbc-core'
+        }
         implementation 'jakarta.inject:jakarta.inject-api:2.0.0'
         implementation project(":test-graalvm:common")
         implementation "io.micronaut:micronaut-http-client"
