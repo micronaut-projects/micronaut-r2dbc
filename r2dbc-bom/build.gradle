@@ -12,7 +12,7 @@ dependencies {
             api "$p.group:micronaut-$p.name:$p.version"
         }
 
-        api "org.mariadb:r2dbc-mariadb:1.0.1"
+        api "org.mariadb:r2dbc-mariadb:1.0.2"
         api "io.projectreactor.netty:reactor-netty:1.0.9"
     }
 }
