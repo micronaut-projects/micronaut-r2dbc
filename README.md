@@ -7,7 +7,7 @@ Micronaut R2DBC adds support for setting an R2DBC backed `ConnectionFactory` in 
 
 ## Documentation
 
-See the [Documentation](https://micronaut-projects.github.io/micronaut-r2dbc/1.0.x/guide/) for more information. 
+See the [Documentation](https://micronaut-projects.github.io/micronaut-r2dbc/latest/guide/) for more information. 
 
 See the [Snapshot Documentation](https://micronaut-projects.github.io/micronaut-r2dbc/snapshot/guide/) for the current development docs.
 
