@@ -56,9 +56,9 @@ public class VersionR2dbcHealthIndicator implements HealthIndicator {
     @Override
     public Publisher<HealthResult> getResult() {
         return Flux.from(connectionFactory.create())
-                .flatMap(c -> Flux.from(c.createStatement(QUERY).execute())
+                .flatMap(connection -> Flux.from(connection.createStatement(QUERY).execute())
                         .flatMap(r -> r.map((row, meta) -> String.valueOf(row.get(0))))
-                        .doAfterTerminate(c::close))
+                        .doAfterTerminate(connection::close))
                 .map(this::buildUpResult)
                 .onErrorResume(e -> Mono.just(buildDownResult(e)));
     }
