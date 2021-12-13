@@ -16,6 +16,7 @@
 package io.micronaut.r2dbc.health;
 
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.context.exceptions.ConfigurationException;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.health.HealthStatus;
 import io.micronaut.management.endpoint.health.HealthEndpoint;
@@ -31,32 +32,35 @@ import reactor.core.publisher.Mono;
 import java.util.Collections;
 
 /**
- * Supports ony Postgres, MariaDB, MySQL.
+ * Supports ony Postgres, MariaDB, MySQL
  *
  * @author Anton Kurako (GoodforGod)
  * @since 2.0.1
  */
 @Requires(classes = HealthIndicator.class)
 @Requires(beans = ConnectionFactory.class)
-@Requires(condition = VersionR2dbcHealthCondition.class)
+@Requires(condition = R2dbcHealthCondition.class)
 @Requires(property = HealthEndpoint.PREFIX + ".r2dbc.enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
 @Singleton
-public class VersionR2dbcHealthIndicator implements HealthIndicator {
+public class R2dbcHealthIndicator implements HealthIndicator {
 
     private static final String NAME = "r2dbc-connection-factory";
-    private static final String QUERY = "SELECT version();";
 
     private final ConnectionFactory connectionFactory;
+    private final String versionQuery;
 
     @Inject
-    public VersionR2dbcHealthIndicator(ConnectionFactory connectionFactory) {
+    public R2dbcHealthIndicator(ConnectionFactory connectionFactory,
+                                R2dbcHealthQueryProvider queryProvider) {
         this.connectionFactory = connectionFactory;
+        this.versionQuery = queryProvider.getVersionQuery(connectionFactory.getMetadata().getName())
+                .orElseThrow(() -> new ConfigurationException("Unexpected behavior while getting Health Query for: " + connectionFactory));
     }
 
     @Override
     public Publisher<HealthResult> getResult() {
         return Flux.from(connectionFactory.create())
-                .flatMap(connection -> Flux.from(connection.createStatement(QUERY).execute())
+                .flatMap(connection -> Flux.from(connection.createStatement(versionQuery).execute())
                         .flatMap(r -> r.map((row, meta) -> String.valueOf(row.get(0))))
                         .doAfterTerminate(connection::close))
                 .map(this::buildUpResult)

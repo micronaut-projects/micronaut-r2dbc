@@ -25,18 +25,15 @@ import io.r2dbc.spi.ConnectionFactory;
  * @author Anton Kurako (GoodforGod)
  * @since 2.0.1
  */
-class VersionR2dbcHealthCondition implements Condition {
-
-    private static final String POSTGRES = "PostgreSQL";
-    private static final String MARIADB = "MariaDB";
-    private static final String MYSQL = "MySQL";
+class R2dbcHealthCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context) {
         final ConnectionFactory factory = context.getBean(ConnectionFactory.class);
+        final R2dbcHealthQueryProvider healthQueryProvider = context.getBean(R2dbcHealthQueryProvider.class);
+
         final String metadataName = factory.getMetadata().getName();
-        return POSTGRES.equals(metadataName)
-                || MARIADB.equals(metadataName)
-                || MYSQL.equals(metadataName);
+
+        return healthQueryProvider.getVersionQuery(metadataName).isPresent();
     }
 }

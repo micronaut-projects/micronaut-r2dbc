@@ -4,7 +4,7 @@ import io.micronaut.context.annotation.Property
 import io.micronaut.health.HealthStatus
 import io.micronaut.management.health.indicator.HealthResult
 import io.micronaut.r2dbc.BasicR2dbcProperties
-import io.micronaut.r2dbc.health.VersionR2dbcHealthIndicator
+import io.micronaut.r2dbc.health.R2dbcHealthIndicator
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions
@@ -21,7 +21,7 @@ class PostgresHealthIndicatorSpec extends Specification {
     @Inject BasicR2dbcProperties props
     @Inject ConnectionFactoryOptions options
     @Inject ConnectionFactory connectionFactory
-    @Inject VersionR2dbcHealthIndicator healthIndicator;
+    @Inject R2dbcHealthIndicator healthIndicator;
 
     void 'test health UP'() {
         given:
