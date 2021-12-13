@@ -32,10 +32,12 @@ import java.util.Optional;
 public class R2dbcHealthQueryProvider {
 
     private static final String COMMON_QUERY = "SELECT version();";
+    private static final String MSSQL_QUERY = "SELECT @@VERSION;";
 
     private static final String POSTGRES = "PostgreSQL";
     private static final String MARIADB = "MariaDB";
     private static final String MYSQL = "MySQL";
+    private static final String MSSQL = "Microsoft SQL Server";
 
     /**
      * {@link ConnectionFactoryMetadata#getName()} to SQL query for database version
@@ -47,6 +49,7 @@ public class R2dbcHealthQueryProvider {
         this.metadataNameToQuery.put(POSTGRES, COMMON_QUERY);
         this.metadataNameToQuery.put(MARIADB, COMMON_QUERY);
         this.metadataNameToQuery.put(MYSQL, COMMON_QUERY);
+        this.metadataNameToQuery.put(MSSQL, MSSQL_QUERY);
     }
 
     /**
