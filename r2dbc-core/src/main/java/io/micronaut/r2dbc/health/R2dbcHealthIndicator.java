@@ -32,9 +32,10 @@ import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
+import java.util.Map;
 
 /**
- * Supports ony Postgres, MariaDB, MySQL
+ * Supports R2DBC Connection Factory health check as per {@link R2dbcHealthCondition}.
  *
  * @author Anton Kurako (GoodforGod)
  * @since 2.0.1
@@ -71,14 +72,20 @@ public class R2dbcHealthIndicator implements HealthIndicator {
                 .onErrorResume(e -> Mono.just(buildDownResult(e)));
     }
 
-    protected String extractQueryResult(Row row, RowMetadata metadata) {
-        return String.valueOf(row.get(0)).trim();
+    /**
+     * @param row to extract metadata for health
+     * @param metadata for row available for extraction row data
+     * @return metadata as string
+     */
+    protected Map<String, Object> extractQueryResult(Row row, RowMetadata metadata) {
+        final String meta = String.valueOf(row.get(0)).trim();
+        return Collections.singletonMap(DETAILS_METADATA, meta);
     }
 
-    private HealthResult buildUpResult(String metadata) {
+    private HealthResult buildUpResult(Map<String, Object> metadata) {
         return HealthResult.builder(NAME)
                 .status(HealthStatus.UP)
-                .details(Collections.singletonMap(DETAILS_METADATA, metadata))
+                .details(metadata)
                 .build();
     }
 

@@ -15,7 +15,6 @@
  */
 package io.micronaut.r2dbc.health;
 
-import io.r2dbc.spi.ConnectionFactoryMetadata;
 import jakarta.inject.Singleton;
 
 import java.util.HashMap;
@@ -23,7 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Provides Health Query for selection version from database
+ * Provides Health Query for selection version from database.
  *
  * @author Anton Kurako (GoodforGod)
  * @since 2.0.1
@@ -32,8 +31,9 @@ import java.util.Optional;
 public class R2dbcHealthQueryProvider {
 
     /**
-     * Return only info about SQL server version and do not leak environment details
+     * Return only info about SQL server version and do not leak environment details.
      * Example: 'Microsoft SQL Server 2017'
+     * @see <a href='https://www.mssqltips.com/sqlservertip/1140/how-to-tell-what-sql-server-version-you-are-running/'>MS SQL Version</a>
      */
     private static final String MSSQL_QUERY = "SELECT TOP 1 value FROM STRING_SPLIT(@@VERSION, '(');";
     private static final String COMMON_QUERY = "SELECT version();";
@@ -44,7 +44,7 @@ public class R2dbcHealthQueryProvider {
     private static final String MSSQL = "Microsoft SQL Server";
 
     /**
-     * {@link ConnectionFactoryMetadata#getName()} to SQL query for database version
+     * {@link io.r2dbc.spi.ConnectionFactoryMetadata#getName()} to SQL query for database version.
      */
     private final Map<String, String> metadataNameToQuery;
 
@@ -57,7 +57,7 @@ public class R2dbcHealthQueryProvider {
     }
 
     /**
-     * @param metadataName name of r2dbc driver from metadata {@link ConnectionFactoryMetadata#getName()} ()}
+     * @param metadataName name of r2dbc driver from metadata {@link io.r2dbc.spi.ConnectionFactoryMetadata#getName()}
      * @return SQL query to return version for specified database
      * @see #COMMON_QUERY
      */
