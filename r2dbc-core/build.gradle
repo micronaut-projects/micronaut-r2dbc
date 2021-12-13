@@ -7,8 +7,14 @@ dependencies {
     api "io.micronaut:micronaut-validation"
     api "io.r2dbc:r2dbc-spi"
 
-    testImplementation("org.spockframework:spock-core:${spockVersion}") {
-        exclude module:'groovy-all'
+    if ("${spockVersion}") {
+        testImplementation("org.spockframework:spock-core:${spockVersion}") {
+            exclude module: 'groovy-all'
+        }
+    } else {
+        testImplementation("org.spockframework:spock-core") {
+            exclude module: 'groovy-all'
+        }
     }
     testImplementation("io.reactivex.rxjava2:rxjava")
     testImplementation "io.micronaut.test:micronaut-test-spock:$micronautTestVersion"
