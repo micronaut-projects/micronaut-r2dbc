@@ -31,8 +31,12 @@ import java.util.Optional;
 @Singleton
 public class R2dbcHealthQueryProvider {
 
+    /**
+     * Return only info about SQL server version and do not leak environment details
+     * Example: 'Microsoft SQL Server 2017'
+     */
+    private static final String MSSQL_QUERY = "SELECT TOP 1 value FROM STRING_SPLIT(@@VERSION, '(');";
     private static final String COMMON_QUERY = "SELECT version();";
-    private static final String MSSQL_QUERY = "SELECT @@VERSION;";
 
     private static final String POSTGRES = "PostgreSQL";
     private static final String MARIADB = "MariaDB";

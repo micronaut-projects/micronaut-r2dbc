@@ -72,7 +72,7 @@ public class R2dbcHealthIndicator implements HealthIndicator {
     }
 
     protected String extractQueryResult(Row row, RowMetadata metadata) {
-        return String.valueOf(row.get(0));
+        return String.valueOf(row.get(0)).trim();
     }
 
     private HealthResult buildUpResult(String metadata) {
