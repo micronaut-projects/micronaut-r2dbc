@@ -1,9 +1,9 @@
 plugins {
     id "java"
-    id "org.jetbrains.kotlin.jvm" version "1.4.21-2"
-    id "org.jetbrains.kotlin.kapt" version "1.4.21-2"
-    id "org.jetbrains.kotlin.plugin.allopen" version "1.4.21-2"
-    id "io.micronaut.application" version "2.0.3"
+    id "org.jetbrains.kotlin.jvm"
+    id "org.jetbrains.kotlin.kapt"
+    id "org.jetbrains.kotlin.plugin.allopen"
+    id "io.micronaut.application"
 }
 
 repositories {
@@ -23,7 +23,9 @@ dependencies {
     kapt("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
     implementation project(":r2dbc-core")
     implementation 'jakarta.inject:jakarta.inject-api:2.0.0'
-    implementation("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion")
+    implementation("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion") {
+        exclude module:'micronaut-r2dbc-core'
+    }
     implementation("io.micronaut.flyway:micronaut-flyway")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     runtimeOnly 'dev.miku:r2dbc-mysql'
@@ -32,11 +34,7 @@ dependencies {
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
     testImplementation "org.testcontainers:mysql"
-    testImplementation('io.micronaut.test:micronaut-test-core:2.3.7') {
-        version {
-            strictly('2.2.1')
-        }
-    }
+    testImplementation 'io.micronaut.test:micronaut-test-core'
 }
 compileKotlin {
     kotlinOptions {

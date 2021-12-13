@@ -6,8 +6,6 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.test.support.TestPropertyProvider;
-import io.reactivex.Flowable;
-import io.reactivex.Single;
 import org.junit.jupiter.api.*;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -54,14 +52,14 @@ public class BookControllerTest implements TestPropertyProvider {
         // end::programmatic-tx[]
 
         // tag::programmatic-tx-status[]
-        Flowable.fromPublisher(operations.withTransaction(status -> // <1>
-                Flowable.fromPublisher(authorRepository.save(new Author("Michael Crichton")))
+        Flux.from(operations.withTransaction(status -> // <1>
+                Flux.from(authorRepository.save(new Author("Michael Crichton")))
                         .flatMap((author -> operations.withTransaction(status, (s) -> // <2>
                                 bookRepository.saveAll(Arrays.asList(
                                         new Book("Jurassic Park", 300, author),
                                         new Book("Disclosure", 400, author)
                                 )))))
-        )).blockingSubscribe();
+        )).collectList().block();
         // end::programmatic-tx-status[]
     }
 
@@ -92,7 +90,7 @@ public class BookControllerTest implements TestPropertyProvider {
 
     @Override
     public Map<String, String> getProperties() {
-        container = new MySQLContainer<>(DockerImageName.parse("mysql").withTag("5.7.34"));
+        container = new MySQLContainer<>(DockerImageName.parse("mysql").withTag("8"));
         container.start();
         return CollectionUtils.mapOf(
                 "datasources.default.url", container.getJdbcUrl(),
