@@ -1,3 +1,7 @@
+plugins {
+    id "io.micronaut.build.internal.r2dbc-module"
+}
+
 dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java"
     annotationProcessor "io.micronaut.docs:micronaut-docs-asciidoc-config-props:$micronautDocsVersion"
@@ -7,17 +11,11 @@ dependencies {
     api "io.micronaut:micronaut-validation"
     api "io.r2dbc:r2dbc-spi"
 
-    if ("${spockVersion}") {
-        testImplementation("org.spockframework:spock-core:${spockVersion}") {
-            exclude module: 'groovy-all'
-        }
-    } else {
-        testImplementation("org.spockframework:spock-core") {
-            exclude module: 'groovy-all'
-        }
+    testImplementation("org.spockframework:spock-core") {
+        exclude module: 'groovy-all'
     }
     testImplementation("io.reactivex.rxjava2:rxjava")
-    testImplementation "io.micronaut.test:micronaut-test-spock:$micronautTestVersion"
+    testImplementation "io.micronaut.test:micronaut-test-spock"
     testImplementation "org.testcontainers:r2dbc"
 
     // mariadb

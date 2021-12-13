@@ -15,12 +15,12 @@
  */
 package testgraalvm.controllers;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import testgraalvm.controllers.dto.PetDto;
 import testgraalvm.repositories.PetRepository;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
 
 @Controller("/pets")
 class PetController {
@@ -32,12 +32,12 @@ class PetController {
     }
 
     @Get
-    Flowable<PetDto> all() {
+    Flux<PetDto> all() {
         return petRepository.list();
     }
 
     @Get("/{name}")
-    Maybe<PetDto> byName(String name) {
+    Mono<PetDto> byName(String name) {
         return petRepository.findByName(name);
     }
 

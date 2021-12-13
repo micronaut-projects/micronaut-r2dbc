@@ -15,6 +15,7 @@
  */
 package testgraalvm;
 
+import reactor.core.publisher.Flux;
 import testgraalvm.domain.Owner;
 import testgraalvm.domain.Pet;
 import testgraalvm.repositories.OwnerRepository;
@@ -24,8 +25,6 @@ import io.micronaut.data.r2dbc.operations.R2dbcOperations;
 import io.micronaut.runtime.Micronaut;
 import io.micronaut.runtime.event.annotation.EventListener;
 import io.micronaut.runtime.exceptions.ApplicationStartupException;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
 
 import jakarta.inject.Singleton;
 import java.util.Arrays;
@@ -67,15 +66,14 @@ public class Application {
         hoppy.setName("Hoppy");
         hoppy.setOwner(barney);
 
-        Flowable.fromPublisher(operations.withTransaction((status) ->
-            Flowable.fromPublisher(ownerRepository.saveAll(Arrays.asList(fred, barney), status.getConnection())).toList().flatMapPublisher(owners ->
-                    petRepository.saveAll(Arrays.asList(dino, bp, hoppy), status.getConnection())
-            )
-        )).blockingSubscribe(
-                (pet) -> {},
-                (error) -> {
-                    throw new ApplicationStartupException("Error saving initial data: " + error.getMessage());
-                }
-        );
+        try {
+            Flux.from(operations.withTransaction((status) ->
+                    Flux.from(ownerRepository.saveAll(Arrays.asList(fred, barney), status.getConnection())).collectList().flatMapMany(owners ->
+                            petRepository.saveAll(Arrays.asList(dino, bp, hoppy), status.getConnection())
+                    )
+            )).collectList().block();
+        } catch (Exception e) {
+            throw new ApplicationStartupException("Error saving initial data: " + e.getMessage());
+        }
     }
 }

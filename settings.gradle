@@ -1,4 +1,8 @@
 pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
     plugins {
         id 'io.micronaut.application' version getProperty("micronautGradlePluginVersion")
         id 'io.micronaut.library' version getProperty("micronautGradlePluginVersion")
@@ -7,10 +11,10 @@ pluginManagement {
         id "org.jetbrains.kotlin.plugin.allopen" version getProperty("kotlinVersion")
         id "org.jetbrains.kotlin.plugin.jpa" version getProperty("kotlinVersion")
     }
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-    }
+}
+
+plugins {
+    id 'io.micronaut.build.shared.settings' version '5.0.3'
 }
 
 rootProject.name = 'r2dbc'
