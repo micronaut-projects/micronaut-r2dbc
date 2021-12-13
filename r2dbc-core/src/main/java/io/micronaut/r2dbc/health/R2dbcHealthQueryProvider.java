@@ -57,7 +57,7 @@ public class R2dbcHealthQueryProvider {
      * @return SQL query to return version for specified database
      * @see #COMMON_QUERY
      */
-    public Optional<String> getVersionQuery(String metadataName) {
+    public Optional<String> getHealthQuery(String metadataName) {
         return Optional.ofNullable(metadataNameToQuery.get(metadataName));
     }
 }

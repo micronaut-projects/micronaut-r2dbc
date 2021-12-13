@@ -34,6 +34,6 @@ class R2dbcHealthCondition implements Condition {
 
         final String metadataName = factory.getMetadata().getName();
 
-        return healthQueryProvider.getVersionQuery(metadataName).isPresent();
+        return healthQueryProvider.getHealthQuery(metadataName).isPresent();
     }
 }

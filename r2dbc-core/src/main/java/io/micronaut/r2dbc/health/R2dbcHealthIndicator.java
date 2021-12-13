@@ -22,11 +22,13 @@ import io.micronaut.health.HealthStatus;
 import io.micronaut.management.endpoint.health.HealthEndpoint;
 import io.micronaut.management.health.indicator.HealthIndicator;
 import io.micronaut.management.health.indicator.HealthResult;
+import io.r2dbc.spi.Connection;
 import io.r2dbc.spi.ConnectionFactory;
+import io.r2dbc.spi.Row;
+import io.r2dbc.spi.RowMetadata;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.reactivestreams.Publisher;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
@@ -45,32 +47,38 @@ import java.util.Collections;
 public class R2dbcHealthIndicator implements HealthIndicator {
 
     private static final String NAME = "r2dbc-connection-factory";
+    private static final String DETAILS_METADATA = "metadata";
 
     private final ConnectionFactory connectionFactory;
-    private final String versionQuery;
+    private final String healthQuery;
 
     @Inject
     public R2dbcHealthIndicator(ConnectionFactory connectionFactory,
                                 R2dbcHealthQueryProvider queryProvider) {
         this.connectionFactory = connectionFactory;
-        this.versionQuery = queryProvider.getVersionQuery(connectionFactory.getMetadata().getName())
+        this.healthQuery = queryProvider.getHealthQuery(connectionFactory.getMetadata().getName())
                 .orElseThrow(() -> new ConfigurationException("Unexpected behavior while getting Health Query for: " + connectionFactory));
     }
 
     @Override
     public Publisher<HealthResult> getResult() {
-        return Flux.from(connectionFactory.create())
-                .flatMap(connection -> Flux.from(connection.createStatement(versionQuery).execute())
-                        .flatMap(r -> r.map((row, meta) -> String.valueOf(row.get(0))))
-                        .doAfterTerminate(connection::close))
+        return Mono.usingWhen(connectionFactory.create(),
+                        connection -> Mono.from(connection.createStatement(healthQuery).execute())
+                                .flatMapMany(result -> result.map(this::extractQueryResult))
+                                .next(),
+                        Connection::close, (o, throwable) -> o.close(), Connection::close)
                 .map(this::buildUpResult)
                 .onErrorResume(e -> Mono.just(buildDownResult(e)));
     }
 
-    private HealthResult buildUpResult(String version) {
+    protected String extractQueryResult(Row row, RowMetadata metadata) {
+        return String.valueOf(row.get(0));
+    }
+
+    private HealthResult buildUpResult(String metadata) {
         return HealthResult.builder(NAME)
                 .status(HealthStatus.UP)
-                .details(Collections.singletonMap("version", version))
+                .details(Collections.singletonMap(DETAILS_METADATA, metadata))
                 .build();
     }
 
