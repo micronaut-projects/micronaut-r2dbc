@@ -15,14 +15,13 @@
  */
 package testgraalvm.controllers;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import testgraalvm.controllers.dto.OwnerDto;
 import testgraalvm.domain.Owner;
 import testgraalvm.repositories.OwnerRepository;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
-import io.reactivex.Single;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -38,29 +37,29 @@ class OwnerController {
     }
 
     @Get
-    Flowable<OwnerDto> all() {
+    Flux<OwnerDto> all() {
         return ownerRepository.list();
     }
 
     @Get("/{name}")
-    Maybe<OwnerDto> byName(@NotBlank String name) {
+    Mono<OwnerDto> byName(@NotBlank String name) {
         return ownerRepository.findByName(name);
     }
 
     @Post("/")
-    Single<Owner> save(@Valid Owner owner) {
-        return Single.fromPublisher(ownerRepository.save(owner));
+    Mono<Owner> save(@Valid Owner owner) {
+        return Mono.from(ownerRepository.save(owner));
     }
 
     @Delete("/{id}")
-    Single<HttpResponse<?>> delete(@NotNull Long id) {
-        return Single.fromPublisher(ownerRepository.deleteById(id))
+    Mono<HttpResponse<?>> delete(@NotNull Long id) {
+        return Mono.from(ownerRepository.deleteById(id))
                      .map(c -> c > 0 ? HttpResponse.noContent() : HttpResponse.notFound());
     }
 
     @Put("/")
-    Maybe<Owner> update(@Valid Owner owner) {
-        return Single.fromPublisher(ownerRepository.update(owner)).toMaybe();
+    Mono<Owner> update(@Valid Owner owner) {
+        return Mono.from(ownerRepository.update(owner));
     }
 
 }

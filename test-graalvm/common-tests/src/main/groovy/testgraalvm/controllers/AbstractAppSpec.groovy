@@ -16,6 +16,7 @@
 package testgraalvm.controllers
 
 import io.micronaut.core.annotation.Nullable
+import jakarta.inject.Inject
 import testgraalvm.controllers.dto.OwnerDto
 import testgraalvm.controllers.dto.PetDto
 import testgraalvm.domain.Owner
@@ -29,7 +30,6 @@ import io.micronaut.http.client.annotation.Client
 import spock.lang.Specification
 import spock.lang.Stepwise
 
-import javax.inject.Inject
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 

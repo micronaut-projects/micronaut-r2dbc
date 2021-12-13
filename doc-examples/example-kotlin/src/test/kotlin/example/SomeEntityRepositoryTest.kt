@@ -7,24 +7,26 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.testcontainers.containers.MySQLContainer
 import jakarta.inject.Inject
+import org.testcontainers.utility.DockerImageName
 
 @MicronautTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class SomeEntityRepositoryTest() : TestPropertyProvider {
+class SomeEntityRepositoryTest : TestPropertyProvider {
     @Inject
     lateinit var repository: SomeEntityRepository
     var container: MySQLContainer<*>? = null
 
     @Test
     fun testInsertImmutableWithNullValue() {
-        val result = repository.save(SomeEntity()).block()
+        val result = repository.save(SomeEntity(null, null)).block()
 
         assertNotNull(result)
         assertNotNull(result?.id)
     }
 
     override fun getProperties(): Map<String, String> {
-        container = MySqlServer.start()
+        container = MySQLContainer(DockerImageName.parse("mysql").withTag("8"))
+        container!!.start()
         return mapOf(
             "datasources.default.url" to container!!.jdbcUrl,
             "datasources.default.username" to container!!.username,
