@@ -16,7 +16,7 @@
 package io.micronaut.r2dbc.config;
 
 /**
- * Provides Health Query for selection version from database.
+ * Default database r2dbc health queries.
  *
  * @author Anton Kurako (GoodforGod)
  * @since 2.1.0

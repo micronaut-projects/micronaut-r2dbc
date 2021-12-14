@@ -30,6 +30,7 @@ import java.util.Optional;
  *
  * @author Anton Kurako (GoodforGod)
  * @since 2.1.0
+ * @see io.micronaut.r2dbc.health.R2dbcHealthIndicator
  */
 @ConfigurationProperties(HealthEndpoint.PREFIX + ".r2dbc")
 public class R2dbcHealthConfiguration {

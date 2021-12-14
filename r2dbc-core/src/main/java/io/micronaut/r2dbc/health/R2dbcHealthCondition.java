@@ -21,7 +21,7 @@ import io.micronaut.r2dbc.config.R2dbcHealthConfiguration;
 import io.r2dbc.spi.ConnectionFactory;
 
 /**
- * Supports ony Postgres, MariaDB, MySQL.
+ * Supports databases according to {@link R2dbcHealthConfiguration#getHealthQuery(String)}.
  *
  * @author Anton Kurako (GoodforGod)
  * @since 2.1.0
