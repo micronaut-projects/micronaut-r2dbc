@@ -22,6 +22,7 @@ import io.micronaut.health.HealthStatus;
 import io.micronaut.management.endpoint.health.HealthEndpoint;
 import io.micronaut.management.health.indicator.HealthIndicator;
 import io.micronaut.management.health.indicator.HealthResult;
+import io.micronaut.r2dbc.config.R2dbcHealthConfiguration;
 import io.r2dbc.spi.Connection;
 import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.Row;
@@ -38,7 +39,7 @@ import java.util.Map;
  * Supports R2DBC Connection Factory health check as per {@link R2dbcHealthCondition}.
  *
  * @author Anton Kurako (GoodforGod)
- * @since 2.0.1
+ * @since 2.1.0
  */
 @Requires(classes = HealthIndicator.class)
 @Requires(beans = ConnectionFactory.class)
@@ -55,9 +56,9 @@ public class R2dbcHealthIndicator implements HealthIndicator {
 
     @Inject
     public R2dbcHealthIndicator(ConnectionFactory connectionFactory,
-                                R2dbcHealthQueryProvider queryProvider) {
+                                R2dbcHealthConfiguration healthConfiguration) {
         this.connectionFactory = connectionFactory;
-        this.healthQuery = queryProvider.getHealthQuery(connectionFactory.getMetadata().getName())
+        this.healthQuery = healthConfiguration.getHealthQuery(connectionFactory.getMetadata().getName())
                 .orElseThrow(() -> new ConfigurationException("Unexpected behavior while getting Health Query for: " + connectionFactory));
     }
 
@@ -73,7 +74,7 @@ public class R2dbcHealthIndicator implements HealthIndicator {
     }
 
     /**
-     * @param row to extract metadata for health
+     * @param row      to extract metadata for health
      * @param metadata for row available for extraction row data
      * @return metadata as string
      */

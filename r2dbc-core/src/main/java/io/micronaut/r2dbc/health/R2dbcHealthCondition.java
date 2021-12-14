@@ -17,23 +17,24 @@ package io.micronaut.r2dbc.health;
 
 import io.micronaut.context.condition.Condition;
 import io.micronaut.context.condition.ConditionContext;
+import io.micronaut.r2dbc.config.R2dbcHealthConfiguration;
 import io.r2dbc.spi.ConnectionFactory;
 
 /**
  * Supports ony Postgres, MariaDB, MySQL.
  *
  * @author Anton Kurako (GoodforGod)
- * @since 2.0.1
+ * @since 2.1.0
  */
 class R2dbcHealthCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context) {
         final ConnectionFactory factory = context.getBean(ConnectionFactory.class);
-        final R2dbcHealthQueryProvider healthQueryProvider = context.getBean(R2dbcHealthQueryProvider.class);
+        final R2dbcHealthConfiguration healthConfiguration = context.getBean(R2dbcHealthConfiguration.class);
 
         final String metadataName = factory.getMetadata().getName();
 
-        return healthQueryProvider.getHealthQuery(metadataName).isPresent();
+        return healthConfiguration.getHealthQuery(metadataName).isPresent();
     }
 }

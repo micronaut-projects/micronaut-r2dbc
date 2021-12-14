@@ -4,6 +4,7 @@ import io.micronaut.context.annotation.Property
 import io.micronaut.health.HealthStatus
 import io.micronaut.management.health.indicator.HealthResult
 import io.micronaut.r2dbc.BasicR2dbcProperties
+import io.micronaut.r2dbc.config.R2dbcHealthConfiguration
 import io.micronaut.r2dbc.health.R2dbcHealthIndicator
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.r2dbc.spi.*
@@ -18,6 +19,7 @@ class MariadbHealthIndicatorSpec extends Specification {
     @Inject ConnectionFactoryOptions options
     @Inject ConnectionFactory connectionFactory
     @Inject R2dbcHealthIndicator healthIndicator;
+    @Inject R2dbcHealthConfiguration healthConfiguration;
 
     void 'test health UP'() {
         given:

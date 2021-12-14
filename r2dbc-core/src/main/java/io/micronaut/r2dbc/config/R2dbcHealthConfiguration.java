@@ -16,18 +16,38 @@
 package io.micronaut.r2dbc.config;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
+import io.micronaut.core.convert.format.MapFormat;
+import io.micronaut.core.naming.conventions.StringConvention;
+import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.management.endpoint.health.HealthEndpoint;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Configuration for R2DBC Health Indicator.
  *
  * @author Anton Kurako (GoodforGod)
- * @since 2.0.1
+ * @since 2.1.0
  */
 @ConfigurationProperties(HealthEndpoint.PREFIX + ".r2dbc")
 public class R2dbcHealthConfiguration {
 
     private boolean enabled = true;
+
+    /**
+     * {@link io.r2dbc.spi.ConnectionFactoryMetadata#getName()} to SQL query for database version.
+     */
+    private final Map<String, String> databaseNameToHealthQuery;
+
+    public R2dbcHealthConfiguration() {
+        this.databaseNameToHealthQuery = new HashMap<>(12);
+        this.databaseNameToHealthQuery.put(R2dbcHealthProperties.POSTGRES, R2dbcHealthProperties.COMMON_QUERY);
+        this.databaseNameToHealthQuery.put(R2dbcHealthProperties.MARIADB, R2dbcHealthProperties.COMMON_QUERY);
+        this.databaseNameToHealthQuery.put(R2dbcHealthProperties.MYSQL, R2dbcHealthProperties.COMMON_QUERY);
+        this.databaseNameToHealthQuery.put(R2dbcHealthProperties.MSSQL, R2dbcHealthProperties.MSSQL_QUERY);
+    }
 
     /**
      * @return true if health indicator is enabled
@@ -41,5 +61,20 @@ public class R2dbcHealthConfiguration {
      */
     void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    void setDatabaseNameToHealthQuery(@MapFormat(transformation = MapFormat.MapTransformation.FLAT, keyFormat = StringConvention.RAW) Map<String, String> databaseNameToHealthQuery) {
+        if (CollectionUtils.isNotEmpty(databaseNameToHealthQuery)) {
+            this.databaseNameToHealthQuery.putAll(databaseNameToHealthQuery);
+        }
+    }
+
+    /**
+     * @param metadataName name of r2dbc driver from metadata {@link io.r2dbc.spi.ConnectionFactoryMetadata#getName()}
+     * @return SQL query to return version for specified database
+     * @see R2dbcHealthProperties#COMMON_QUERY
+     */
+    public Optional<String> getHealthQuery(String metadataName) {
+        return Optional.ofNullable(databaseNameToHealthQuery.get(metadataName));
     }
 }
