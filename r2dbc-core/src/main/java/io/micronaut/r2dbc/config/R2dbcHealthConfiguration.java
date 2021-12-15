@@ -29,8 +29,8 @@ import java.util.Optional;
  * Configuration for R2DBC Health Indicator.
  *
  * @author Anton Kurako (GoodforGod)
- * @since 2.1.0
  * @see io.micronaut.r2dbc.health.R2dbcHealthIndicator
+ * @since 2.1.0
  */
 @ConfigurationProperties(HealthEndpoint.PREFIX + ".r2dbc")
 public class R2dbcHealthConfiguration {
@@ -64,6 +64,10 @@ public class R2dbcHealthConfiguration {
         this.enabled = enabled;
     }
 
+    /**
+     * @param databaseNameToHealthQuery map with Key for {@link io.r2dbc.spi.ConnectionFactoryMetadata#getName()}
+     *                                  and value for health query to be executed against such R2DBC connection factory
+     */
     void setDatabaseNameToHealthQuery(@MapFormat(transformation = MapFormat.MapTransformation.FLAT, keyFormat = StringConvention.RAW) Map<String, String> databaseNameToHealthQuery) {
         if (CollectionUtils.isNotEmpty(databaseNameToHealthQuery)) {
             this.databaseNameToHealthQuery.putAll(databaseNameToHealthQuery);
