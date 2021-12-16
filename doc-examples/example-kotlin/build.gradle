@@ -34,7 +34,7 @@ dependencies {
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
     testImplementation "org.testcontainers:mysql"
-    testImplementation 'io.micronaut.test:micronaut-test-core'
+    testImplementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
 }
 compileKotlin {
     kotlinOptions {
