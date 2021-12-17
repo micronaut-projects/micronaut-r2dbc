@@ -49,7 +49,7 @@ subprojects { Project subproject ->
         }
         implementation project(":test-graalvm:common")
         testImplementation project(":test-graalvm:common-tests")
-        testImplementation "io.micronaut.test:micronaut-test-core"
+        testImplementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
         testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
         testImplementation "org.testcontainers:spock"
         testImplementation "org.testcontainers:jdbc"
@@ -90,7 +90,7 @@ project("common-tests") {
 project("h2") {
     dependencies {
         runtimeOnly 'io.r2dbc:r2dbc-h2'
-        runtimeOnly("com.h2database:h2:1.4.200") {
+        runtimeOnly("com.h2database:h2:2.0.202") {
             force = true
         }
     }
