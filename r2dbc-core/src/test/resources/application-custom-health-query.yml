@@ -1,0 +1,5 @@
+endpoints:
+  health:
+    r2dbc:
+      database-name-to-health-query:
+        CustomSQL: SELECT custom();

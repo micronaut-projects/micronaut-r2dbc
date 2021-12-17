@@ -6,11 +6,14 @@ dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java"
     annotationProcessor "io.micronaut.docs:micronaut-docs-asciidoc-config-props:$micronautDocsVersion"
     compileOnly "org.graalvm.nativeimage:svm"
+    compileOnly "io.micronaut:micronaut-management"
     api platform("io.r2dbc:r2dbc-bom:$r2dbcVersion")
     api "io.micronaut:micronaut-inject"
     api "io.micronaut:micronaut-validation"
     api "io.r2dbc:r2dbc-spi"
+    implementation "io.projectreactor:reactor-core"
 
+    testImplementation "io.micronaut:micronaut-management"
     testImplementation("org.spockframework:spock-core") {
         exclude module: 'groovy-all'
     }

@@ -49,7 +49,7 @@ subprojects { Project subproject ->
         }
         implementation project(":test-graalvm:common")
         testImplementation project(":test-graalvm:common-tests")
-        testImplementation "io.micronaut.test:micronaut-test-core"
+        testImplementation "io.micronaut.test:micronaut-test-core:$micronautTestVersion"
         testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
         testImplementation "org.testcontainers:spock"
         testImplementation "org.testcontainers:jdbc"
