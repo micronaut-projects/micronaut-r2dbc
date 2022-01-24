@@ -90,7 +90,7 @@ project("common-tests") {
 project("h2") {
     dependencies {
         runtimeOnly 'io.r2dbc:r2dbc-h2'
-        runtimeOnly("com.h2database:h2:1.4.200") {
+        runtimeOnly("com.h2database:h2:2.1.210") {
             force = true
         }
     }
