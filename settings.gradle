@@ -14,10 +14,10 @@ pluginManagement {
 }
 
 plugins {
-    id 'io.micronaut.build.shared.settings' version '5.2.1'
+    id 'io.micronaut.build.shared.settings' version '5.2.3'
 }
 
-rootProject.name = 'r2dbc'
+rootProject.name = 'r2dbc-parent'
 
 include 'r2dbc-bom'
 include 'r2dbc-core'
