@@ -1,28 +1,25 @@
 plugins {
-    id "io.micronaut.build.internal.r2dbc-module"
+    id 'io.micronaut.build.internal.module'
 }
 
 dependencies {
-    annotationProcessor "io.micronaut:micronaut-inject-java"
-    annotationProcessor "io.micronaut.docs:micronaut-docs-asciidoc-config-props:$micronautDocsVersion"
     compileOnly "org.graalvm.nativeimage:svm"
     compileOnly "io.micronaut:micronaut-management"
+
     api platform("io.r2dbc:r2dbc-bom:$r2dbcVersion")
     api "io.micronaut:micronaut-inject"
     api "io.micronaut:micronaut-validation"
     api "io.r2dbc:r2dbc-spi"
+
     implementation "io.projectreactor:reactor-core"
 
     testImplementation "io.micronaut:micronaut-management"
-    testImplementation("org.spockframework:spock-core") {
-        exclude module: 'groovy-all'
-    }
+
     testImplementation("io.reactivex.rxjava2:rxjava")
-    testImplementation "io.micronaut.test:micronaut-test-spock"
     testImplementation "org.testcontainers:r2dbc"
 
     // mariadb
-    testImplementation 'org.mariadb:r2dbc-mariadb:1.0.2'
+    testImplementation "org.mariadb:r2dbc-mariadb:$r2dbcMariaVersion"
     testImplementation "org.testcontainers:mariadb"
     testImplementation 'org.mariadb.jdbc:mariadb-java-client'
 
@@ -43,9 +40,4 @@ dependencies {
     testImplementation 'io.r2dbc:r2dbc-postgresql'
     testImplementation "org.testcontainers:postgresql"
     testImplementation 'org.postgresql:postgresql'
-
-}
-
-tasks.withType(Test) {
-    useJUnitPlatform()
 }
