@@ -30,6 +30,7 @@ dependencies {
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     runtimeOnly 'dev.miku:r2dbc-mysql'
     runtimeOnly "mysql:mysql-connector-java"
+    runtimeOnly 'org.flywaydb:flyway-mysql'
 
     testImplementation "io.micronaut:micronaut-http-client"
     testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
