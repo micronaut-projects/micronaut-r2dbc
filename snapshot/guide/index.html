@@ -104,7 +104,7 @@
         <h1>Micronaut R2DBC</h1>
         <p></p>
         <p>Integration with Micronaut and R2DBC</p>
-        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-r2dbc/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.0.0/guide/index.html'>2.0.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.0.0-RC2/guide/index.html'>2.0.0-RC2</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.0.0-RC1/guide/index.html'>2.0.0-RC1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.1.1/guide/index.html'>1.1.1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.1.0/guide/index.html'>1.1.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.1/guide/index.html'>1.0.1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0/guide/index.html'>1.0.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M2/guide/index.html'>1.0.0.M2</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M1/guide/index.html'>1.0.0.M1</option></select></p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-r2dbc/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.0.0/guide/index.html'>2.0.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.0.0-RC2/guide/index.html'>2.0.0-RC2</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.0.0-RC1/guide/index.html'>2.0.0-RC1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.1.1/guide/index.html'>1.1.1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.1.0/guide/index.html'>1.1.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.1/guide/index.html'>1.0.1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0/guide/index.html'>1.0.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M2/guide/index.html'>1.0.0.M2</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M1/guide/index.html'>1.0.0.M1</option></select> </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
@@ -183,8 +183,7 @@ $ curl https://launch.micronaut.io/demo.zip?lang=java&amp;features=data-r2dbc,fl
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>And for flyway the JDBC driver:</p>
@@ -204,8 +203,7 @@ $ curl https://launch.micronaut.io/demo.zip?lang=java&amp;features=data-r2dbc,fl
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -281,7 +279,7 @@ The R2DBC <code>ConnectionFactory</code> object can be injected anywhere in your
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package example;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
 
 import io.micronaut.data.annotation.*;
 
@@ -312,7 +310,7 @@ public class Author {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import io.micronaut.data.annotation.*
 
@@ -331,7 +329,7 @@ class Author {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
 
 import io.micronaut.data.annotation.GeneratedValue
 import io.micronaut.data.annotation.Id
@@ -350,7 +348,7 @@ data class Author(val name: String) {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package example;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.data.model.query.builder.sql.Dialect;
@@ -361,11 +359,11 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.constraints.NotNull;
 
-@R2dbcRepository(dialect = Dialect.MYSQL) <b class="conum">(1)</b>
+@R2dbcRepository(dialect = Dialect.MYSQL) // <b class="conum">(1)</b>
 public interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
     @NonNull
     @Override
-    Mono&lt;Author&gt; findById(@NonNull @NotNull Long aLong); <b class="conum">(2)</b>
+    Mono&lt;Author&gt; findById(@NonNull @NotNull Long aLong); // <b class="conum">(2)</b>
 
     @NonNull
     @Override
@@ -375,7 +373,7 @@ public interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Autho
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.data.model.query.builder.sql.Dialect
@@ -386,11 +384,11 @@ import reactor.core.publisher.Mono
 
 import javax.validation.constraints.NotNull
 
-@R2dbcRepository(dialect = Dialect.MYSQL) <b class="conum">(1)</b>
+@R2dbcRepository(dialect = Dialect.MYSQL) // <b class="conum">(1)</b>
 interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
     @NonNull
     @Override
-    Mono&lt;Author&gt; findById(@NonNull @NotNull Long aLong) <b class="conum">(2)</b>
+    Mono&lt;Author&gt; findById(@NonNull @NotNull Long aLong) // <b class="conum">(2)</b>
 
     @NonNull
     @Override
@@ -400,7 +398,7 @@ interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Author, Long
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
 
 import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.r2dbc.annotation.R2dbcRepository
@@ -409,9 +407,9 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import javax.validation.constraints.NotNull
 
-@R2dbcRepository(dialect = Dialect.MYSQL) <b class="conum">(1)</b>
+@R2dbcRepository(dialect = Dialect.MYSQL) // <b class="conum">(1)</b>
 interface AuthorRepository : ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
-    override fun findById(id: @NotNull Long): Mono&lt;Author&gt; <b class="conum">(2)</b>
+    override fun findById(id: @NotNull Long): Mono&lt;Author&gt; // <b class="conum">(2)</b>
     override fun findAll(): Flux&lt;Author&gt;
 }</code></pre>
 </div>
@@ -433,7 +431,7 @@ interface AuthorRepository : ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package example;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -449,12 +447,12 @@ public class AuthorController {
     }
 
     @Get
-    Flux&lt;Author&gt; all() { <b class="conum">(1)</b>
+    Flux&lt;Author&gt; all() { // <b class="conum">(1)</b>
         return repository.findAll();
     }
 
     @Get("/id")
-    Mono&lt;Author&gt; get(Long id) { <b class="conum">(2)</b>
+    Mono&lt;Author&gt; get(Long id) { // <b class="conum">(2)</b>
         return repository.findById(id);
     }
 }</code></pre>
@@ -462,7 +460,7 @@ public class AuthorController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -478,12 +476,12 @@ class AuthorController {
     }
 
     @Get
-    Flux&lt;Author&gt; all() { <b class="conum">(1)</b>
+    Flux&lt;Author&gt; all() { // <b class="conum">(1)</b>
         return repository.findAll()
     }
 
     @Get("/id")
-    Mono&lt;Author&gt; get(Long id) { <b class="conum">(2)</b>
+    Mono&lt;Author&gt; get(Long id) { // <b class="conum">(2)</b>
         return repository.findById(id)
     }
 }</code></pre>
@@ -491,7 +489,7 @@ class AuthorController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
 
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -501,12 +499,12 @@ import reactor.core.publisher.Mono
 @Controller("/authors")
 class AuthorController(private val repository: AuthorRepository) {
     @Get
-    fun all(): Flux&lt;Author&gt; { <b class="conum">(1)</b>
+    fun all(): Flux&lt;Author&gt; { // <b class="conum">(1)</b>
         return repository.findAll()
     }
 
     @Get("/id")
-    fun get(id: Long): Mono&lt;Author&gt; { <b class="conum">(2)</b>
+    fun get(id: Long): Mono&lt;Author&gt; { // <b class="conum">(2)</b>
         return repository.findById(id)
     }
 }</code></pre>
@@ -557,8 +555,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>And for Flyway migrations the JDBC driver:</p>
@@ -578,8 +575,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 </div>
 <div class="sect3">
@@ -602,8 +598,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>And for Flyway migrations the JDBC driver:</p>
@@ -623,8 +618,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 </div>
 <div class="sect3">
@@ -648,8 +642,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>And for Flyway migrations the JDBC driver:</p>
@@ -669,8 +662,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 </div>
 <div class="sect3">
@@ -693,8 +685,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>And for Flyway migrations the JDBC driver:</p>
@@ -714,8 +705,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 </div>
 <div class="sect3">
@@ -738,8 +728,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>And for Flyway migrations the JDBC driver:</p>
@@ -759,8 +748,7 @@ class AuthorController(private val repository: AuthorRepository) {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 </div>
 
