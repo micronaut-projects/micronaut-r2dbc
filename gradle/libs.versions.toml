@@ -2,8 +2,11 @@
 jakarta-inject-api = "2.0.0"
 r2dbc = "Arabba-SR11"
 r2dbc-maria = "1.0.3"
+r2dbc-oracle = "0.2.0"
 reactor-netty = "1.0.16"
 testcontainers = "1.16.2"
+h2 = "1.4.200"
+ojdbc11 = "21.1.0.0"
 
 # Micronaut
 micronaut-data = "3.2.1"
@@ -39,6 +42,7 @@ r2dbc-mssql = { module = "io.r2dbc:r2dbc-mssql" }
 r2dbc-mysql = { module = "dev.miku:r2dbc-mysql" }
 r2dbc-postgresql = { module = "io.r2dbc:r2dbc-postgresql" }
 r2dbc-spi = { module = "io.r2dbc:r2dbc-spi" }
+r2dbc-oracle = { module = "com.oracle.database.r2dbc:oracle-r2dbc", version.ref = "r2dbc-oracle" }
 reactor-core = { module = "io.projectreactor:reactor-core" }
 reactor-netty = { module = "io.projectreactor.netty:reactor-netty", version.ref = "reactor-netty" }
 rxjava2 = { module = "io.reactivex.rxjava2:rxjava" }
@@ -51,3 +55,6 @@ testcontainers-oracle-xe = { module = "org.testcontainers:oracle-xe" }
 testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
 testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
 testcontainers-spock = { module = "org.testcontainers:spock" }
+logback-classic = { module = "ch.qos.logback:logback-classic" }
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+ojdbc11 = { module = "com.oracle.database.jdbc:ojdbc11", version.ref = "ojdbc11" }

@@ -39,18 +39,18 @@ subprojects { Project subproject ->
     dependencies {
         annotationProcessor(libs.micronaut.graal)
         annotationProcessor(libs.micronaut.data.processor)
-        runtimeOnly "io.micronaut.sql:micronaut-jdbc-hikari"
-        runtimeOnly "ch.qos.logback:logback-classic"
+        runtimeOnly(libs.micronaut.jdbc.hikari)
+        runtimeOnly(libs.logback.classic)
 
         implementation(libs.micronaut.http.client)
         implementation project(":r2dbc-core")
-        implementation("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion") {
+        implementation(libs.micronaut.data.r2dbc) {
             exclude module:'micronaut-r2dbc-core'
         }
         implementation project(":test-graalvm:common")
         testImplementation project(":test-graalvm:common-tests")
         testImplementation(libs.micronaut.test.core)
-        testImplementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
+        testImplementation platform(libs.boms.testcontainers)
         testImplementation(libs.testcontainers.spock)
         testImplementation(libs.testcontainers.jdbc)
     }
@@ -68,29 +68,29 @@ project("common") {
         annotationProcessor(libs.micronaut.data.processor)
         implementation(libs.micronaut.http.client)
         annotationProcessor(libs.micronaut.graal)
-        implementation "io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion", {
+        implementation(libs.micronaut.data.r2dbc) {
             exclude module:'micronaut-r2dbc-core'
         }
     }
 }
 project("common-tests") {
     dependencies {
-        api("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion") {
+        api(libs.micronaut.data.r2dbc) {
             exclude module:'micronaut-r2dbc-core'
         }
         implementation(libs.jakarta.inject.api)
         implementation project(":test-graalvm:common")
         implementation(libs.micronaut.http.client)
         implementation(libs.micronaut.test.core)
-        implementation platform("org.testcontainers:testcontainers-bom:$testContainersVersion")
+        implementation platform(libs.boms.testcontainers)
         implementation(libs.testcontainers.spock)
         implementation(libs.testcontainers.jdbc)
     }
 }
 project("h2") {
     dependencies {
-        runtimeOnly 'io.r2dbc:r2dbc-h2'
-        runtimeOnly("com.h2database:h2:1.4.200") {
+        runtimeOnly(libs.r2dbc.h2)
+        runtimeOnly(libs.h2) {
             force = true
         }
     }
@@ -103,8 +103,8 @@ project("h2") {
 }
 project("mssql") {
     dependencies {
-        runtimeOnly "com.microsoft.sqlserver:mssql-jdbc"
-        runtimeOnly 'io.r2dbc:r2dbc-mssql'
+        runtimeOnly(libs.mssql.jdbc)
+        runtimeOnly(libs.r2dbc.mssql)
         testImplementation(libs.testcontainers.mssqlserver)
     }
 
@@ -114,16 +114,16 @@ project("mssql") {
 }
 project("postgres") {
     dependencies {
-        runtimeOnly "org.postgresql:postgresql"
-        runtimeOnly 'io.r2dbc:r2dbc-postgresql'
+        runtimeOnly(libs.postgresql)
+        runtimeOnly(libs.r2dbc.postgresql)
         testImplementation(libs.testcontainers.postgresql)
     }
 }
 if (Boolean.getBoolean('test.oracle')) {
     project("oracle") {
         dependencies {
-            runtimeOnly 'com.oracle.database.r2dbc:oracle-r2dbc:0.2.0'
-            runtimeOnly "com.oracle.database.jdbc:ojdbc11:21.1.0.0"
+            runtimeOnly(libs.r2dbc.oracle)
+            runtimeOnly(libs.ojdbc11)
             testImplementation(libs.testcontainers.oracle.xe)
         }
         // Not enough memory on Github Actions to test native images :(
@@ -134,8 +134,8 @@ if (Boolean.getBoolean('test.oracle')) {
 }
 project("mysql") {
     dependencies {
-        runtimeOnly 'dev.miku:r2dbc-mysql'
-        runtimeOnly "mysql:mysql-connector-java"
+        runtimeOnly(libs.r2dbc.mysql)
+        runtimeOnly(libs.mysql.connector.java)
         testImplementation(libs.testcontainers.mysql)
     }
 }
