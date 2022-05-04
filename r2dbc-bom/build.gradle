@@ -3,10 +3,10 @@ plugins {
 }
 
 dependencies {
-    api(platform("io.r2dbc:r2dbc-bom:$r2dbcVersion"))
+    api(platform(libs.boms.r2dbc))
     constraints {
-        api("org.mariadb:r2dbc-mariadb:$r2dbcMariaVersion")
-        api("io.projectreactor.netty:reactor-netty:$reactorNettyVersion")
+        api(libs.r2dbc.mariadb)
+        api(libs.reactor.netty)
     }
 }
 
