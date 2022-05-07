@@ -122,7 +122,7 @@ project("postgres") {
 if (Boolean.getBoolean('test.oracle')) {
     project("oracle") {
         dependencies {
-            runtimeOnly 'com.oracle.database.r2dbc:oracle-r2dbc:0.2.0'
+            runtimeOnly 'com.oracle.database.r2dbc:oracle-r2dbc:0.4.0'
             runtimeOnly "com.oracle.database.jdbc:ojdbc11:21.1.0.0"
             testImplementation "org.testcontainers:oracle-xe"
         }
