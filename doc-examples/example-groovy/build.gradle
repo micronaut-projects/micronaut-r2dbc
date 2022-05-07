@@ -19,7 +19,7 @@ micronaut {
 dependencies {
     compileOnly("io.micronaut.data:micronaut-data-processor:$micronautDataVersion")
     implementation project(":r2dbc-core")
-    implementation 'jakarta.inject:jakarta.inject-api:2.0.0'
+    implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
     implementation("io.micronaut.data:micronaut-data-r2dbc:$micronautDataVersion") {
         exclude module:'micronaut-r2dbc-core'
     }
