@@ -7,7 +7,7 @@ managed-testcontainers = "1.17.1"
 
 jakarta-inject-api = "2.0.0"
 h2 = "1.4.200"
-ojdbc11 = "21.1.0.0"
+ojdbc11 = "21.5.0.0"
 
 # Micronaut
 micronaut-data = "3.2.1"
