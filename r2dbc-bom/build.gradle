@@ -2,14 +2,6 @@ plugins {
     id "io.micronaut.build.internal.bom"
 }
 
-dependencies {
-    api(platform("io.r2dbc:r2dbc-bom:$r2dbcVersion"))
-    constraints {
-        api("org.mariadb:r2dbc-mariadb:$r2dbcMariaVersion")
-        api("io.projectreactor.netty:reactor-netty:$reactorNettyVersion")
-    }
-}
-
 micronautBom {
     excludeProject.set({ p ->
         p.group.contains('example') || p.name.contains('example') || p.name.contains('test-')
