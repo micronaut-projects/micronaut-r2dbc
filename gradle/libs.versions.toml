@@ -2,10 +2,10 @@
 managed-r2dbc-maria = "1.0.3"
 managed-r2dbc-oracle = "0.2.0"
 managed-reactor-netty = "1.0.19"
+managed-r2dbc = "Arabba-SR11"
+managed-testcontainers = "1.16.2"
 
 jakarta-inject-api = "2.0.0"
-r2dbc = "Arabba-SR11"
-testcontainers = "1.16.2"
 h2 = "1.4.200"
 ojdbc11 = "21.1.0.0"
 
@@ -20,8 +20,8 @@ managed-r2dbc-oracle = { module = "com.oracle.database.r2dbc:oracle-r2dbc", vers
 managed-reactor-netty = { module = "io.projectreactor.netty:reactor-netty", version.ref = "managed-reactor-netty" }
 
 # BOMs
-boms-r2dbc = { module = "io.r2dbc:r2dbc-bom", version.ref = "r2dbc" }
-boms-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
+boms-r2dbc = { module = "io.r2dbc:r2dbc-bom", version.ref = "managed-r2dbc" }
+boms-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "managed-testcontainers" }
 
 # Micronaut
 micronaut-data-processor = { module = "io.micronaut.data:micronaut-data-processor", version.ref = "micronaut-data" }
