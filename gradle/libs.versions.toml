@@ -1,6 +1,6 @@
 [versions]
 managed-r2dbc-maria = "1.0.3"
-managed-r2dbc-oracle = "0.2.0"
+managed-r2dbc-oracle = "0.4.0"
 managed-reactor-netty = "1.0.19"
 managed-r2dbc = "Arabba-SR11"
 managed-testcontainers = "1.16.2"
