@@ -2,14 +2,6 @@ plugins {
     id "io.micronaut.build.internal.bom"
 }
 
-dependencies {
-    api(platform(libs.boms.r2dbc))
-    constraints {
-        api(libs.r2dbc.mariadb)
-        api(libs.reactor.netty)
-    }
-}
-
 micronautBom {
     excludeProject.set({ p ->
         p.group.contains('example') || p.name.contains('example') || p.name.contains('test-')

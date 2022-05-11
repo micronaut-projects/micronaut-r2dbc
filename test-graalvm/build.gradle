@@ -141,7 +141,7 @@ project("mysql") {
 }
 project("mariadb") {
     dependencies {
-        implementation(libs.r2dbc.mariadb)
+        implementation(libs.managed.r2dbc.mariadb)
 
         testRuntimeOnly(libs.mariadb.java.client)
         testImplementation(libs.testcontainers.mariadb)
