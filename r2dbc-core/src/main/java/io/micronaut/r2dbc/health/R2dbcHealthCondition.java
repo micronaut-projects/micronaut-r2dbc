@@ -25,7 +25,9 @@ import io.r2dbc.spi.ConnectionFactory;
  *
  * @author Anton Kurako (GoodforGod)
  * @since 2.1.0
+ * @deprecated Not used anymore
  */
+@Deprecated
 class R2dbcHealthCondition implements Condition {
 
     @Override

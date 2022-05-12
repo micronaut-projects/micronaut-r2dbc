@@ -15,6 +15,8 @@ import spock.lang.Specification
 
 import jakarta.inject.Inject
 
+import java.util.function.BiFunction
+
 @MicronautTest
 @Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:sqlserver:///?TC_IMAGE_TAG=2017-CU12")
 @Property(name = "r2dbc.datasources.default.options.applicationName", value = "test")
@@ -42,7 +44,7 @@ class MssqlConnectionSpec extends Specification {
         }).flatMap({ Result result ->
             result.map({ Row row, RowMetadata rm ->
                 row.get(0)
-            })
+            } as BiFunction)
         }).firstOrError().blockingGet()
 
         then:

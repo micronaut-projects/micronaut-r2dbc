@@ -122,7 +122,7 @@ if (Boolean.getBoolean('test.oracle')) {
         dependencies {
             runtimeOnly(libs.managed.r2dbc.oracle)
             runtimeOnly(libs.ojdbc11)
-            testImplementation(libs.testcontainers.oracle.xe)
+            testImplementation(libs.testcontainers.oracle)
         }
         // Not enough memory on Github Actions to test native images :(
         tasks.findByName("testNativeImage").enabled(false)

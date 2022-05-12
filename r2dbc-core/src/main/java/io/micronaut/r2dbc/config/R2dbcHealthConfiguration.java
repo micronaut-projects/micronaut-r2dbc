@@ -48,6 +48,7 @@ public class R2dbcHealthConfiguration {
         this.databaseNameToHealthQuery.put(R2dbcHealthProperties.MARIADB, R2dbcHealthProperties.COMMON_QUERY);
         this.databaseNameToHealthQuery.put(R2dbcHealthProperties.MYSQL, R2dbcHealthProperties.COMMON_QUERY);
         this.databaseNameToHealthQuery.put(R2dbcHealthProperties.MSSQL, R2dbcHealthProperties.MSSQL_QUERY);
+        this.databaseNameToHealthQuery.put(R2dbcHealthProperties.ORACLE, R2dbcHealthProperties.ORACLE_QUERY);
     }
 
     /**
