@@ -12,6 +12,8 @@ import spock.lang.Specification
 
 import jakarta.inject.Inject
 
+import java.util.function.BiFunction
+
 @MicronautTest
 @Property(name = "r2dbc.datasources.default.url", value = "r2dbc:h2:mem:///testdb")
 class H2ConnectionSpec extends Specification {
@@ -29,7 +31,7 @@ class H2ConnectionSpec extends Specification {
         }).flatMap({ Result result ->
             result.map({ Row row, RowMetadata rm ->
                 row.get(0)
-            })
+            } as BiFunction)
         }).firstOrError().blockingGet()
 
         then:

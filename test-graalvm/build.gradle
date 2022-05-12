@@ -37,19 +37,19 @@ subprojects { Project subproject ->
     }
 
     dependencies {
-        annotationProcessor(libs.micronaut.graal)
-        annotationProcessor(libs.micronaut.data.processor)
-        runtimeOnly(libs.micronaut.jdbc.hikari)
-        runtimeOnly(libs.logback.classic)
+        annotationProcessor(mn.graal)
+        annotationProcessor(mn.micronaut.data.processor)
+        runtimeOnly(mn.micronaut.jdbc.hikari)
+        runtimeOnly(mn.logback)
 
-        implementation(libs.micronaut.http.client)
+        implementation(mn.micronaut.http.client)
         implementation project(":r2dbc-core")
-        implementation(libs.micronaut.data.r2dbc) {
+        implementation(mn.micronaut.data.r2dbc) {
             exclude module:'micronaut-r2dbc-core'
         }
         implementation project(":test-graalvm:common")
         testImplementation project(":test-graalvm:common-tests")
-        testImplementation(libs.micronaut.test.core)
+        testImplementation(mn.micronaut.test.core)
         testImplementation platform(libs.boms.testcontainers)
         testImplementation(libs.testcontainers.spock)
         testImplementation(libs.testcontainers.jdbc)
@@ -64,24 +64,22 @@ subprojects { Project subproject ->
 
 project("common") {
     dependencies {
-        implementation(libs.jakarta.inject.api)
-        annotationProcessor(libs.micronaut.data.processor)
-        implementation(libs.micronaut.http.client)
-        annotationProcessor(libs.micronaut.graal)
-        implementation(libs.micronaut.data.r2dbc) {
+        annotationProcessor(mn.micronaut.data.processor)
+        implementation(mn.micronaut.http.client)
+        annotationProcessor(mn.micronaut.graal)
+        implementation(mn.micronaut.data.r2dbc) {
             exclude module:'micronaut-r2dbc-core'
         }
     }
 }
 project("common-tests") {
     dependencies {
-        api(libs.micronaut.data.r2dbc) {
+        api(mn.micronaut.data.r2dbc) {
             exclude module:'micronaut-r2dbc-core'
         }
-        implementation(libs.jakarta.inject.api)
         implementation project(":test-graalvm:common")
-        implementation(libs.micronaut.http.client)
-        implementation(libs.micronaut.test.core)
+        implementation(mn.micronaut.http.client)
+        implementation(mn.micronaut.test.core)
         implementation platform(libs.boms.testcontainers)
         implementation(libs.testcontainers.spock)
         implementation(libs.testcontainers.jdbc)
@@ -89,7 +87,7 @@ project("common-tests") {
 }
 project("h2") {
     dependencies {
-        runtimeOnly(libs.r2dbc.h2)
+        runtimeOnly(libs.managed.r2dbc.h2)
         runtimeOnly(libs.h2) {
             force = true
         }
@@ -104,7 +102,7 @@ project("h2") {
 project("mssql") {
     dependencies {
         runtimeOnly(libs.mssql.jdbc)
-        runtimeOnly(libs.r2dbc.mssql)
+        runtimeOnly(libs.managed.r2dbc.mssql)
         testImplementation(libs.testcontainers.mssqlserver)
     }
 
@@ -115,14 +113,14 @@ project("mssql") {
 project("postgres") {
     dependencies {
         runtimeOnly(libs.postgresql)
-        runtimeOnly(libs.r2dbc.postgresql)
+        runtimeOnly(libs.managed.r2dbc.postgresql)
         testImplementation(libs.testcontainers.postgresql)
     }
 }
 if (Boolean.getBoolean('test.oracle')) {
     project("oracle") {
         dependencies {
-            runtimeOnly(libs.r2dbc.oracle)
+            runtimeOnly(libs.managed.r2dbc.oracle)
             runtimeOnly(libs.ojdbc11)
             testImplementation(libs.testcontainers.oracle.xe)
         }
@@ -134,7 +132,7 @@ if (Boolean.getBoolean('test.oracle')) {
 }
 project("mysql") {
     dependencies {
-        runtimeOnly(libs.r2dbc.mysql)
+        runtimeOnly(libs.managed.r2dbc.mysql)
         runtimeOnly(libs.mysql.connector.java)
         testImplementation(libs.testcontainers.mysql)
     }

@@ -20,22 +20,21 @@ micronaut {
 }
 
 dependencies {
-    kapt(libs.micronaut.data.processor)
+    kapt(mn.micronaut.data.processor)
     implementation project(":r2dbc-core")
-    implementation(libs.jakarta.inject.api)
-    implementation(libs.micronaut.data.r2dbc) {
+    implementation(mn.micronaut.data.r2dbc) {
         exclude module:'micronaut-r2dbc-core'
     }
-    implementation(libs.micronaut.flyway)
-    implementation(libs.micronaut.jdbc.hikari)
-    runtimeOnly(libs.r2dbc.mysql)
+    implementation(mn.micronaut.flyway)
+    implementation(mn.micronaut.jdbc.hikari)
+    runtimeOnly(libs.managed.r2dbc.mysql)
     runtimeOnly(libs.mysql.connector.java)
     runtimeOnly(libs.flyway.mysql)
 
-    testImplementation(libs.micronaut.http.client)
+    testImplementation(mn.micronaut.http.client)
     testImplementation(platform(libs.boms.testcontainers))
     testImplementation(libs.testcontainers.mysql)
-    testImplementation(libs.micronaut.test.core)
+    testImplementation(mn.micronaut.test.core)
 }
 compileKotlin {
     kotlinOptions {
