@@ -31,11 +31,13 @@ public final class R2dbcHealthProperties {
      */
     public static final String MSSQL_QUERY = "SELECT TOP 1 value FROM STRING_SPLIT(@@VERSION, '(');";
     public static final String COMMON_QUERY = "SELECT version();";
+    public static final String ORACLE_QUERY = "select * from dual";
 
     public static final String POSTGRES = "PostgreSQL";
     public static final String MARIADB = "MariaDB";
     public static final String MYSQL = "MySQL";
     public static final String MSSQL = "Microsoft SQL Server";
+    public static final String ORACLE = "Oracle Database";
 
     private R2dbcHealthProperties() { }
 }

@@ -14,6 +14,8 @@ import spock.lang.Specification
 
 import jakarta.inject.Inject
 
+import java.util.function.BiFunction
+
 @MicronautTest
 @Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mysql:///databasename?TC_IMAGE_TAG=5.7.34&tlsVersion=TLSv1.2")
 class MySqlConnectionSpec extends Specification  {
@@ -40,7 +42,7 @@ class MySqlConnectionSpec extends Specification  {
         }).flatMap({ Result result ->
             result.map({ Row row, RowMetadata rm ->
                 row.get(0)
-            })
+            } as BiFunction)
         }).firstOrError().blockingGet()
 
         then:

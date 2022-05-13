@@ -14,6 +14,8 @@ import spock.lang.Specification
 
 import jakarta.inject.Inject
 
+import java.util.function.BiFunction
+
 @MicronautTest
 @Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mariadb:///databasename?TC_IMAGE_TAG=10.3.6")
 class MariadbConnectionSpec extends Specification {
@@ -40,7 +42,7 @@ class MariadbConnectionSpec extends Specification {
         }).flatMap({ Result result ->
             result.map({ Row row, RowMetadata rm ->
                 row.get(0)
-            })
+            } as BiFunction)
         }).firstOrError().blockingGet()
 
         then:

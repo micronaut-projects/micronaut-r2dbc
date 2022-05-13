@@ -1,28 +1,32 @@
-package io.micronaut.r2dbc.postgresql
+package io.micronaut.r2dbc.mariadb
 
 import io.micronaut.context.annotation.Property
 import io.micronaut.health.HealthStatus
 import io.micronaut.management.health.indicator.HealthResult
 import io.micronaut.r2dbc.BasicR2dbcProperties
+import io.micronaut.r2dbc.config.R2dbcHealthConfiguration
 import io.micronaut.r2dbc.health.R2dbcHealthIndicator
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions
 import io.reactivex.Flowable
 import jakarta.inject.Inject
-import spock.lang.IgnoreIf
+import spock.lang.Shared
 import spock.lang.Specification
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:postgresql:///databasename?TC_IMAGE_TAG=10")
-@Property(name = "r2dbc.datasources.default.options.applicationName", value = "test")
-class PostgresHealthIndicatorSpec extends Specification {
-    @Inject BasicR2dbcProperties props
-    @Inject ConnectionFactoryOptions options
-    @Inject ConnectionFactory connectionFactory
-    @Inject R2dbcHealthIndicator healthIndicator;
+@Property(name = "r2dbc.datasources.my1.url", value = "r2dbc:tc:mariadb:///databasename1?TC_IMAGE_TAG=10.3.6")
+@Property(name = "r2dbc.datasources.my2.url", value = "r2dbc:tc:mariadb:///databasename2?TC_IMAGE_TAG=10.3.6")
+class MariadbMultipleHealthIndicatorSpec extends Specification {
+    @Shared
+    @Inject List<R2dbcHealthIndicator> healthIndicators
 
-    void 'test health UP'() {
+    void 'test all'() {
+        expect:
+            healthIndicators.size() == 2
+    }
+
+    void 'test health UP'(R2dbcHealthIndicator healthIndicator) {
         given:
         Flowable f = Flowable.fromPublisher(healthIndicator.result)
 
@@ -33,5 +37,9 @@ class PostgresHealthIndicatorSpec extends Specification {
 
         then:
         result == HealthStatus.UP
+
+        where:
+        healthIndicator << healthIndicators
     }
+
 }

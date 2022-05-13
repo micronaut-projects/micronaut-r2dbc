@@ -48,7 +48,7 @@ testcontainers-jdbc = { module = "org.testcontainers:jdbc" }
 testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
 testcontainers-mssqlserver = { module = "org.testcontainers:mssqlserver" }
 testcontainers-mysql = { module = "org.testcontainers:mysql" }
-testcontainers-oracle-xe = { module = "org.testcontainers:oracle-xe" }
+testcontainers-oracle = { module = "org.testcontainers:oracle-xe" }
 testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
 testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
 testcontainers-spock = { module = "org.testcontainers:spock" }

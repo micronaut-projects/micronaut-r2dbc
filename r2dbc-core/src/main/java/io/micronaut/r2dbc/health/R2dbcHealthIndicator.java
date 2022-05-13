@@ -15,8 +15,8 @@
  */
 package io.micronaut.r2dbc.health;
 
+import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.context.exceptions.ConfigurationException;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.health.HealthStatus;
 import io.micronaut.management.endpoint.health.HealthEndpoint;
@@ -28,12 +28,12 @@ import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
 import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Supports R2DBC Connection Factory health check as per {@link R2dbcHealthCondition}.
@@ -43,34 +43,43 @@ import java.util.Map;
  */
 @Requires(classes = HealthIndicator.class)
 @Requires(beans = ConnectionFactory.class)
-@Requires(condition = R2dbcHealthCondition.class)
 @Requires(property = HealthEndpoint.PREFIX + ".r2dbc.enabled", value = StringUtils.TRUE, defaultValue = StringUtils.TRUE)
-@Singleton
+@EachBean(ConnectionFactory.class)
 public class R2dbcHealthIndicator implements HealthIndicator {
 
     private static final String NAME = "r2dbc-connection-factory";
     private static final String DETAILS_METADATA = "metadata";
 
     private final ConnectionFactory connectionFactory;
-    private final String healthQuery;
+    private final Mono<String> healthQuery;
 
     @Inject
     public R2dbcHealthIndicator(ConnectionFactory connectionFactory,
                                 R2dbcHealthConfiguration healthConfiguration) {
         this.connectionFactory = connectionFactory;
-        this.healthQuery = healthConfiguration.getHealthQuery(connectionFactory.getMetadata().getName())
-                .orElseThrow(() -> new ConfigurationException("Unexpected behavior while getting Health Query for: " + connectionFactory));
+        this.healthQuery = Mono.<String>create(sink -> {
+            final String metadataName = connectionFactory.getMetadata().getName();
+            Optional<String> query = healthConfiguration.getHealthQuery(metadataName);
+            if (query.isPresent()) {
+                String healthQuery = query.get();
+                if (StringUtils.isNotEmpty(healthQuery)) {
+                    sink.success(healthQuery);
+                    return;
+                }
+            }
+            sink.success();
+        }).cache();
     }
 
     @Override
     public Publisher<HealthResult> getResult() {
-        return Mono.usingWhen(Mono.fromDirect(connectionFactory.create()),
-                        connection -> Mono.fromDirect(connection.createStatement(healthQuery).execute())
+        return healthQuery.flatMap(query -> Mono.usingWhen(Mono.fromDirect(connectionFactory.create()),
+                        connection -> Mono.fromDirect(connection.createStatement(query).execute())
                                 .flatMapMany(result -> result.map(this::extractQueryResult))
                                 .next(),
                         Connection::close, (o, throwable) -> o.close(), Connection::close)
                 .map(this::buildUpResult)
-                .onErrorResume(e -> Mono.just(buildDownResult(e)));
+                .onErrorResume(e -> Mono.just(buildDownResult(e))));
     }
 
     /**

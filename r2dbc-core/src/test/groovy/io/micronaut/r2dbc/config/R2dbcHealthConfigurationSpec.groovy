@@ -1,7 +1,6 @@
 package io.micronaut.r2dbc.config
 
 
-import io.micronaut.r2dbc.config.R2dbcHealthConfiguration
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
