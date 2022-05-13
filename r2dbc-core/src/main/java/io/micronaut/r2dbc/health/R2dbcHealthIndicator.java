@@ -51,14 +51,12 @@ public class R2dbcHealthIndicator implements HealthIndicator {
     private static final String DETAILS_METADATA = "metadata";
 
     private final ConnectionFactory connectionFactory;
-    private final R2dbcHealthConfiguration healthConfiguration;
     private final Mono<String> healthQuery;
 
     @Inject
     public R2dbcHealthIndicator(ConnectionFactory connectionFactory,
                                 R2dbcHealthConfiguration healthConfiguration) {
         this.connectionFactory = connectionFactory;
-        this.healthConfiguration = healthConfiguration;
         this.healthQuery = Mono.<String>create(sink -> {
             final String metadataName = connectionFactory.getMetadata().getName();
             Optional<String> query = healthConfiguration.getHealthQuery(metadataName);
@@ -75,8 +73,8 @@ public class R2dbcHealthIndicator implements HealthIndicator {
 
     @Override
     public Publisher<HealthResult> getResult() {
-        return healthQuery.flatMap(healthQuery -> Mono.usingWhen(Mono.fromDirect(connectionFactory.create()),
-                        connection -> Mono.fromDirect(connection.createStatement(healthQuery).execute())
+        return healthQuery.flatMap(query -> Mono.usingWhen(Mono.fromDirect(connectionFactory.create()),
+                        connection -> Mono.fromDirect(connection.createStatement(query).execute())
                                 .flatMapMany(result -> result.map(this::extractQueryResult))
                                 .next(),
                         Connection::close, (o, throwable) -> o.close(), Connection::close)
