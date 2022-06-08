@@ -34,7 +34,7 @@ dependency:org.mariadb.jdbc:mariadb-java-client[scope="runtimeOnly"]
 
 R2DBC Driver:
 
-dependency:io.r2dbc:r2dbc-postgresql[scope="runtimeOnly"]
+dependency:org.postgresql:r2dbc-postgresql[scope="runtimeOnly"]
 
 And for Flyway migrations the JDBC driver:
 
