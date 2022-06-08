@@ -59,11 +59,11 @@ jobs:
           - views
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: source
       - name: Checkout target - master
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: micronaut-projects/micronaut-${{ matrix.repo }}
           path: target
@@ -78,7 +78,7 @@ jobs:
           echo ::set-output name=branch::${branch}
       - name: Checkout target - ${{ steps.branch.outputs.branch }}
         if: steps.branch.outputs.branch != ''
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: micronaut-projects/micronaut-${{ matrix.repo }}
           path: branch
