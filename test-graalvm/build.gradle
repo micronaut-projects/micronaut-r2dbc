@@ -1,5 +1,6 @@
 plugins {
     id 'io.micronaut.application' apply false
+    id 'io.micronaut.minimal.application' apply false
     id 'io.micronaut.library' apply false
 }
 
@@ -28,7 +29,11 @@ subprojects { Project subproject ->
         return
     }
 
-    apply plugin: 'io.micronaut.application'
+    if (project.name == 'h2') {
+        apply plugin: 'io.micronaut.minimal.application'
+    } else {
+        apply plugin: 'io.micronaut.application'
+    }
 
     micronaut {
         version project.ext.micronautVersion
@@ -92,17 +97,6 @@ project("h2") {
             force = true
         }
     }
-    graalvmNative {
-        binaries {
-            main {
-                buildArgs("--report-unsupported-elements-at-runtime")
-            }
-        }
-    }
-
-    // Skip on GraalVM Java11
-    tasks.findByName("nativeTestCompile").onlyIf { !isGraal() || JavaVersion.current() != JavaVersion.VERSION_11 }
-    tasks.findByName("nativeCompile").onlyIf { !isGraal() || JavaVersion.current() != JavaVersion.VERSION_11 }
 }
 project("mssql") {
     dependencies {
@@ -158,12 +152,3 @@ project("mariadb") {
     }
 }
 
-boolean isGraal() {
-    for (String prop : ["jvmci.Compiler", "java.vendor.version"]) {
-        String vv = System.getProperty(prop)
-        if (vv != null && vv.toLowerCase(Locale.ENGLISH).contains("graal")) {
-            return true
-        }
-    }
-    return false
-}
