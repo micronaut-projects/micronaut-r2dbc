@@ -29,7 +29,7 @@ subprojects { Project subproject ->
         return
     }
 
-    if (project.name == 'h2') {
+    if (project.name in ['h2', 'oracle', 'mariadb']) {
         apply plugin: 'io.micronaut.minimal.application'
     } else {
         apply plugin: 'io.micronaut.application'
@@ -127,9 +127,6 @@ if (Boolean.getBoolean('test.oracle')) {
             runtimeOnly(libs.ojdbc11)
             testImplementation(libs.testcontainers.oracle)
         }
-        // Not enough memory on Github Actions to test native images :(
-        tasks.findByName("nativeTestCompile").enabled(false)
-        tasks.findByName("nativeCompile").enabled(false)
     }
 }
 project("mysql") {
@@ -142,7 +139,6 @@ project("mysql") {
 project("mariadb") {
     dependencies {
         implementation(libs.managed.r2dbc.mariadb)
-
         testRuntimeOnly(libs.mariadb.java.client)
         testImplementation(libs.testcontainers.mariadb)
     }
