@@ -146,9 +146,5 @@ project("mariadb") {
         testRuntimeOnly(libs.mariadb.java.client)
         testImplementation(libs.testcontainers.mariadb)
     }
-    project.afterEvaluate {
-        tasks.findByName("nativeTestCompile").enabled(false)
-        tasks.findByName("nativeCompile").enabled(false)
-    }
 }
 
