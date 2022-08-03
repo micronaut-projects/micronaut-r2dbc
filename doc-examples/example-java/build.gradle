@@ -36,6 +36,10 @@ dependencies {
     testImplementation(mn.micronaut.test.core)
 }
 
-nativeImage {
-    args('-H:+AddAllCharsets')
+graalvmNative {
+    binaries {
+        main {
+            buildArgs('-H:+AddAllCharsets')
+        }
+    }
 }

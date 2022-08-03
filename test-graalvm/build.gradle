@@ -92,12 +92,17 @@ project("h2") {
             force = true
         }
     }
-    nativeImage {
-        args("--report-unsupported-elements-at-runtime")
+    graalvmNative {
+        binaries {
+            main {
+                buildArgs("--report-unsupported-elements-at-runtime")
+            }
+        }
     }
+
     // Skip on GraalVM Java11
-    tasks.findByName("testNativeImage").onlyIf { !isGraal() || JavaVersion.current() != JavaVersion.VERSION_11 }
-    tasks.findByName("nativeImage").onlyIf { !isGraal() || JavaVersion.current() != JavaVersion.VERSION_11 }
+    tasks.findByName("nativeTestCompile").onlyIf { !isGraal() || JavaVersion.current() != JavaVersion.VERSION_11 }
+    tasks.findByName("nativeCompile").onlyIf { !isGraal() || JavaVersion.current() != JavaVersion.VERSION_11 }
 }
 project("mssql") {
     dependencies {
@@ -106,8 +111,12 @@ project("mssql") {
         testImplementation(libs.testcontainers.mssqlserver)
     }
 
-    nativeImage {
-        args('-H:+AddAllCharsets')
+    graalvmNative {
+        binaries {
+            main {
+                buildArgs('-H:+AddAllCharsets')
+            }
+        }
     }
 }
 project("postgres") {
@@ -125,9 +134,8 @@ if (Boolean.getBoolean('test.oracle')) {
             testImplementation(libs.testcontainers.oracle)
         }
         // Not enough memory on Github Actions to test native images :(
-        tasks.findByName("testNativeImage").enabled(false)
-        tasks.findByName("nativeImage").enabled(false)
-
+        tasks.findByName("nativeTestCompile").enabled(false)
+        tasks.findByName("nativeCompile").enabled(false)
     }
 }
 project("mysql") {
@@ -145,8 +153,8 @@ project("mariadb") {
         testImplementation(libs.testcontainers.mariadb)
     }
     project.afterEvaluate {
-        nativeImage.enabled = false
-        testNativeImage.enabled = false
+        tasks.findByName("nativeTestCompile").enabled(false)
+        tasks.findByName("nativeCompile").enabled(false)
     }
 }
 

@@ -36,6 +36,6 @@ dependencies {
 }
 
 project.afterEvaluate {
-    nativeImage.enabled = false
-    testNativeImage.enabled = false
+    tasks.findByName("nativeTestCompile").enabled(false)
+    tasks.findByName("nativeCompile").enabled(false)
 }
