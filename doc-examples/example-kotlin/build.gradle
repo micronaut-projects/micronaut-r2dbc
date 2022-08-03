@@ -3,7 +3,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm"
     id "org.jetbrains.kotlin.kapt"
     id "org.jetbrains.kotlin.plugin.allopen"
-    id "io.micronaut.application"
+    id "io.micronaut.minimal.application"
 }
 
 repositories {
@@ -45,9 +45,4 @@ compileTestKotlin {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-}
-
-project.afterEvaluate {
-    nativeImage.enabled = false
-    testNativeImage.enabled = false
 }

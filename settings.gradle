@@ -5,6 +5,7 @@ pluginManagement {
     }
     plugins {
         id 'io.micronaut.application' version getProperty("micronautGradlePluginVersion")
+        id 'io.micronaut.minimal.application' version getProperty("micronautGradlePluginVersion")
         id 'io.micronaut.library' version getProperty("micronautGradlePluginVersion")
         id "org.jetbrains.kotlin.jvm" version getProperty("kotlinVersion")
         id "org.jetbrains.kotlin.kapt" version getProperty("kotlinVersion")
