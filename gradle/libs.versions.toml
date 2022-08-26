@@ -6,7 +6,7 @@ groovy = "3.0.10"
 managed-testcontainers = "1.17.3"
 
 h2 = "1.4.200"
-ojdbc11 = "21.6.0.0.1"
+ojdbc11 = "21.7.0.0"
 
 # R2DBC Drivers
 managed-r2dbc = "1.0.0.RELEASE"
