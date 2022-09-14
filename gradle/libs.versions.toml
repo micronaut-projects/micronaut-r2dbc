@@ -10,7 +10,7 @@ ojdbc11 = "21.6.0.0.1"
 
 # R2DBC Drivers
 managed-r2dbc = "1.0.0.RELEASE"
-managed-r2dbc-pool = "0.9.1.RELEASE"
+managed-r2dbc-pool = "0.9.2.RELEASE"
 
 managed-r2dbc-oracle = "0.4.0"
 managed-r2dbc-mysql = "0.8.2.RELEASE"
