@@ -1,8 +1,8 @@
 [versions]
-micronaut = "3.4.3"
+micronaut = "4.0.0-SNAPSHOT"
 micronaut-docs = "2.0.0"
 
-groovy = "3.0.10"
+groovy = "3.0.12"
 managed-testcontainers = "1.17.3"
 
 h2 = "1.4.200"

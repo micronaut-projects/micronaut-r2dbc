@@ -2,6 +2,7 @@ plugins {
     id 'io.micronaut.application' apply false
     id 'io.micronaut.minimal.application' apply false
     id 'io.micronaut.library' apply false
+    id "io.micronaut.build.internal.r2dbc-tests"
 }
 
 subprojects { Project subproject ->
@@ -14,10 +15,6 @@ subprojects { Project subproject ->
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-
-    repositories {
-        mavenCentral()
-    }
 
     if (subproject.getName().startsWith("common")) {
         apply plugin: 'io.micronaut.library'

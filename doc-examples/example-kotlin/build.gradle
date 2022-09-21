@@ -4,10 +4,7 @@ plugins {
     id "org.jetbrains.kotlin.kapt"
     id "org.jetbrains.kotlin.plugin.allopen"
     id "io.micronaut.minimal.application"
-}
-
-repositories {
-    mavenCentral()
+    id "io.micronaut.build.internal.r2dbc-base"
 }
 
 application {

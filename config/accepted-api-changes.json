@@ -1,0 +1,12 @@
+[
+  {
+    "type": "io.micronaut.r2dbc.health.$R2dbcHealthCondition$IntrospectionRef",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Removed deprecations for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.r2dbc.health.$R2dbcHealthCondition$IntrospectionRef",
+    "member": "Constructor io.micronaut.r2dbc.health.$R2dbcHealthCondition$IntrospectionRef()",
+    "reason": "Removed deprecations for Micronaut 4"
+  }
+]
