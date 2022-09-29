@@ -2,14 +2,14 @@ package example
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
+import jakarta.inject.Inject
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.testcontainers.containers.MySQLContainer
-import jakarta.inject.Inject
 import org.testcontainers.utility.DockerImageName
 
-@MicronautTest
+@MicronautTest(transactional = false)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SomeEntityRepositoryTest : TestPropertyProvider {
     @Inject

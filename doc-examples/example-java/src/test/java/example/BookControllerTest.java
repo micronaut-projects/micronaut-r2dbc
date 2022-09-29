@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-@MicronautTest
+@MicronautTest(transactional=false)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BookControllerTest implements TestPropertyProvider {
 

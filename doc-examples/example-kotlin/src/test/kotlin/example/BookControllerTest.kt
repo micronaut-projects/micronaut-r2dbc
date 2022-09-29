@@ -7,18 +7,18 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import io.micronaut.transaction.reactive.ReactiveTransactionStatus
 import io.r2dbc.spi.Connection
+import jakarta.inject.Inject
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.testcontainers.containers.MySQLContainer
+import org.testcontainers.utility.DockerImageName
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import jakarta.inject.Inject
-import org.testcontainers.utility.DockerImageName
 
-@MicronautTest
+@MicronautTest(transactional = false)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BookControllerTest : TestPropertyProvider {
     @Inject

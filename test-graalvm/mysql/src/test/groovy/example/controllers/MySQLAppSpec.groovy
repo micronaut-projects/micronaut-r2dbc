@@ -23,7 +23,7 @@ import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.utility.DockerImageName
 import testgraalvm.controllers.AbstractDBContainerAppSpec
 
-@MicronautTest
+@MicronautTest(transactional=false)
 class MySQLAppSpec extends AbstractDBContainerAppSpec implements TestPropertyProvider {
 
     @Override
