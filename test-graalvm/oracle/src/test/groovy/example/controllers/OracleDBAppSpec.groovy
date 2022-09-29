@@ -22,7 +22,7 @@ import org.testcontainers.containers.OracleContainer
 import org.testcontainers.utility.DockerImageName
 import testgraalvm.controllers.AbstractDBContainerAppSpec
 
-@MicronautTest
+@MicronautTest(transactional=false)
 class OracleDBAppSpec extends AbstractDBContainerAppSpec {
 
     @Override
