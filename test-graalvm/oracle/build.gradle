@@ -1,0 +1,9 @@
+plugins {
+    id 'io.micronaut.build.internal.test-application'
+}
+
+dependencies {
+    runtimeOnly(libs.managed.r2dbc.oracle)
+    runtimeOnly(libs.ojdbc11)
+    testImplementation(libs.testcontainers.oracle)
+}

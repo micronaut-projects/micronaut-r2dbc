@@ -1,0 +1,17 @@
+plugins {
+    id 'io.micronaut.build.internal.test-application'
+}
+
+dependencies {
+    runtimeOnly(libs.mssql.jdbc)
+    runtimeOnly(libs.managed.r2dbc.mssql)
+    testImplementation(libs.testcontainers.mssqlserver)
+}
+
+graalvmNative {
+    binaries {
+        main {
+            buildArgs('-H:+AddAllCharsets')
+        }
+    }
+}

@@ -1,0 +1,9 @@
+plugins {
+    id 'io.micronaut.build.internal.test-application'
+}
+
+dependencies {
+    runtimeOnly(libs.postgresql)
+    runtimeOnly(libs.managed.r2dbc.postgresql)
+    testImplementation(libs.testcontainers.postgresql)
+}

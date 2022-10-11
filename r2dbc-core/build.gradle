@@ -13,7 +13,6 @@ dependencies {
     implementation(mn.reactor)
 
     testImplementation(mn.micronaut.management)
-    testImplementation(mn.snakeyaml)
 
     testImplementation(mn.micronaut.rxjava2)
     testImplementation(libs.testcontainers.r2dbc)
@@ -45,7 +44,7 @@ dependencies {
     // oracle
     testImplementation(libs.testcontainers.oracle)
     testImplementation(libs.ojdbc11)
-    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_11)) {
-        testImplementation(libs.managed.r2dbc.oracle)
-    }
+    testImplementation(libs.managed.r2dbc.oracle)
+
+    testRuntimeOnly(mn.snakeyaml)
 }

@@ -1,11 +1,13 @@
 [versions]
 micronaut = "4.0.0-SNAPSHOT"
 micronaut-docs = "2.0.0"
+micronaut-gradle-plugin = "3.6.2"
 
-groovy = "3.0.12"
-managed-testcontainers = "1.17.4"
+groovy = "4.0.5"
+kotlin = '1.7.20'
+managed-testcontainers = "1.17.5"
 
-h2 = "2.1.210"
+h2 = "2.1.214"
 ojdbc11 = "21.7.0.0"
 
 # R2DBC Drivers
@@ -52,3 +54,9 @@ testcontainers-oracle = { module = "org.testcontainers:oracle-xe" }
 testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
 testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
 testcontainers-spock = { module = "org.testcontainers:spock" }
+
+#PLUGINS
+
+gradle-micronaut = { module = "io.micronaut.gradle:micronaut-gradle-plugin", version.ref = "micronaut-gradle-plugin" }
+kotlin-gradle-plugin = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
+kotlin-gradle-allopen = { module = 'org.jetbrains.kotlin:kotlin-allopen', version.ref = 'kotlin' }

@@ -8,5 +8,25 @@
     "type": "io.micronaut.r2dbc.health.$R2dbcHealthCondition$IntrospectionRef",
     "member": "Constructor io.micronaut.r2dbc.health.$R2dbcHealthCondition$IntrospectionRef()",
     "reason": "Removed deprecations for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.r2dbc.health.$R2dbcHealthCondition$IntrospectionRef",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Removed deprecations for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.r2dbc.health.$R2dbcHealthCondition$IntrospectionRef",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Removed deprecations for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.r2dbc.health.$R2dbcHealthCondition$IntrospectionRef",
+    "member": "Implemented interface io.micronaut.core.naming.Named",
+    "reason": "Removed deprecations for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.r2dbc.health.$R2dbcHealthCondition$IntrospectionRef",
+    "member": "Implemented interface io.micronaut.core.beans.BeanIntrospectionReference",
+    "reason": "Removed deprecations for Micronaut 4"
   }
 ]

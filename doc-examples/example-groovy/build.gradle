@@ -25,6 +25,8 @@ dependencies {
     runtimeOnly(libs.mysql.connector.java)
     runtimeOnly(libs.flyway.mysql)
 
+    runtimeOnly(mn.snakeyaml)
+
     testImplementation(mn.micronaut.http.client)
     testImplementation(platform(libs.boms.testcontainers))
     testImplementation(libs.testcontainers.mysql)

@@ -24,6 +24,8 @@ dependencies {
     implementation(mn.micronaut.jdbc.hikari)
     runtimeOnly(libs.managed.r2dbc.mysql)
     runtimeOnly(libs.flyway.mysql)
+    runtimeOnly(mn.snakeyaml)
+
     implementation(libs.mysql.connector.java)
 
     testImplementation(mn.micronaut.http.client)

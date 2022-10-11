@@ -1,0 +1,9 @@
+plugins {
+    id 'io.micronaut.build.internal.test-application'
+}
+
+dependencies {
+    implementation(libs.managed.r2dbc.mariadb)
+    testRuntimeOnly(libs.mariadb.java.client)
+    testImplementation(libs.testcontainers.mariadb)
+}

@@ -1,0 +1,12 @@
+plugins {
+    id 'io.micronaut.build.internal.test-library'
+}
+
+dependencies {
+    annotationProcessor(mn.micronaut.data.processor)
+    implementation(mn.micronaut.http.client)
+    annotationProcessor(mn.micronaut.graal)
+    implementation(mn.micronaut.data.r2dbc) {
+        exclude module:'micronaut-r2dbc-core'
+    }
+}

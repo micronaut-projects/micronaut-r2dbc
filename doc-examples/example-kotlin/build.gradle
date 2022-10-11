@@ -1,10 +1,9 @@
 plugins {
-    id "java"
-    id "org.jetbrains.kotlin.jvm"
-    id "org.jetbrains.kotlin.kapt"
-    id "org.jetbrains.kotlin.plugin.allopen"
-    id "io.micronaut.minimal.application"
-    id "io.micronaut.build.internal.r2dbc-base"
+    id 'org.jetbrains.kotlin.plugin.allopen'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'org.jetbrains.kotlin.kapt'
+    id 'io.micronaut.build.internal.r2dbc-examples'
+    id 'io.micronaut.application'
 }
 
 application {
@@ -27,6 +26,7 @@ dependencies {
     runtimeOnly(libs.managed.r2dbc.mysql)
     runtimeOnly(libs.mysql.connector.java)
     runtimeOnly(libs.flyway.mysql)
+    runtimeOnly(mn.snakeyaml)
 
     testImplementation(mn.micronaut.http.client)
     testImplementation(platform(libs.boms.testcontainers))
@@ -35,11 +35,11 @@ dependencies {
 }
 compileKotlin {
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }

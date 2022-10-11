@@ -1,0 +1,10 @@
+plugins {
+    id 'io.micronaut.build.internal.test-application'
+}
+
+dependencies {
+    runtimeOnly(libs.managed.r2dbc.h2)
+    runtimeOnly(libs.h2) {
+        force = true
+    }
+}

@@ -28,7 +28,7 @@ class MySQLAppSpec extends AbstractDBContainerAppSpec implements TestPropertyPro
 
     @Override
     JdbcDatabaseContainer getJdbcDatabaseContainer() {
-        return new MySQLContainer(DockerImageName.parse("mysql:8.0.11"))
+        return new MySQLContainer(DockerImageName.parse("mysql:8.0.30"))
     }
 
     @Override
