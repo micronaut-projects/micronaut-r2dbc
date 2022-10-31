@@ -16,12 +16,12 @@ dependencies {
     runtimeOnly(mn.logback)
 
     implementation(mn.micronaut.http.client)
-    implementation project(":r2dbc-core")
+    implementation projects.r2dbcCore
     implementation(mn.micronaut.data.r2dbc) {
         exclude module:'micronaut-r2dbc-core'
     }
-    implementation project(":test-graalvm:common")
-    testImplementation project(":test-graalvm:common-tests")
+    implementation projects.testGraalvm.common
+    testImplementation projects.testGraalvm.commonTests
     testImplementation(mn.micronaut.test.core)
     testImplementation platform(libs.boms.testcontainers)
     testImplementation(libs.testcontainers.spock)
