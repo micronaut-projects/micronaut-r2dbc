@@ -16,7 +16,7 @@ managed-r2dbc-oracle = "1.0.0"
 managed-r2dbc-mysql = "0.8.2.RELEASE"
 managed-r2dbc-h2 = "0.8.5.RELEASE"
 managed-r2dbc-mariadb = "1.1.2"
-managed-r2dbc-postgresql = "0.9.2.RELEASE"
+managed-r2dbc-postgresql = "0.9.3.RELEASE"
 managed-r2dbc-mssql = "1.0.0.RELEASE"
 
 [libraries]
