@@ -3,7 +3,7 @@ micronaut = "3.4.3"
 micronaut-docs = "2.0.0"
 
 groovy = "3.0.10"
-managed-testcontainers = "1.17.5"
+managed-testcontainers = "1.17.6"
 
 h2 = "1.4.200"
 ojdbc11 = "21.7.0.0"
