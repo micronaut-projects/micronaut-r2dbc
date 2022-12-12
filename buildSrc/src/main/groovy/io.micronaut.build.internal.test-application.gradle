@@ -10,20 +10,20 @@ micronaut {
 }
 
 dependencies {
-    annotationProcessor(mn.graal)
-    annotationProcessor(mn.micronaut.data.processor)
-    runtimeOnly(mn.micronaut.jdbc.hikari)
-    runtimeOnly(mn.logback)
+    annotationProcessor(libs.graal.svm)
+    annotationProcessor(mnData.micronaut.data.processor)
+    runtimeOnly(mnSql.micronaut.jdbc.hikari)
+    runtimeOnly(mn.logback.classic)
 
     implementation(mn.micronaut.http.client)
     implementation projects.r2dbcCore
-    implementation(mn.micronaut.data.r2dbc) {
+    implementation(mnData.micronaut.data.r2dbc) {
         exclude module:'micronaut-r2dbc-core'
     }
     implementation projects.testGraalvm.common
     testImplementation projects.testGraalvm.commonTests
-    testImplementation(mn.micronaut.test.core)
-    testImplementation platform(libs.boms.testcontainers)
+    testImplementation(mnTest.micronaut.test.core)
+    testImplementation platform(libs.testcontainers.bom)
     testImplementation(libs.testcontainers.spock)
     testImplementation(libs.testcontainers.jdbc)
 }

@@ -6,4 +6,7 @@ micronautBom {
     excludeProject.set({ p ->
         p.group.contains('example') || p.name.contains('example') || p.name.contains('test-')
     } as Spec<Project>)
+    suppressions {
+        acceptedVersionRegressions.addAll("testcontainers")
+    }
 }

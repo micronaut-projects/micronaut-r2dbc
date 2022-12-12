@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
     runtimeOnly(libs.managed.r2dbc.mysql)
-    runtimeOnly(libs.mysql.connector.java)
+    runtimeOnly(mnSql.mysql.connector.java)
     testImplementation(libs.testcontainers.mysql)
 }

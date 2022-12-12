@@ -1,25 +1,30 @@
 [versions]
 micronaut = "4.0.0-SNAPSHOT"
 micronaut-docs = "2.0.0"
-micronaut-gradle-plugin = "3.6.2"
+micronaut-gradle-plugin = "3.6.6"
 
+graal-svm = "22.0.0.2"
 groovy = "4.0.6"
-kotlin = '1.7.20'
-managed-testcontainers = "1.17.5"
+kotlin = '1.7.22'
+testcontainers = "1.17.6"
 
-h2 = "2.1.214"
 ojdbc11 = "21.7.0.0"
 
 # R2DBC Drivers
 managed-r2dbc = "1.0.0.RELEASE"
-managed-r2dbc-pool = "0.9.2.RELEASE"
-
-managed-r2dbc-oracle = "1.0.0"
+managed-r2dbc-pool = "1.0.0.RELEASE"
+managed-r2dbc-oracle = "1.1.0"
 managed-r2dbc-mysql = "0.8.2.RELEASE"
-managed-r2dbc-h2 = "0.9.1.RELEASE"
+managed-r2dbc-h2 = "1.0.0.RELEASE"
 managed-r2dbc-mariadb = "1.1.2"
-managed-r2dbc-postgresql = "0.9.2.RELEASE"
+managed-r2dbc-postgresql = "1.0.0.RELEASE"
 managed-r2dbc-mssql = "1.0.0.RELEASE"
+
+micronaut-data = "3.8.1" # TODO update once 4.0.0-SNAPSHOT is out
+micronaut-flyway = "5.4.1"
+micronaut-rxjava2 = "2.0.0-SNAPSHOT"
+micronaut-sql = "5.0.0-SNAPSHOT"
+micronaut-test = "4.0.0-SNAPSHOT"
 
 [libraries]
 managed-r2dbc-spi = { module = "io.r2dbc:r2dbc-spi", version.ref = "managed-r2dbc" }
@@ -33,19 +38,12 @@ managed-r2dbc-mysql = { module = "dev.miku:r2dbc-mysql", version.ref = "managed-
 managed-r2dbc-mssql = { module = "io.r2dbc:r2dbc-mssql", version.ref = "managed-r2dbc-mssql" }
 managed-r2dbc-postgresql = { module = "org.postgresql:r2dbc-postgresql", version.ref = "managed-r2dbc-postgresql" }
 
-# JDBC Drivers
-mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client" }
-mssql-jdbc = { module = "com.microsoft.sqlserver:mssql-jdbc" }
-mysql-connector-java = { module = "mysql:mysql-connector-java" }
-postgresql = { module = "org.postgresql:postgresql" }
-h2 = { module = "com.h2database:h2", version.ref = "h2" }
 ojdbc11 = { module = "com.oracle.database.jdbc:ojdbc11", version.ref = "ojdbc11" }
-
 flyway-mysql = { module = "org.flywaydb:flyway-mysql" }
+graal-svm = { module = "org.graalvm.nativeimage:svm", version.ref = "graal-svm" }
 
-# BOMs
-boms-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "managed-testcontainers" }
-
+# testcontainers
+testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
 testcontainers-jdbc = { module = "org.testcontainers:jdbc" }
 testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
 testcontainers-mssqlserver = { module = "org.testcontainers:mssqlserver" }
@@ -55,8 +53,13 @@ testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
 testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
 testcontainers-spock = { module = "org.testcontainers:spock" }
 
-#PLUGINS
+micronaut-data = { module = "io.micronaut.data:micronaut-data-bom", version.ref = "micronaut-data" }
+micronaut-flyway = {group = "io.micronaut.flyway", name = "micronaut-flyway-bom", version.ref = "micronaut-flyway" }
+micronaut-rxjava2 = { module = "io.micronaut.rxjava2:micronaut-rxjava2-bom", version.ref = "micronaut-rxjava2" }
+micronaut-test = { module = "io.micronaut.test:micronaut-test-bom", version.ref = "micronaut-test" }
+micronaut-sql = { module = "io.micronaut.sql:micronaut-sql-bom", version.ref = "micronaut-sql" }
 
+#PLUGINS
 gradle-micronaut = { module = "io.micronaut.gradle:micronaut-gradle-plugin", version.ref = "micronaut-gradle-plugin" }
 kotlin-gradle-plugin = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
 kotlin-gradle-allopen = { module = 'org.jetbrains.kotlin:kotlin-allopen', version.ref = 'kotlin' }

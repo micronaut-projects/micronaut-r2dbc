@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
     implementation(libs.managed.r2dbc.mariadb)
-    testRuntimeOnly(libs.mariadb.java.client)
+    testRuntimeOnly(mnSql.mariadb.java.client)
     testImplementation(libs.testcontainers.mariadb)
 }

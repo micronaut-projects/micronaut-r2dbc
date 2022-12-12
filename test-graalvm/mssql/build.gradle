@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    runtimeOnly(libs.mssql.jdbc)
+    runtimeOnly(mnSql.mssql.jdbc)
     runtimeOnly(libs.managed.r2dbc.mssql)
     testImplementation(libs.testcontainers.mssqlserver)
 }

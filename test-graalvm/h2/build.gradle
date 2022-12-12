@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     runtimeOnly(libs.managed.r2dbc.h2)
-    runtimeOnly(libs.h2) {
+    runtimeOnly(mnSql.h2) {
         force = true
     }
 }

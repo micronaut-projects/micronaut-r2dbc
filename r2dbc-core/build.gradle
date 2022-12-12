@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    compileOnly(mn.graal)
+    compileOnly(libs.graal.svm)
     compileOnly(mn.micronaut.management)
 
     api(mn.micronaut.inject)
@@ -12,39 +12,40 @@ dependencies {
 
     implementation(mn.reactor)
 
+    testImplementation mnTest.micronaut.test.spock
     testImplementation(mn.micronaut.management)
 
-    testImplementation(mn.micronaut.rxjava2)
+    testImplementation(platform(libs.testcontainers.bom))
+    testImplementation(mnRxjava2.micronaut.rxjava2)
     testImplementation(libs.testcontainers.r2dbc)
-    testImplementation(platform(libs.boms.testcontainers))
 
     // mariadb
     testImplementation(libs.managed.r2dbc.mariadb)
     testImplementation(libs.testcontainers.mariadb)
-    testImplementation(libs.mariadb.java.client)
+    testImplementation(mnSql.mariadb.java.client)
 
     // mysql
-    testImplementation(libs.testcontainers.mysql)
-    testImplementation(libs.mysql.connector.java)
     testImplementation(libs.managed.r2dbc.mysql)
+    testImplementation(libs.testcontainers.mysql)
+    testImplementation(mnSql.mysql.connector.java)
 
     // h2
     testImplementation(libs.managed.r2dbc.h2)
 
     // sqlserver
-    testImplementation(libs.testcontainers.mssqlserver)
-    testImplementation(libs.mssql.jdbc)
     testImplementation(libs.managed.r2dbc.mssql)
+    testImplementation(libs.testcontainers.mssqlserver)
+    testImplementation(mnSql.mssql.jdbc)
 
     // postgres
     testImplementation(libs.managed.r2dbc.postgresql)
     testImplementation(libs.testcontainers.postgresql)
-    testImplementation(libs.postgresql)
+    testImplementation(mnSql.postgresql)
 
     // oracle
+    testImplementation(libs.managed.r2dbc.oracle)
     testImplementation(libs.testcontainers.oracle)
     testImplementation(libs.ojdbc11)
-    testImplementation(libs.managed.r2dbc.oracle)
 
     testRuntimeOnly(mn.snakeyaml)
 }

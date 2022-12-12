@@ -6,20 +6,19 @@ pluginManagement {
 }
 
 plugins {
-    id 'io.micronaut.build.shared.settings' version '6.0.1'
+    id 'io.micronaut.build.shared.settings' version '6.1.1'
 }
 
 enableFeaturePreview 'TYPESAFE_PROJECT_ACCESSORS'
 
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-        maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
-    }
-}
-
 micronautBuild {
+    addSnapshotRepository()
     importMicronautCatalog()
+    importMicronautCatalog("micronaut-data")
+    importMicronautCatalog("micronaut-flyway")
+    importMicronautCatalog("micronaut-rxjava2")
+    importMicronautCatalog("micronaut-sql")
+    importMicronautCatalog("micronaut-test")
 }
 
 rootProject.name = 'r2dbc-parent'
@@ -33,7 +32,6 @@ include 'doc-examples:example-java'
 include 'doc-examples:example-kotlin'
 
 // tests
-include 'test-graalvm'
 include 'test-graalvm:postgres'
 include 'test-graalvm:mysql'
 include 'test-graalvm:mariadb'

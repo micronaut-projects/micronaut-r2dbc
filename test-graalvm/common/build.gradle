@@ -3,10 +3,10 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(mn.micronaut.data.processor)
+    annotationProcessor(mnData.micronaut.data.processor)
     implementation(mn.micronaut.http.client)
     annotationProcessor(mn.micronaut.graal)
-    implementation(mn.micronaut.data.r2dbc) {
+    implementation(mnData.micronaut.data.r2dbc) {
         exclude module:'micronaut-r2dbc-core'
     }
 }
