@@ -5,7 +5,7 @@ micronaut-docs = "2.0.0"
 groovy = "3.0.10"
 managed-testcontainers = "1.17.5"
 
-h2 = "1.4.200"
+h2 = "2.1.214"
 ojdbc11 = "21.7.0.0"
 
 # R2DBC Drivers
