@@ -23,8 +23,8 @@ import org.testcontainers.utility.DockerImageName
 import spock.lang.IgnoreIf
 import testgraalvm.controllers.AbstractDBContainerAppSpec
 
-@MicronautTest
-@IgnoreIf({env["GITHUB_WORKFLOW"]})
+@MicronautTest(transactional = false)
+@IgnoreIf({ env["GITHUB_WORKFLOW"] })
 class PostgresAppSpec extends AbstractDBContainerAppSpec {
 
     @Override

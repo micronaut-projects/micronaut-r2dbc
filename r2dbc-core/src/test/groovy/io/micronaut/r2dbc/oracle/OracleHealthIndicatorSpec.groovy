@@ -13,7 +13,6 @@ import jakarta.inject.Inject
 import spock.lang.IgnoreIf
 import spock.lang.Specification
 
-@IgnoreIf({ !jvm.isJava11Compatible() })
 @MicronautTest
 @Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:oracle:///databasename?TC_IMAGE_TAG=10")
 @Property(name = "r2dbc.datasources.default.options.applicationName", value = "test")

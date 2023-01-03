@@ -1,0 +1,17 @@
+plugins {
+    id "java"
+    id "io.micronaut.build.internal.r2dbc-dependencies"
+    id "io.micronaut.library"
+}
+
+group "io.micronaut.example"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+micronaut {
+    version libs.versions.micronaut.asProvider().get()
+}

@@ -19,7 +19,7 @@ public interface OwnerRepository extends ReactorCrudRepository<Owner, Long> {
 
     Mono<OwnerDto> findByName(String name);
 
-    Mono<Owner> getByName(String name);
+    Mono<OwnerDto> getByName(String name);
 
-    <S extends Owner> Publisher<S> saveAll(@Valid @NotNull Iterable<S> entities, Connection connection);
+    Mono<Void> saveAll(@Valid @NotNull Iterable<Owner> entities, Connection connection);
 }

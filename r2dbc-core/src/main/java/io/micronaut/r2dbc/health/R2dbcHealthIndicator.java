@@ -36,7 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Supports R2DBC Connection Factory health check as per {@link R2dbcHealthCondition}.
+ * Supports R2DBC Connection Factory health check.
  *
  * @author Anton Kurako (GoodforGod)
  * @since 2.1.0

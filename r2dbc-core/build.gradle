@@ -1,9 +1,16 @@
 plugins {
-    id 'io.micronaut.build.internal.module'
+    id 'io.micronaut.build.internal.r2dbc-module'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.graalvm.sdk:graal-sdk:22.0.0.2'
+    }
 }
 
 dependencies {
-    compileOnly(mn.graal)
+    compileOnly(libs.graal)
+    compileOnly(mn.micronaut.graal)
     compileOnly(mn.micronaut.management)
 
     api(mn.micronaut.inject)
@@ -14,18 +21,18 @@ dependencies {
 
     testImplementation(mn.micronaut.management)
 
-    testImplementation(mn.micronaut.rxjava2)
+    testImplementation(mnRxjava2.micronaut.rxjava2)
     testImplementation(libs.testcontainers.r2dbc)
     testImplementation(platform(libs.boms.testcontainers))
 
     // mariadb
     testImplementation(libs.managed.r2dbc.mariadb)
     testImplementation(libs.testcontainers.mariadb)
-    testImplementation(libs.mariadb.java.client)
+    testImplementation(mnSql.mariadb.java.client)
 
     // mysql
     testImplementation(libs.testcontainers.mysql)
-    testImplementation(libs.mysql.connector.java)
+    testImplementation(mnSql.mysql.connector.java)
     testImplementation(libs.managed.r2dbc.mysql)
 
     // h2
@@ -33,18 +40,18 @@ dependencies {
 
     // sqlserver
     testImplementation(libs.testcontainers.mssqlserver)
-    testImplementation(libs.mssql.jdbc)
+    testImplementation(mnSql.mssql.jdbc)
     testImplementation(libs.managed.r2dbc.mssql)
 
     // postgres
     testImplementation(libs.managed.r2dbc.postgresql)
     testImplementation(libs.testcontainers.postgresql)
-    testImplementation(libs.postgresql)
+    testImplementation(mnSql.postgresql)
 
     // oracle
     testImplementation(libs.testcontainers.oracle)
-    testImplementation(libs.ojdbc11)
-    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_11)) {
-        testImplementation(libs.managed.r2dbc.oracle)
-    }
+    testImplementation("com.oracle.database.jdbc:ojdbc11:21.8.0.0")
+    testImplementation(libs.managed.r2dbc.oracle)
+
+    testImplementation mn.snakeyaml
 }

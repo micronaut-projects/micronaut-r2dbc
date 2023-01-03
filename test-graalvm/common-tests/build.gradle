@@ -1,0 +1,16 @@
+plugins {
+    id 'groovy'
+    id 'io.micronaut.build.internal.r2dbc-testproject-library'
+}
+
+dependencies {
+    api(mnData.micronaut.data.r2dbc) {
+        exclude module:'micronaut-r2dbc-core'
+    }
+    implementation project(":test-graalvm:common")
+    implementation(mn.micronaut.http.client)
+    implementation(mnTest.micronaut.test.core)
+    implementation platform(libs.boms.testcontainers)
+    implementation(libs.testcontainers.spock)
+    implementation(libs.testcontainers.jdbc)
+}

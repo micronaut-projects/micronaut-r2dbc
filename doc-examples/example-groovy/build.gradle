@@ -1,36 +1,8 @@
 plugins {
     id "groovy"
-    id "io.micronaut.minimal.application"
-}
-
-repositories {
-    mavenCentral()
-}
-
-application {
-    mainClass = "example.Application"
+    id "io.micronaut.build.internal.r2dbc-example"
 }
 
 micronaut {
-    runtime "netty"
     testRuntime "spock"
-}
-
-dependencies {
-    compileOnly(mn.micronaut.data.processor)
-    implementation project(":r2dbc-core")
-    implementation(mn.micronaut.data.r2dbc) {
-        exclude module:'micronaut-r2dbc-core'
-    }
-    implementation(mn.micronaut.flyway)
-    implementation(mn.micronaut.jdbc.hikari)
-    runtimeOnly(libs.managed.r2dbc.mysql)
-    runtimeOnly(libs.mysql.connector.java)
-    runtimeOnly(libs.flyway.mysql)
-
-    testImplementation(mn.micronaut.http.client)
-    testImplementation(platform(libs.boms.testcontainers))
-    testImplementation(libs.testcontainers.mysql)
-
-    testImplementation(mn.micronaut.test.core)
 }

@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux
 import spock.lang.Specification
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mariadb:///databasename?TC_IMAGE_TAG=10.3.6")
+@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mariadb:///databasename?TC_IMAGE_TAG=10.9.3")
 @Property(name = "endpoints.health.r2dbc.database-name-to-health-query.MariaDB", value = "")
 class MariadbHealthIndicatorDisabledSpec extends Specification {
 

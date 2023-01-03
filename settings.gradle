@@ -1,36 +1,26 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-    }
-    plugins {
-        id 'io.micronaut.application' version getProperty("micronautGradlePluginVersion")
-        id 'io.micronaut.minimal.application' version getProperty("micronautGradlePluginVersion")
-        id 'io.micronaut.library' version getProperty("micronautGradlePluginVersion")
-        id "org.jetbrains.kotlin.jvm" version getProperty("kotlinVersion")
-        id "org.jetbrains.kotlin.kapt" version getProperty("kotlinVersion")
-        id "org.jetbrains.kotlin.plugin.allopen" version getProperty("kotlinVersion")
-        id "org.jetbrains.kotlin.plugin.jpa" version getProperty("kotlinVersion")
-        id 'io.micronaut.build.shared.settings' version getProperty("micronautSharedSettingVersion")
-    }
-}
-
 plugins {
-    id 'io.micronaut.build.shared.settings'
+    id 'io.micronaut.build.shared.settings' version '6.1.1'
 }
 
-enableFeaturePreview("VERSION_CATALOGS")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
+        maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
     }
 }
 
 micronautBuild {
     importMicronautCatalog()
+    importMicronautCatalog("micronaut-reactor")
+    importMicronautCatalog("micronaut-rxjava2")
+    importMicronautCatalog("micronaut-serde")
+    importMicronautCatalog("micronaut-kotlin")
+    importMicronautCatalog("micronaut-data")
+    importMicronautCatalog("micronaut-sql")
+    importMicronautCatalog("micronaut-flyway")
 }
-
 rootProject.name = 'r2dbc-parent'
 
 include 'r2dbc-bom'
@@ -46,9 +36,7 @@ include 'test-graalvm'
 include 'test-graalvm:postgres'
 include 'test-graalvm:mysql'
 include 'test-graalvm:mariadb'
-if (Boolean.getBoolean('test.oracle')) {
-    include 'test-graalvm:oracle'
-}
+include 'test-graalvm:oracle'
 include 'test-graalvm:h2'
 include 'test-graalvm:mssql'
 include 'test-graalvm:common'

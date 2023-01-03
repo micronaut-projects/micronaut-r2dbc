@@ -19,7 +19,6 @@ import io.micronaut.core.annotation.Nullable
 import jakarta.inject.Inject
 import testgraalvm.controllers.dto.OwnerDto
 import testgraalvm.controllers.dto.PetDto
-import testgraalvm.domain.Owner
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Delete
@@ -77,7 +76,7 @@ abstract class AbstractAppSpec extends Specification {
 
     def 'test CRUD'() {
         when:
-        def owner = ownersClient.save(new Owner(name: "Joe", age: 25))
+        def owner = ownersClient.save(new OwnerDto(name: "Joe", age: 25))
 
         then:
         owner
@@ -124,12 +123,12 @@ abstract class AbstractAppSpec extends Specification {
         OwnerDto get(String name);
 
         @Post("/")
-        Owner save(@Valid Owner owner);
+        OwnerDto save(@Valid OwnerDto owner);
 
         @Delete("/{id}")
         HttpResponse<?> delete(@NotNull Long id);
 
         @Put("/")
-        @Nullable Owner update(@Valid Owner owner);
+        @Nullable OwnerDto update(@Valid OwnerDto owner);
     }
 }

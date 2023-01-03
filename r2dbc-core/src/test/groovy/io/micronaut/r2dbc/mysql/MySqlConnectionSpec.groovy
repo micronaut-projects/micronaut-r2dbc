@@ -17,7 +17,7 @@ import jakarta.inject.Inject
 import java.util.function.BiFunction
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mysql:///databasename?TC_IMAGE_TAG=5.7.34&tlsVersion=TLSv1.2")
+@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mysql:///databasename?TC_IMAGE_TAG=8.0.30&tlsVersion=TLSv1.2")
 class MySqlConnectionSpec extends Specification  {
     @Inject BasicR2dbcProperties props
     @Inject ConnectionFactoryOptions options

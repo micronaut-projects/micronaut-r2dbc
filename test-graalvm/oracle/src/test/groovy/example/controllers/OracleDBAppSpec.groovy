@@ -22,7 +22,7 @@ import org.testcontainers.containers.OracleContainer
 import org.testcontainers.utility.DockerImageName
 import testgraalvm.controllers.AbstractDBContainerAppSpec
 
-@MicronautTest
+@MicronautTest(transactional = false)
 class OracleDBAppSpec extends AbstractDBContainerAppSpec {
 
     @Override
@@ -38,7 +38,7 @@ class OracleDBAppSpec extends AbstractDBContainerAppSpec {
     @Override
     Map<String, String> getProperties() {
         return super.getProperties() + [
-                "r2dbc.datasources.default.database":jdbcDatabaseContainer.getSid()
+                "r2dbc.datasources.default.database": jdbcDatabaseContainer.getSid()
         ]
     }
 

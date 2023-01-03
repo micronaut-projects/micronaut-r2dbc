@@ -15,8 +15,8 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.my1.url", value = "r2dbc:tc:mariadb:///databasename1?TC_IMAGE_TAG=10.3.6")
-@Property(name = "r2dbc.datasources.my2.url", value = "r2dbc:tc:mariadb:///databasename2?TC_IMAGE_TAG=10.3.6")
+@Property(name = "r2dbc.datasources.my1.url", value = "r2dbc:tc:mariadb:///databasename1?TC_IMAGE_TAG=10.9.3")
+@Property(name = "r2dbc.datasources.my2.url", value = "r2dbc:tc:mariadb:///databasename2?TC_IMAGE_TAG=10.9.3")
 class MariadbMultipleHealthIndicatorSpec extends Specification {
     @Shared
     @Inject List<R2dbcHealthIndicator> healthIndicators

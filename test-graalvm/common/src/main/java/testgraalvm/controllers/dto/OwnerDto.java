@@ -15,14 +15,23 @@
  */
 package testgraalvm.controllers.dto;
 
-import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 
-@Introspected
+@Serdeable
 public class OwnerDto {
 
     private Long id;
     private String name;
     private int age;
+
+    public OwnerDto() {
+    }
+
+    public OwnerDto(Long id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
 
     public Long getId() {
         return id;
