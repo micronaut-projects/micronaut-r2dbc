@@ -20,7 +20,7 @@ managed-r2dbc-mariadb = "1.1.2"
 managed-r2dbc-postgresql = "1.0.0.RELEASE"
 managed-r2dbc-mssql = "1.0.0.RELEASE"
 
-micronaut-data = "3.8.1" # TODO update once 4.0.0-SNAPSHOT is out
+micronaut-data = "4.0.0-SNAPSHOT"
 micronaut-flyway = "5.4.1"
 micronaut-rxjava2 = "2.0.0-SNAPSHOT"
 micronaut-sql = "5.0.0-SNAPSHOT"

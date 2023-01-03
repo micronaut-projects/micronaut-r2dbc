@@ -6,6 +6,7 @@ dependencies {
     runtimeOnly(mnSql.mssql.jdbc)
     runtimeOnly(libs.managed.r2dbc.mssql)
     testImplementation(libs.testcontainers.mssqlserver)
+    testImplementation(mn.micronaut.jackson.databind)
 }
 
 graalvmNative {

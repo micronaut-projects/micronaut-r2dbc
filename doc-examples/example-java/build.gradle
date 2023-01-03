@@ -29,6 +29,7 @@ dependencies {
     implementation(mnSql.mysql.connector.java)
 
     testImplementation(mn.micronaut.http.client)
+    testImplementation(mn.micronaut.jackson.databind)
     testImplementation(platform(libs.testcontainers.bom))
     testImplementation(libs.testcontainers.mysql)
 

@@ -8,6 +8,7 @@ dependencies {
     }
     implementation projects.testGraalvm.Common
     implementation(mn.micronaut.http.client)
+    implementation(mn.micronaut.jackson.databind)
     implementation(mnTest.micronaut.test.core)
     implementation platform(libs.testcontainers.bom)
     implementation(libs.testcontainers.spock)

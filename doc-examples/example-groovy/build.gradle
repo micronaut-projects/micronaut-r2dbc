@@ -30,5 +30,6 @@ dependencies {
     testImplementation(platform(libs.testcontainers.bom))
     testImplementation(mnTest.micronaut.test.core)
     testImplementation(mn.micronaut.http.client)
+    testImplementation(mn.micronaut.jackson.databind)
     testImplementation(libs.testcontainers.mysql)
 }
