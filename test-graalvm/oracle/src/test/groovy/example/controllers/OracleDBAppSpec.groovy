@@ -27,7 +27,9 @@ class OracleDBAppSpec extends AbstractDBContainerAppSpec {
 
     @Override
     JdbcDatabaseContainer getJdbcDatabaseContainer() {
-        return new OracleContainer(DockerImageName.parse("registry.gitlab.com/micronaut-projects/micronaut-graal-tests/oracle-database:18.4.0-xe"))
+        return new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe:latest"))
+                .withEnv("ORACLE_PASSWORD", "password")
+                .withPassword("password")
     }
 
     @Override

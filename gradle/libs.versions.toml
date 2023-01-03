@@ -13,7 +13,7 @@ micronaut-sql = "5.0.0-SNAPSHOT"
 micronaut-flyway = "6.0.0-SNAPSHOT"
 
 groovy = "4.0.6"
-managed-testcontainers = "1.17.5"
+managed-testcontainers = "1.17.6"
 # Intentionally pin to 22.0.0.2 see https://github.com/micronaut-projects/micronaut-kafka/pull/564 and https://github.com/micronaut-projects/micronaut-core/pull/7663
 graal-svm = "22.0.0.2"
 
