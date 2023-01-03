@@ -14,7 +14,7 @@ import spock.lang.IgnoreIf
 import spock.lang.Specification
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:oracle:///databasename?TC_IMAGE_TAG=10")
+@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:oracle:///databasename")
 @Property(name = "r2dbc.datasources.default.options.applicationName", value = "test")
 class OracleHealthIndicatorSpec extends Specification {
     @Inject BasicR2dbcProperties props

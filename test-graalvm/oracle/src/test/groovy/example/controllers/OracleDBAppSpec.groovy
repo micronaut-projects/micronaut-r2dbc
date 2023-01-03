@@ -27,7 +27,7 @@ class OracleDBAppSpec extends AbstractDBContainerAppSpec {
 
     @Override
     JdbcDatabaseContainer getJdbcDatabaseContainer() {
-        return new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe:latest"))
+        return new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe:21-slim-faststart"))
                 .withEnv("ORACLE_PASSWORD", "password")
                 .withPassword("password")
     }
@@ -35,13 +35,6 @@ class OracleDBAppSpec extends AbstractDBContainerAppSpec {
     @Override
     String getDriverName() {
         return "oracle"
-    }
-
-    @Override
-    Map<String, String> getProperties() {
-        return super.getProperties() + [
-                "r2dbc.datasources.default.database": jdbcDatabaseContainer.getSid()
-        ]
     }
 
     @Override

@@ -21,5 +21,5 @@ public interface OwnerRepository extends ReactorCrudRepository<Owner, Long> {
 
     Mono<OwnerDto> getByName(String name);
 
-    Mono<Void> saveAll(@Valid @NotNull Iterable<Owner> entities, Connection connection);
+    Flux<Owner> saveAll(@Valid @NotNull Iterable<Owner> entities, Connection connection);
 }

@@ -1,7 +1,6 @@
 [versions]
 micronaut = "4.0.0-SNAPSHOT"
 micronaut-docs = "2.0.0"
-micronaut-gradle-plugin = "3.6.6"
 
 micronaut-reactor = "3.0.0-SNAPSHOT"
 micronaut-rxjava2 = "2.0.0-SNAPSHOT"
@@ -14,7 +13,6 @@ micronaut-flyway = "6.0.0-SNAPSHOT"
 
 groovy = "4.0.6"
 managed-testcontainers = "1.17.6"
-# Intentionally pin to 22.0.0.2 see https://github.com/micronaut-projects/micronaut-kafka/pull/564 and https://github.com/micronaut-projects/micronaut-core/pull/7663
 graal-svm = "22.0.0.2"
 
 # R2DBC Drivers
@@ -31,6 +29,7 @@ managed-r2dbc-mssql = "1.0.0.RELEASE"
 
 # Gradle plugins
 
+micronaut-gradle-plugin = "3.6.6"
 kotlin-gradle-plugin = "1.7.22"
 
 [libraries]
