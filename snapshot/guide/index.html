@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>Micronaut R2DBC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
     <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
@@ -282,7 +283,9 @@ The R2DBC <code>ConnectionFactory</code> object can be injected anywhere in your
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
 
 import io.micronaut.data.annotation.*;
+import io.micronaut.serde.annotation.Serdeable;
 
+@Serdeable
 @MappedEntity
 public class Author {
     @GeneratedValue
@@ -313,7 +316,9 @@ public class Author {
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import io.micronaut.data.annotation.*
+import io.micronaut.serde.annotation.Serdeable
 
+@Serdeable
 @MappedEntity
 class Author {
     @GeneratedValue
@@ -334,7 +339,9 @@ class Author {
 import io.micronaut.data.annotation.GeneratedValue
 import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.serde.annotation.Serdeable
 
+@Serdeable
 @MappedEntity
 data class Author(val name: String) {
     @GeneratedValue
