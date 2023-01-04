@@ -1,0 +1,50 @@
+plugins {
+    id "io.micronaut.build.internal.r2dbc-dependencies"
+    id "java"
+    id "groovy"
+    id "com.adarshr.test-logger"
+    id "io.micronaut.application"
+}
+
+group "io.micronaut.example"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+micronaut {
+    version libs.versions.micronaut.asProvider().get()
+    runtime "netty"
+    testRuntime "spock"
+}
+
+testlogger {
+    showFullStackTraces true
+}
+
+mainClassName = "testgraalvm.Application"
+
+dependencies {
+    annotationProcessor(mn.micronaut.graal)
+    annotationProcessor(mnData.micronaut.data.processor)
+    runtimeOnly(mnSql.micronaut.jdbc.hikari)
+    runtimeOnly(mn.logback.classic)
+
+    implementation(mn.micronaut.http.client)
+    implementation project(":r2dbc-core")
+    implementation(mnData.micronaut.data.r2dbc) {
+        exclude module:'micronaut-r2dbc-core'
+    }
+    implementation(mnSerde.micronaut.serde.jackson)
+
+    implementation project(":test-graalvm:common")
+    testImplementation project(":test-graalvm:common-tests")
+    testImplementation(mnTest.micronaut.test.core)
+    testImplementation platform(libs.boms.testcontainers)
+    testImplementation(libs.testcontainers.spock)
+    testImplementation(libs.testcontainers.jdbc)
+
+    runtimeOnly mn.snakeyaml
+}

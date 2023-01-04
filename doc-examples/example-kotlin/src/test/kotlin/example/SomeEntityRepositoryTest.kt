@@ -9,7 +9,7 @@ import org.testcontainers.containers.MySQLContainer
 import jakarta.inject.Inject
 import org.testcontainers.utility.DockerImageName
 
-@MicronautTest
+@MicronautTest(transactional = false)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SomeEntityRepositoryTest : TestPropertyProvider {
     @Inject

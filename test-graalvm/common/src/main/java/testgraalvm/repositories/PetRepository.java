@@ -19,5 +19,5 @@ public interface PetRepository extends ReactorCrudRepository<Pet, Long> {
 
     Mono<PetDto> findByName(String name);
 
-    <S extends Pet> Publisher<S> saveAll(@Valid @NotNull Iterable<S> entities, Connection connection);
+    Flux<Pet> saveAll(@Valid @NotNull Iterable<Pet> entities, Connection connection);
 }

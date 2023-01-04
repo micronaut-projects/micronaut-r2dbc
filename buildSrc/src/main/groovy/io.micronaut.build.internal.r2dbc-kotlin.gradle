@@ -1,0 +1,14 @@
+plugins {
+    id "io.micronaut.build.internal.r2dbc-kotlin-example"
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}

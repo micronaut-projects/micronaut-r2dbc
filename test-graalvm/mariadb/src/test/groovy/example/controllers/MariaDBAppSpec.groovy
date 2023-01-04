@@ -22,7 +22,7 @@ import org.testcontainers.containers.MariaDBContainer
 import org.testcontainers.utility.DockerImageName
 import testgraalvm.controllers.AbstractDBContainerAppSpec
 
-@MicronautTest
+@MicronautTest(transactional = false)
 class MariaDBAppSpec extends AbstractDBContainerAppSpec {
 
     @Override

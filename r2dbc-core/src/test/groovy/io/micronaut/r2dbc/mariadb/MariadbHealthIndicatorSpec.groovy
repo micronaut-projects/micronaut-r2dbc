@@ -13,7 +13,7 @@ import jakarta.inject.Inject
 import spock.lang.Specification
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mariadb:///databasename?TC_IMAGE_TAG=10.3.6")
+@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:mariadb:///databasename?TC_IMAGE_TAG=10.9.3")
 class MariadbHealthIndicatorSpec extends Specification {
     @Inject BasicR2dbcProperties props
     @Inject ConnectionFactoryOptions options

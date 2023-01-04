@@ -1,6 +1,6 @@
 package io.micronaut.r2dbc.oracle
 
-import io.micronaut.context.annotation.Property
+
 import io.micronaut.r2dbc.BasicR2dbcProperties
 import io.micronaut.r2dbc.config.R2dbcHealthProperties
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
@@ -13,16 +13,12 @@ import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
 import io.reactivex.Flowable
 import jakarta.inject.Inject
-import spock.lang.IgnoreIf
 import spock.lang.Specification
 
 import java.util.function.BiFunction
 
-@IgnoreIf({ !jvm.isJava11Compatible() })
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:oracle:///databasename?TC_IMAGE_TAG=10")
-@Property(name = "r2dbc.datasources.default.options.applicationName", value = "test")
-class OracleConnectionSpec extends Specification {
+class OracleConnectionSpec extends Specification implements OracleTestPropertyProvider {
     @Inject BasicR2dbcProperties props
     @Inject ConnectionFactoryOptions options
     @Inject ConnectionFactory connectionFactory
@@ -30,9 +26,8 @@ class OracleConnectionSpec extends Specification {
     void 'test with database URL'() {
         expect:
         props != null
-        options.getValue(ConnectionFactoryOptions.DRIVER) == 'tc'
-        options.getValue(ConnectionFactoryOptions.DATABASE) == 'databasename'
-        options.getValue(ConnectionFactoryOptions.PROTOCOL) == 'oracle'
+        options.getValue(ConnectionFactoryOptions.DRIVER) == 'oracle'
+        options.getValue(ConnectionFactoryOptions.DATABASE) == 'xepdb1'
         options.getValue(Option.valueOf("applicationName")) == 'test'
     }
 

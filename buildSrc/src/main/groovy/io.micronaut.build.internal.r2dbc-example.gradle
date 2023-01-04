@@ -1,0 +1,47 @@
+plugins {
+    id "io.micronaut.build.internal.r2dbc-dependencies"
+    id "io.micronaut.application"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+project.afterEvaluate {
+    nativeCompile.enabled = false
+    testNativeImage.enabled = false
+}
+
+application {
+    mainClass = "example.Application"
+}
+
+micronaut {
+    version libs.versions.micronaut.asProvider().get()
+    runtime "netty"
+    testRuntime "junit5"
+}
+
+dependencies {
+    compileOnly(mnData.micronaut.data.processor)
+    implementation project(":r2dbc-core")
+    implementation(mnData.micronaut.data.r2dbc) {
+        exclude module:'micronaut-r2dbc-core'
+    }
+    implementation(mnFlyway.micronaut.flyway)
+    implementation(mnSql.micronaut.jdbc.hikari)
+    implementation(mnSerde.micronaut.serde.jackson)
+
+    runtimeOnly(libs.managed.r2dbc.mysql)
+    runtimeOnly(mnSql.mysql.connector.java)
+    runtimeOnly(libs.flyway.mysql)
+
+    testImplementation(mn.micronaut.http.client)
+    testImplementation(platform(libs.boms.testcontainers))
+    testImplementation(libs.testcontainers.mysql)
+    testImplementation(mnTest.micronaut.test.core)
+
+    runtimeOnly mn.snakeyaml
+}

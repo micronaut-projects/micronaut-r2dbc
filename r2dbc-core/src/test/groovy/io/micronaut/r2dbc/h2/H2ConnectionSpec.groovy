@@ -14,7 +14,7 @@ import jakarta.inject.Inject
 
 import java.util.function.BiFunction
 
-@MicronautTest
+@MicronautTest(transactional = false)
 @Property(name = "r2dbc.datasources.default.url", value = "r2dbc:h2:mem:///testdb")
 class H2ConnectionSpec extends Specification {
     @Inject

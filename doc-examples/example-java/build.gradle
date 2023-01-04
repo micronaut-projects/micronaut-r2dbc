@@ -1,45 +1,4 @@
 plugins {
     id "java"
-    id "io.micronaut.application"
-}
-
-repositories {
-    mavenCentral()
-}
-
-application {
-    mainClass = "example.Application"
-}
-
-micronaut {
-    runtime "netty"
-    testRuntime "junit5"
-}
-
-dependencies {
-    annotationProcessor(mn.micronaut.graal)
-    annotationProcessor(mn.micronaut.data.processor)
-    implementation project(":r2dbc-core")
-    implementation(mn.micronaut.data.r2dbc) {
-        exclude module:'micronaut-r2dbc-core'
-    }
-    implementation(mn.micronaut.flyway)
-    implementation(mn.micronaut.jdbc.hikari)
-    runtimeOnly(libs.managed.r2dbc.mysql)
-    runtimeOnly(libs.flyway.mysql)
-    implementation(libs.mysql.connector.java)
-
-    testImplementation(mn.micronaut.http.client)
-    testImplementation(platform(libs.boms.testcontainers))
-    testImplementation(libs.testcontainers.mysql)
-
-    testImplementation(mn.micronaut.test.core)
-}
-
-graalvmNative {
-    binaries {
-        main {
-            buildArgs('-H:+AddAllCharsets')
-        }
-    }
+    id "io.micronaut.build.internal.r2dbc-example"
 }

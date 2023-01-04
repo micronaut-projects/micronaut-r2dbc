@@ -15,10 +15,10 @@
  */
 package testgraalvm.controllers.dto;
 
+import io.micronaut.serde.annotation.Serdeable;
 import testgraalvm.domain.Pet;
-import io.micronaut.core.annotation.Introspected;
 
-@Introspected
+@Serdeable
 public class  PetDto {
 
     private Long id;

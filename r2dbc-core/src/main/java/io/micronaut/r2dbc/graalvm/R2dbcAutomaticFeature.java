@@ -35,7 +35,6 @@ final class R2dbcAutomaticFeature implements Feature {
         Class<?> mariaDriver = access.findClassByName("org.mariadb.r2dbc.MariadbConnectionFactoryProvider");
         // handle mariadb
         if (mariaDriver != null) {
-
             AutomaticFeatureUtils.initializeAtRunTime(
                     access,
                     "org.mariadb.r2dbc.MariadbConnectionFactoryProvider",
@@ -43,7 +42,7 @@ final class R2dbcAutomaticFeature implements Feature {
                         "org.mariadb.r2dbc.message.flow.AuthenticationFlow",
                         "org.mariadb.r2dbc.util.DefaultHostnameVerifier"
                     );
-
+            AutomaticFeatureUtils.addResourcePatterns("project.properties");
             RuntimeClassInitialization.initializeAtRunTime("org.mariadb.r2dbc.message.server");
         }
     }

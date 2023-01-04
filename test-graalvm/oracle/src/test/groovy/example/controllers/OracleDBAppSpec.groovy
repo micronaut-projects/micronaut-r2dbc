@@ -22,24 +22,19 @@ import org.testcontainers.containers.OracleContainer
 import org.testcontainers.utility.DockerImageName
 import testgraalvm.controllers.AbstractDBContainerAppSpec
 
-@MicronautTest
+@MicronautTest(transactional = false)
 class OracleDBAppSpec extends AbstractDBContainerAppSpec {
 
     @Override
     JdbcDatabaseContainer getJdbcDatabaseContainer() {
-        return new OracleContainer(DockerImageName.parse("registry.gitlab.com/micronaut-projects/micronaut-graal-tests/oracle-database:18.4.0-xe"))
+        return new OracleContainer(DockerImageName.parse("gvenzl/oracle-xe:21-slim-faststart"))
+                .withEnv("ORACLE_PASSWORD", "password")
+                .withPassword("password")
     }
 
     @Override
     String getDriverName() {
         return "oracle"
-    }
-
-    @Override
-    Map<String, String> getProperties() {
-        return super.getProperties() + [
-                "r2dbc.datasources.default.database":jdbcDatabaseContainer.getSid()
-        ]
     }
 
     @Override

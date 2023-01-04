@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2017-2020 original authors
  *
@@ -21,15 +20,15 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
 import testgraalvm.controllers.AbstractAppSpec
 
-@MicronautTest
+@MicronautTest(transactional = false)
 class H2AppSpec extends AbstractAppSpec implements TestPropertyProvider {
 
     @Override
     Map<String, String> getProperties() {
         return [
-            "r2dbc.datasources.default.url" : "r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=30",
-            "r2dbc.datasources.default.dialect" : "H2",
-            "r2dbc.datasources.default.schema-generate" : "CREATE_DROP"
+                "r2dbc.datasources.default.url"            : "r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=30",
+                "r2dbc.datasources.default.dialect"        : "H2",
+                "r2dbc.datasources.default.schema-generate": "CREATE_DROP"
         ]
     }
 
