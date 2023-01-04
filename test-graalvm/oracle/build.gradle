@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
     runtimeOnly(libs.managed.r2dbc.oracle)
-    runtimeOnly(mnSql.ojdbc8)
+    runtimeOnly(mnSql.ojdbc11)
     testImplementation(libs.testcontainers.oracle)
 }
