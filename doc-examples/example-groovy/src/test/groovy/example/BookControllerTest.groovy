@@ -18,7 +18,7 @@ import jakarta.inject.Inject
 @MicronautTest(transactional = false)
 class BookControllerTest extends Specification implements TestPropertyProvider {
 
-    static MySQLContainer<?> container
+    static MySQLContainer container
 
     @Inject BookClient bookClient
 
