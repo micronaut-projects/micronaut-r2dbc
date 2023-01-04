@@ -50,7 +50,7 @@ dependencies {
 
     // oracle
     testImplementation(libs.testcontainers.oracle)
-    testImplementation("com.oracle.database.jdbc:ojdbc11:21.8.0.0")
+    testImplementation(mnSql.ojdbc8)
     testImplementation(libs.managed.r2dbc.oracle)
 
     testImplementation mn.snakeyaml

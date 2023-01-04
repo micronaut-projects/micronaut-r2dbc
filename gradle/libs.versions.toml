@@ -11,7 +11,7 @@ micronaut-data = "4.0.0-SNAPSHOT"
 micronaut-sql = "5.0.0-SNAPSHOT"
 micronaut-flyway = "6.0.0-SNAPSHOT"
 
-groovy = "4.0.6"
+groovy = "4.0.7"
 managed-testcontainers = "1.17.6"
 graal-svm = "22.0.0.2"
 
@@ -42,6 +42,7 @@ micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.r
 micronaut-data = { module = "io.micronaut.data:micronaut-data-bom", version.ref = "micronaut-data" }
 micronaut-sql = { module = "io.micronaut.sql:micronaut-sql-bom", version.ref = "micronaut-sql" }
 micronaut-flyway = { module = "io.micronaut.flyway:micronaut-flyway-bom", version.ref = "micronaut-flyway" }
+boms-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "managed-testcontainers" }
 
 graal = { module = "org.graalvm.nativeimage:svm", version.ref = "graal-svm" }
 
@@ -60,9 +61,6 @@ managed-r2dbc-postgresql = { module = "org.postgresql:r2dbc-postgresql", version
 
 flyway-mysql = { module = "org.flywaydb:flyway-mysql" }
 
-# BOMs
-boms-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "managed-testcontainers" }
-
 testcontainers-jdbc = { module = "org.testcontainers:jdbc" }
 testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
 testcontainers-mssqlserver = { module = "org.testcontainers:mssqlserver" }
@@ -71,6 +69,8 @@ testcontainers-oracle = { module = "org.testcontainers:oracle-xe" }
 testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
 testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
 testcontainers-spock = { module = "org.testcontainers:spock" }
+
+# Gradle
 
 gradle-micronaut = { module = "io.micronaut.gradle:micronaut-gradle-plugin", version.ref = "micronaut-gradle-plugin" }
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
