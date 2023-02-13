@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>Micronaut R2DBC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
     <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
@@ -104,13 +105,13 @@
         <h1>Micronaut R2DBC</h1>
         <p></p>
         <p>Integration with Micronaut and R2DBC</p>
-        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-r2dbc/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/latest/guide/index.html'>LATEST</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/4.0.0/guide/index.html'>4.0.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/3.1.0/guide/index.html'>3.1.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/3.0.1/guide/index.html'>3.0.1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/3.0.0/guide/index.html'>3.0.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.1.0/guide/index.html'>2.1.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.0.0/guide/index.html'>2.0.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.0.0-RC2/guide/index.html'>2.0.0-RC2</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/2.0.0-RC1/guide/index.html'>2.0.0-RC1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.1.1/guide/index.html'>1.1.1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.1.0/guide/index.html'>1.1.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.1/guide/index.html'>1.0.1</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0/guide/index.html'>1.0.0</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M2/guide/index.html'>1.0.0.M2</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/1.0.0.M1/guide/index.html'>1.0.0.M1</option></select> </p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-r2dbc/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-r2dbc/latest/guide/index.html'>LATEST</option></select> </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/3.1.x/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -123,7 +124,7 @@
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/3.1.x/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -139,7 +140,7 @@
 <h1 id="quickStart"><a class="anchor" href="#quickStart"></a>3 Quick Start</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/3.1.x/src/main/docs/guide/quickStart.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/quickStart.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -228,134 +229,39 @@ CREATE TABLE author(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(
 </div>
 </div>
 <div class="paragraph">
-<p>You can now configure your application to connect to the database using the application configuration file under <code>src/main/resources</code>:</p>
+<p>You can now configure your application to connect to the database using <code>src/main/resources/application.yml</code> which contains the application configuration:</p>
 </div>
-<div class="openblock">
+<div class="listingblock">
+<div class="title">Example <code>application.yml</code></div>
 <div class="content">
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">flyway.datasources.default.enabled=true
-datasources.default.url=jdbc:mysql://localhost:3306/mydatabase
-r2dbc.datasources.default.url=r2dbc:mysql:///mydatabase</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">flyway:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">flyway: <i class="conum" data-value="1"></i><b>(1)</b>
   datasources:
     default:
       enabled: true
 datasources:
-  default:
+  default: <i class="conum" data-value="2"></i><b>(2)</b>
     url: jdbc:mysql://localhost:3306/mydatabase
 r2dbc:
   datasources:
-    default:
+    default: <i class="conum" data-value="3"></i><b>(3)</b>
       url: r2dbc:mysql:///mydatabase</code></pre>
 </div>
 </div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[flyway]
-  [flyway.datasources]
-    [flyway.datasources.default]
-      enabled=true
-[datasources]
-  [datasources.default]
-    url="jdbc:mysql://localhost:3306/mydatabase"
-[r2dbc]
-  [r2dbc.datasources]
-    [r2dbc.datasources.default]
-      url="r2dbc:mysql:///mydatabase"</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">flyway {
-  datasources {
-    'default' {
-      enabled = true
-    }
-  }
-}
-datasources {
-  'default' {
-    url = "jdbc:mysql://localhost:3306/mydatabase"
-  }
-}
-r2dbc {
-  datasources {
-    'default' {
-      url = "r2dbc:mysql:///mydatabase"
-    }
-  }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
-  flyway {
-    datasources {
-      default {
-        enabled = true
-      }
-    }
-  }
-  datasources {
-    default {
-      url = "jdbc:mysql://localhost:3306/mydatabase"
-    }
-  }
-  r2dbc {
-    datasources {
-      default {
-        url = "r2dbc:mysql:///mydatabase"
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
-  "flyway": {
-    "datasources": {
-      "default": {
-        "enabled": true
-      }
-    }
-  },
-  "datasources": {
-    "default": {
-      "url": "jdbc:mysql://localhost:3306/mydatabase"
-    }
-  },
-  "r2dbc": {
-    "datasources": {
-      "default": {
-        "url": "r2dbc:mysql:///mydatabase"
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The <code>enabled</code> setting ensures the Flyway schema migration is applied. See <a href="https://micronaut-projects.github.io/micronaut-flyway/latest/guide/index.html">Micronaut Flyway</a> for more information.</p>
-</li>
-<li>
-<p>The Flyway configuration needs a JDBC datasource. <code>datasources.defaul.url</code> configures one. See <a href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc">Micronaut JDBC</a> for more information.</p>
-</li>
-<li>
-<p><code>r2dbc.datasources.default.url</code> is used to configure the default R2DBC <code>ConnectionFactory</code></p>
-</li>
-</ul>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The Flyway configuration ensures the schema migration is applied. See <a href="https://micronaut-projects.github.io/micronaut-flyway/latest/guide/index.html">Micronaut Flyway</a> for more information.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The Flyway configuration needs a JDBC datasource configured, this setting configures one. See <a href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc">Micronaut JDBC</a> for more information.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The property <code>r2dbc.datasources.default.url</code> is used to configure the default R2DBC <code>ConnectionFactory</code></td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -377,7 +283,9 @@ The R2DBC <code>ConnectionFactory</code> object can be injected anywhere in your
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
 
 import io.micronaut.data.annotation.*;
+import io.micronaut.serde.annotation.Serdeable;
 
+@Serdeable
 @MappedEntity
 public class Author {
     @GeneratedValue
@@ -408,7 +316,9 @@ public class Author {
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import io.micronaut.data.annotation.*
+import io.micronaut.serde.annotation.Serdeable
 
+@Serdeable
 @MappedEntity
 class Author {
     @GeneratedValue
@@ -429,7 +339,9 @@ class Author {
 import io.micronaut.data.annotation.GeneratedValue
 import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.serde.annotation.Serdeable
 
+@Serdeable
 @MappedEntity
 data class Author(val name: String) {
     @GeneratedValue
@@ -621,7 +533,7 @@ class AuthorController(private val repository: AuthorRepository) {
 <h1 id="availableDrivers"><a class="anchor" href="#availableDrivers"></a>4 Available Drivers</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/3.1.x/src/main/docs/guide/availableDrivers.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/availableDrivers.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -850,7 +762,7 @@ class AuthorController(private val repository: AuthorRepository) {
 <h1 id="dataR2dbc"><a class="anchor" href="#dataR2dbc"></a>5 Micronaut Data R2DBC</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/3.1.x/src/main/docs/guide/dataR2dbc.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/dataR2dbc.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -863,7 +775,7 @@ class AuthorController(private val repository: AuthorRepository) {
 <h1 id="repository"><a class="anchor" href="#repository"></a>6 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/3.1.x/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/master/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
