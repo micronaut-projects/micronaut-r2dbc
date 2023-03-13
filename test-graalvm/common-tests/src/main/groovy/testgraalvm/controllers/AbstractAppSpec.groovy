@@ -29,8 +29,8 @@ import io.micronaut.http.client.annotation.Client
 import spock.lang.Specification
 import spock.lang.Stepwise
 
-import javax.validation.Valid
-import javax.validation.constraints.NotNull
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotNull
 
 @Stepwise
 abstract class AbstractAppSpec extends Specification {

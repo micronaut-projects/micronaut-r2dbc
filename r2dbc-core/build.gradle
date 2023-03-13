@@ -14,7 +14,7 @@ dependencies {
     compileOnly(mn.micronaut.management)
 
     api(mn.micronaut.inject)
-    api(mn.micronaut.validation)
+    api(mnValidation.micronaut.validation)
     api(libs.managed.r2dbc.spi)
 
     implementation(mn.reactor)

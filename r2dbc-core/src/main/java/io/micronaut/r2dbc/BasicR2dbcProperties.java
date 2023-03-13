@@ -20,8 +20,8 @@ import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.naming.Named;
 import io.r2dbc.spi.ConnectionFactoryOptions;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import java.time.Duration;
 import java.util.Map;
 

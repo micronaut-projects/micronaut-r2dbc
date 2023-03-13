@@ -23,9 +23,9 @@ import testgraalvm.repositories.OwnerRepository;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Controller("/owners")
 class OwnerController {

@@ -10,6 +10,7 @@ micronaut-kotlin = "4.0.0-SNAPSHOT"
 micronaut-data = "4.0.0-SNAPSHOT"
 micronaut-sql = "5.0.0-SNAPSHOT"
 micronaut-flyway = "6.0.0-SNAPSHOT"
+micronaut-validation = "4.0.0-SNAPSHOT"
 
 groovy = "4.0.7"
 managed-testcontainers = "1.17.6"
@@ -42,6 +43,7 @@ micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.r
 micronaut-data = { module = "io.micronaut.data:micronaut-data-bom", version.ref = "micronaut-data" }
 micronaut-sql = { module = "io.micronaut.sql:micronaut-sql-bom", version.ref = "micronaut-sql" }
 micronaut-flyway = { module = "io.micronaut.flyway:micronaut-flyway-bom", version.ref = "micronaut-flyway" }
+micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-bom", version.ref = "micronaut-validation" }
 boms-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "managed-testcontainers" }
 
 graal = { module = "org.graalvm.nativeimage:svm", version.ref = "graal-svm" }
