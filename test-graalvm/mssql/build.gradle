@@ -9,7 +9,7 @@ dependencies {
 
 graalvmNative {
     binaries {
-        main {
+        all {
             buildArgs('-H:+AddAllCharsets')
         }
     }

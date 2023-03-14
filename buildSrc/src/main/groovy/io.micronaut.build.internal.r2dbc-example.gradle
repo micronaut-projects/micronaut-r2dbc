@@ -9,9 +9,8 @@ java {
     }
 }
 
-project.afterEvaluate {
-    nativeCompile.enabled = false
-    testNativeImage.enabled = false
+graalvmNative {
+    testSupport = false
 }
 
 application {

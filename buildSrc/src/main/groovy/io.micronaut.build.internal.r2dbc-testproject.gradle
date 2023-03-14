@@ -18,6 +18,9 @@ micronaut {
     version libs.versions.micronaut.asProvider().get()
     runtime "netty"
     testRuntime "junit"
+    testResources {
+        clientTimeout = 180
+    }
 }
 
 testlogger {
@@ -46,6 +49,16 @@ dependencies {
     testImplementation(mnTest.micronaut.test.core)
 
     runtimeOnly mn.snakeyaml
+}
+
+tasks.named("check") { task ->
+    def graal = ["jvmci.Compiler", "java.vendor.version", "java.vendor"].any {
+        println "$it ${System.getProperty(it)}"
+        System.getProperty(it)?.toLowerCase(Locale.ENGLISH)?.contains("graal")
+    }
+    if (graal) {
+        task.dependsOn("nativeTest")
+    }
 }
 
 graalvmNative {
