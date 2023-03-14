@@ -19,7 +19,7 @@ micronaut {
     runtime "netty"
     testRuntime "junit"
     testResources {
-        clientTimeout = 180
+        clientTimeout = 300
     }
 }
 
