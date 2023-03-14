@@ -49,7 +49,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class AbstractApp implements TestPropertyProvider {
+public class AbstractApp implements TestPropertyProvider {
 
     @Inject
     PetClient petClient;
@@ -139,7 +139,7 @@ public abstract class AbstractApp implements TestPropertyProvider {
 
     @Client("/pets")
     interface PetClient {
-        @Get
+        @Get("/")
         List<PetDto> list();
 
         @Get("/{name}")
@@ -148,19 +148,19 @@ public abstract class AbstractApp implements TestPropertyProvider {
 
     @Client("/owners")
     interface OwnersClient {
-        @Get
+        @Get("/")
         List<OwnerDto> list();
 
         @Get("/{name}")
         OwnerDto get(String name);
 
-        @Post
+        @Post("/")
         OwnerDto save(@Valid OwnerDto owner);
 
         @Delete("/{id}")
         HttpResponse<?> delete(@NotNull Long id);
 
-        @Put
+        @Put("/")
         @Nullable
         OwnerDto update(@Valid OwnerDto owner);
     }

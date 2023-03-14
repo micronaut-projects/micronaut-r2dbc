@@ -9,10 +9,10 @@ repositories {
     maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-if (System.getenv("SONAR_TOKEN") != null) {
-    sonarqube {
-        properties {
-            property "sonar.exclusions", "**/example/**"
+project(":test-graalvm:common-tests") {
+    if (System.getenv("SONAR_TOKEN") != null) {
+        sonarqube {
+            skipProject = true
         }
     }
 }
