@@ -30,7 +30,8 @@ managed-r2dbc-mssql = "1.0.0.RELEASE"
 
 # Gradle plugins
 
-micronaut-gradle-plugin = "3.6.6"
+micronaut-gradle-plugin = "4.0.0-SNAPSHOT"
+micronaut-testresources = "2.0.0-SNAPSHOT"
 kotlin-gradle-plugin = "1.7.22"
 
 [libraries]
@@ -71,6 +72,10 @@ testcontainers-oracle = { module = "org.testcontainers:oracle-xe" }
 testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
 testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
 testcontainers-spock = { module = "org.testcontainers:spock" }
+
+# Testresources
+
+micronaut-testresources-client = { module = 'io.micronaut.testresources:micronaut-test-resources-client', version.ref = "micronaut-testresources" }
 
 # Gradle
 

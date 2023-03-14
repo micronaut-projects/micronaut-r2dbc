@@ -3,7 +3,6 @@ plugins {
 }
 
 dependencies {
-    runtimeOnly(libs.managed.r2dbc.mysql)
-    runtimeOnly(mnSql.mysql.connector.java)
-    testImplementation(libs.testcontainers.mysql)
+    implementation(libs.managed.r2dbc.mysql)
+    implementation(mnSql.mysql.connector.java)
 }

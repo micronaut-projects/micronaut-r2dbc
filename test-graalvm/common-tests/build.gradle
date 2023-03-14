@@ -1,5 +1,4 @@
 plugins {
-    id 'groovy'
     id 'io.micronaut.build.internal.r2dbc-testproject-library'
 }
 
@@ -9,8 +8,6 @@ dependencies {
     }
     implementation project(":test-graalvm:common")
     implementation(mn.micronaut.http.client)
-    implementation(mnTest.micronaut.test.core)
-    implementation platform(libs.boms.testcontainers)
-    implementation(libs.testcontainers.spock)
-    implementation(libs.testcontainers.jdbc)
+    implementation(mnTest.micronaut.test.junit5)
+    implementation(libs.micronaut.testresources.client)
 }

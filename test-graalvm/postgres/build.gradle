@@ -3,7 +3,6 @@ plugins {
 }
 
 dependencies {
-    runtimeOnly(mnSql.postgresql)
-    runtimeOnly(libs.managed.r2dbc.postgresql)
-    testImplementation(libs.testcontainers.postgresql)
+    implementation(mnSql.postgresql)
+    implementation(libs.managed.r2dbc.postgresql)
 }
