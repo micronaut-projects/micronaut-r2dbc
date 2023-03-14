@@ -48,3 +48,9 @@ dependencies {
 
     runtimeOnly mn.snakeyaml
 }
+
+graalvmNative {
+    metadataRepository {
+        enabled = true
+    }
+}

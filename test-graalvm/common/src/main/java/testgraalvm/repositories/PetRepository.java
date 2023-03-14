@@ -10,8 +10,8 @@ import io.micronaut.transaction.annotation.TransactionalAdvice;
 import io.r2dbc.spi.Connection;
 import org.reactivestreams.Publisher;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @TransactionalAdvice(isolation = TransactionDefinition.Isolation.SERIALIZABLE)
 public interface PetRepository extends ReactorCrudRepository<Pet, Long> {

@@ -27,8 +27,8 @@ import io.micronaut.core.util.CollectionUtils;
 import io.r2dbc.spi.ConnectionFactoryOptions;
 import io.r2dbc.spi.Option;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import java.time.Duration;
 import java.util.Map;
 
