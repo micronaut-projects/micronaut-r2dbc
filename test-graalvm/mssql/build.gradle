@@ -3,14 +3,13 @@ plugins {
 }
 
 dependencies {
-    runtimeOnly(mnSql.mssql.jdbc)
-    runtimeOnly(libs.managed.r2dbc.mssql)
-    testImplementation(libs.testcontainers.mssqlserver)
+    implementation(mnSql.mssql.jdbc)
+    implementation(libs.managed.r2dbc.mssql)
 }
 
 graalvmNative {
     binaries {
-        main {
+        all {
             buildArgs('-H:+AddAllCharsets')
         }
     }

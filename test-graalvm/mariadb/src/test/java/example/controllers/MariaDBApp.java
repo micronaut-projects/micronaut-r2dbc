@@ -13,24 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example.controllers
+package example.controllers;
 
-
-import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import io.micronaut.test.support.TestPropertyProvider
-import testgraalvm.controllers.AbstractAppSpec
+import io.micronaut.context.annotation.Property;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 
 @MicronautTest(transactional = false)
-class H2AppSpec extends AbstractAppSpec implements TestPropertyProvider {
-
-    @Override
-    Map<String, String> getProperties() {
-        return [
-                "r2dbc.datasources.default.url"            : "r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=30",
-                "r2dbc.datasources.default.dialect"        : "H2",
-                "r2dbc.datasources.default.schema-generate": "CREATE_DROP"
-        ]
-    }
-
-
+@Property(name = "r2dbc.datasources.default.db-type", value = "mariadb")
+@Property(name = "r2dbc.datasources.default.dialect", value = "MYSQL")
+@Property(name = "r2dbc.datasources.default.schema-generate", value = "CREATE_DROP")
+@Property(name = "test-resources.containers.mariadb.image-name", value = "mariadb:10.3.6")
+public class MariaDBApp extends AbstractApp {
 }

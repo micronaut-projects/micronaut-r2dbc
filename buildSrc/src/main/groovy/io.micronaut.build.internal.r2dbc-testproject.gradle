@@ -1,9 +1,9 @@
 plugins {
     id "io.micronaut.build.internal.r2dbc-dependencies"
     id "java"
-    id "groovy"
     id "com.adarshr.test-logger"
     id "io.micronaut.application"
+    id "io.micronaut.test-resources"
 }
 
 group "io.micronaut.example"
@@ -17,14 +17,19 @@ java {
 micronaut {
     version libs.versions.micronaut.asProvider().get()
     runtime "netty"
-    testRuntime "spock"
+    testRuntime "junit"
+    testResources {
+        clientTimeout = 300
+    }
 }
 
 testlogger {
     showFullStackTraces true
 }
 
-mainClassName = "testgraalvm.Application"
+application {
+    mainClass = "testgraalvm.Application"
+}
 
 dependencies {
     annotationProcessor(mn.micronaut.graal)
@@ -42,11 +47,18 @@ dependencies {
     implementation project(":test-graalvm:common")
     testImplementation project(":test-graalvm:common-tests")
     testImplementation(mnTest.micronaut.test.core)
-    testImplementation platform(libs.boms.testcontainers)
-    testImplementation(libs.testcontainers.spock)
-    testImplementation(libs.testcontainers.jdbc)
 
     runtimeOnly mn.snakeyaml
+}
+
+tasks.named("check") { task ->
+    def graal = ["jvmci.Compiler", "java.vendor.version", "java.vendor"].any {
+        println "$it ${System.getProperty(it)}"
+        System.getProperty(it)?.toLowerCase(Locale.ENGLISH)?.contains("graal")
+    }
+    if (graal) {
+        task.dependsOn("nativeTest")
+    }
 }
 
 graalvmNative {

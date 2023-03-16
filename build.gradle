@@ -8,3 +8,11 @@ repositories {
     mavenCentral()
     maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
+
+project(":test-graalvm") {
+    if (System.getenv("SONAR_TOKEN") != null) {
+        sonarqube {
+            skipProject = true
+        }
+    }
+}
