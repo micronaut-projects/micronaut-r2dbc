@@ -38,14 +38,14 @@ dependencies {
     runtimeOnly(mn.logback.classic)
 
     implementation(mn.micronaut.http.client)
-    implementation project(":r2dbc-core")
+    implementation projects.micronautR2dbcCore
     implementation(mnData.micronaut.data.r2dbc) {
         exclude module:'micronaut-r2dbc-core'
     }
     implementation(mnSerde.micronaut.serde.jackson)
 
-    implementation project(":test-graalvm:common")
-    testImplementation project(":test-graalvm:common-tests")
+    implementation projects.micronautTestGraalvm.micronautCommon
+    testImplementation projects.micronautTestGraalvm.micronautCommonTests
     testImplementation(mnTest.micronaut.test.core)
 
     runtimeOnly mn.snakeyaml
