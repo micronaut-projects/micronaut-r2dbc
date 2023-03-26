@@ -10,7 +10,7 @@ micronaut-kotlin = "4.0.0-M1"
 micronaut-data = "4.0.0-SNAPSHOT"
 micronaut-sql = "5.0.0-SNAPSHOT"
 micronaut-flyway = "6.0.0-SNAPSHOT"
-micronaut-validation = "4.0.0-SNAPSHOT"
+micronaut-validation = "4.0.0-M2"
 
 groovy = "4.0.7"
 managed-testcontainers = "1.17.6"
