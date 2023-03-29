@@ -6,7 +6,7 @@ dependencies {
     api(mnData.micronaut.data.r2dbc) {
         exclude module:'micronaut-r2dbc-core'
     }
-    implementation project(":test-graalvm:common")
+    implementation projects.micronautTestGraalvm.micronautCommon
     implementation(mn.micronaut.http.client)
     implementation(mnTest.micronaut.test.junit5)
     implementation(libs.micronaut.testresources.client)
