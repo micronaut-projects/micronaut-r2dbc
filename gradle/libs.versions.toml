@@ -10,9 +10,9 @@ micronaut-kotlin = "4.0.0-SNAPSHOT"
 micronaut-data = "4.0.0-SNAPSHOT"
 micronaut-sql = "5.0.0-SNAPSHOT"
 micronaut-flyway = "6.0.0-SNAPSHOT"
-micronaut-validation = "4.0.0-SNAPSHOT"
+micronaut-validation = "4.0.0-M2"
 
-groovy = "4.0.7"
+groovy = "4.0.10"
 managed-testcontainers = "1.17.6"
 graal-svm = "22.0.0.2"
 
@@ -32,7 +32,7 @@ managed-r2dbc-mssql = "1.0.0.RELEASE"
 
 micronaut-gradle-plugin = "4.0.0-SNAPSHOT"
 micronaut-testresources = "2.0.0-SNAPSHOT"
-kotlin-gradle-plugin = "1.7.22"
+kotlin-gradle-plugin = "1.8.10"
 
 [libraries]
 

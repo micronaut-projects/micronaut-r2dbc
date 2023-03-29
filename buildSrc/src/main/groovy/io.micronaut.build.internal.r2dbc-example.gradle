@@ -25,7 +25,7 @@ micronaut {
 
 dependencies {
     compileOnly(mnData.micronaut.data.processor)
-    implementation project(":r2dbc-core")
+    implementation projects.micronautR2dbcCore
     implementation(mnData.micronaut.data.r2dbc) {
         exclude module:'micronaut-r2dbc-core'
     }

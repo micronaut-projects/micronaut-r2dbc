@@ -1,6 +1,5 @@
 plugins {
     id "io.micronaut.build.internal.docs"
-    id "io.micronaut.build.internal.dependency-updates"
     id "io.micronaut.build.internal.quality-reporting"
 }
 
@@ -9,7 +8,7 @@ repositories {
     maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-project(":test-graalvm") {
+project(":micronaut-test-graalvm") {
     if (System.getenv("SONAR_TOKEN") != null) {
         sonarqube {
             skipProject = true
