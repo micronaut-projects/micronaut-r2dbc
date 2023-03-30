@@ -47,7 +47,7 @@ dependencies {
     implementation projects.micronautTestGraalvm.micronautCommon
     testImplementation projects.micronautTestGraalvm.micronautCommonTests
     testImplementation(mnTest.micronaut.test.core)
-
+    testImplementation(libs.junit.platform.engine)
     runtimeOnly mn.snakeyaml
 }
 

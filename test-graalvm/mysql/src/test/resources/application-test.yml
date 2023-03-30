@@ -1,0 +1,10 @@
+r2dbc:
+  datasources:
+    default:
+      db-type: "mysql"
+      dialect: "MYSQL"
+      schema-generate: "CREATE_DROP"
+test-resources:
+  containers:
+    mysql:
+      image-name: "mysql:8.0.11"

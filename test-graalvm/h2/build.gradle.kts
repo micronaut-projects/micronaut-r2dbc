@@ -1,5 +1,5 @@
 plugins {
-    id 'io.micronaut.build.internal.r2dbc-testproject'
+    id("io.micronaut.build.internal.r2dbc-testproject")
 }
 
 dependencies {

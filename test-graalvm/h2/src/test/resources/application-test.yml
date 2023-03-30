@@ -1,0 +1,6 @@
+r2dbc:
+  datasources:
+    default:
+      url: "r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=30"
+      dialect: "H2"
+      schema-generate: "CREATE_DROP"
