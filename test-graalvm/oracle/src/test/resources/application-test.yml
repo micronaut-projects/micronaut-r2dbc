@@ -1,0 +1,10 @@
+r2dbc:
+  datasources:
+    default:
+      db-type: "oracle"
+      dialect: "ORACLE"
+      schema-generate: "CREATE_DROP"
+test-resources:
+  containers:
+    oracle:
+      image-name: "gvenzl/oracle-xe:21-slim-faststart"

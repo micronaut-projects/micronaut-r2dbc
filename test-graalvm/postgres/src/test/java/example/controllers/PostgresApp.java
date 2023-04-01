@@ -15,13 +15,10 @@
  */
 package example.controllers;
 
-import io.micronaut.context.annotation.Property;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.Suite;
 
-@MicronautTest(transactional = false)
-@Property(name = "r2dbc.datasources.default.db-type", value = "postgres")
-@Property(name = "r2dbc.datasources.default.dialect", value = "POSTGRES")
-@Property(name = "r2dbc.datasources.default.schema-generate", value = "CREATE_DROP")
-@Property(name = "test-resources.containers.postgres.image-name", value = "postgres:10")
-public class PostgresApp extends AbstractApp {
+@Suite
+@SelectPackages("example.controllers")
+public class PostgresApp {
 }

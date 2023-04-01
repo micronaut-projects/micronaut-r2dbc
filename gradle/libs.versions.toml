@@ -65,6 +65,7 @@ managed-r2dbc-postgresql = { module = "org.postgresql:r2dbc-postgresql", version
 flyway-mysql = { module = "org.flywaydb:flyway-mysql" }
 
 testcontainers-jdbc = { module = "org.testcontainers:jdbc" }
+testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter" }
 testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
 testcontainers-mssqlserver = { module = "org.testcontainers:mssqlserver" }
 testcontainers-mysql = { module = "org.testcontainers:mysql" }
@@ -73,6 +74,7 @@ testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
 testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
 testcontainers-spock = { module = "org.testcontainers:spock" }
 
+junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engine" }
 # Testresources
 
 micronaut-testresources-client = { module = 'io.micronaut.testresources:micronaut-test-resources-client', version.ref = "micronaut-testresources" }

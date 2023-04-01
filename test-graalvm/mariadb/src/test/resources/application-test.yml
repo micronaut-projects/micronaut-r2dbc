@@ -1,0 +1,10 @@
+r2dbc:
+  datasources:
+    default:
+      db-type: "mariadb"
+      dialect: "MYSQL"
+      schema-generate: "CREATE_DROP"
+test-resources:
+  containers:
+    mariadb:
+      image-name: "mariadb:10.3.6"
