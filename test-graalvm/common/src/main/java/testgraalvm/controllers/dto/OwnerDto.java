@@ -24,9 +24,6 @@ public class OwnerDto {
     private String name;
     private int age;
 
-    public OwnerDto() {
-    }
-
     public OwnerDto(Long id, String name, int age) {
         this.id = id;
         this.name = name;
