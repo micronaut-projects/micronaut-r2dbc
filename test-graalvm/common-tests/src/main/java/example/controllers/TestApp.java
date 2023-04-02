@@ -144,13 +144,13 @@ public class TestApp implements TestPropertyProvider {
         OwnerDto get(String name);
 
         @Post("/")
-        OwnerDto save(@Valid OwnerDto owner);
+        OwnerDto save(@Body @Valid OwnerDto owner);
 
         @Delete("/{id}")
         HttpResponse<?> delete(@NotNull Long id);
 
         @Put("/")
         @Nullable
-        OwnerDto update(@Valid OwnerDto owner);
+        OwnerDto update(@Body @Valid OwnerDto owner);
     }
 }
