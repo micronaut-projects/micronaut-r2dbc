@@ -5,11 +5,11 @@ micronaut-docs = "2.0.0"
 micronaut-reactor = "3.0.0-M1"
 micronaut-rxjava2 = "2.0.0-M1"
 micronaut-serde = "2.0.0-M1"
-micronaut-test = "4.0.0-SNAPSHOT"
+micronaut-test = "4.0.0-M1"
 micronaut-kotlin = "4.0.0-M1"
 micronaut-data = "4.0.0-SNAPSHOT"
 micronaut-sql = "5.0.0-M1"
-micronaut-flyway = "6.0.0-SNAPSHOT"
+micronaut-flyway = "6.0.0-M1"
 micronaut-validation = "4.0.0-M2"
 
 groovy = "4.0.10"
@@ -31,7 +31,7 @@ managed-r2dbc-mssql = "1.0.0.RELEASE"
 
 micronaut-gradle-plugin = "4.0.0-SNAPSHOT"
 micronaut-testresources = "2.0.0-SNAPSHOT"
-kotlin-gradle-plugin = "1.8.10"
+kotlin-gradle-plugin = "1.8.20"
 
 [libraries]
 
@@ -62,6 +62,7 @@ managed-r2dbc-postgresql = { module = "org.postgresql:r2dbc-postgresql", version
 flyway-mysql = { module = "org.flywaydb:flyway-mysql" }
 
 testcontainers-jdbc = { module = "org.testcontainers:jdbc" }
+testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter" }
 testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
 testcontainers-mssqlserver = { module = "org.testcontainers:mssqlserver" }
 testcontainers-mysql = { module = "org.testcontainers:mysql" }
@@ -70,6 +71,7 @@ testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
 testcontainers-r2dbc = { module = "org.testcontainers:r2dbc" }
 testcontainers-spock = { module = "org.testcontainers:spock" }
 
+junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engine" }
 # Testresources
 
 micronaut-testresources-client = { module = 'io.micronaut.testresources:micronaut-test-resources-client', version.ref = "micronaut-testresources" }

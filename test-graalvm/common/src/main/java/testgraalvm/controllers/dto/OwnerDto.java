@@ -15,24 +15,24 @@
  */
 package testgraalvm.controllers.dto;
 
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.serde.annotation.Serdeable;
 
 @Serdeable
 public class OwnerDto {
 
+    @Nullable
     private Long id;
     private String name;
     private int age;
 
-    public OwnerDto() {
-    }
-
-    public OwnerDto(Long id, String name, int age) {
+    public OwnerDto(@Nullable Long id, String name, int age) {
         this.id = id;
         this.name = name;
         this.age = age;
     }
 
+    @Nullable
     public Long getId() {
         return id;
     }

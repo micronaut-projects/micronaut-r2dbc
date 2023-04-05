@@ -2,3 +2,9 @@ test-resources:
   containers:
     mssql:
       accept-license: true
+r2dbc:
+  datasources:
+    default:
+      db-type: "mssql"
+      dialect: "SQL_SERVER"
+      schema-generate: "CREATE_DROP"

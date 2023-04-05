@@ -1,0 +1,10 @@
+r2dbc:
+  datasources:
+    default:
+      db-type: "postgres"
+      dialect: "POSTGRES"
+      schema-generate: "CREATE_DROP"
+test-resources:
+  containers:
+    postgres:
+      image-name: "postgres:10"

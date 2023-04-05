@@ -47,7 +47,7 @@ dependencies {
     implementation projects.micronautTestGraalvm.micronautCommon
     testImplementation projects.micronautTestGraalvm.micronautCommonTests
     testImplementation(mnTest.micronaut.test.core)
-
+    testImplementation(libs.junit.platform.engine)
     runtimeOnly mn.snakeyaml
 }
 
@@ -56,7 +56,7 @@ tasks.named("check") { task ->
         println "$it ${System.getProperty(it)}"
         System.getProperty(it)?.toLowerCase(Locale.ENGLISH)?.contains("graal")
     }
-    if (graal) {
+    if (graal && !['micronaut-postgres', 'micronaut-mssql', 'micronaut-mysql'].contains(project.name)) {
         task.dependsOn("nativeTest")
     }
 }

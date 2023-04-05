@@ -15,12 +15,10 @@
  */
 package example.controllers;
 
-import io.micronaut.context.annotation.Property;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.Suite;
 
-@MicronautTest(transactional = false)
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:h2:mem:///testdb;DB_CLOSE_DELAY=30")
-@Property(name = "r2dbc.datasources.default.dialect", value = "H2")
-@Property(name = "r2dbc.datasources.default.schema-generate", value = "CREATE_DROP")
-public class H2App extends AbstractApp {
+@Suite
+@SelectPackages("example.controllers")
+public class H2App {
 }

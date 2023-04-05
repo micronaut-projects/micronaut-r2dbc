@@ -19,11 +19,13 @@ import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
+import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.test.support.TestPropertyProvider;
 import io.micronaut.testresources.client.TestResourcesClient;
 import io.micronaut.testresources.client.TestResourcesClientFactory;
@@ -31,11 +33,9 @@ import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import testgraalvm.controllers.dto.OwnerDto;
 import testgraalvm.controllers.dto.PetDto;
 
@@ -47,9 +47,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Testcontainers(disabledWithoutDocker = true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class AbstractApp implements TestPropertyProvider {
+@MicronautTest(transactional = false)
+public class TestApp implements TestPropertyProvider {
 
     @Inject
     PetClient petClient;
@@ -78,42 +79,30 @@ public class AbstractApp implements TestPropertyProvider {
     }
 
     @Test
-    @Order(1)
-    void shouldFetchOwners() {
+    void crud() {
+        // shouldFetchOwners
         List<OwnerDto> results = ownersClient.list();
         assertEquals(2, results.size());
         assertEquals("Fred", results.get(0).getName());
         assertEquals("Barney", results.get(1).getName());
-    }
 
-    @Test
-    @Order(2)
-    void shouldFetchOwnerByName() {
+       // shouldFetchOwnerByName() {
         OwnerDto owner = ownersClient.get("Fred");
         assertEquals("Fred", owner.getName());
-    }
 
-    @Test
-    @Order(3)
-    void shouldFetchPets() {
-        List<PetDto> results = petClient.list();
-        assertEquals(3, results.size());
-        assertEquals("Dino", results.get(0).getName());
-        assertEquals("Baby Puss", results.get(1).getName());
-        assertEquals("Hoppy", results.get(2).getName());
-    }
+        // shouldFetchPets()
+        List<PetDto> pets = petClient.list();
+        assertEquals(3, pets.size());
+        assertEquals("Dino", pets.get(0).getName());
+        assertEquals("Baby Puss", pets.get(1).getName());
+        assertEquals("Hoppy", pets.get(2).getName());
 
-    @Test
-    @Order(4)
-    void shouldFetchPetByName() {
+        // shouldFetchPetByName() {
         PetDto pet = petClient.get("Dino");
         assertEquals("Dino", pet.getName());
-    }
 
-    @Test
-    @Order(5)
-    void testCRUD() {
-        OwnerDto owner = ownersClient.save(new OwnerDto(null, "Joe", 25));
+        // testCRUD()
+        owner = ownersClient.save(new OwnerDto(null, "Joe", 25));
         assertNotNull(owner);
         assertNotNull(owner.getId());
         assertEquals("Joe", owner.getName());
@@ -155,13 +144,13 @@ public class AbstractApp implements TestPropertyProvider {
         OwnerDto get(String name);
 
         @Post("/")
-        OwnerDto save(@Valid OwnerDto owner);
+        OwnerDto save(@Body @Valid OwnerDto owner);
 
         @Delete("/{id}")
         HttpResponse<?> delete(@NotNull Long id);
 
         @Put("/")
         @Nullable
-        OwnerDto update(@Valid OwnerDto owner);
+        OwnerDto update(@Body @Valid OwnerDto owner);
     }
 }

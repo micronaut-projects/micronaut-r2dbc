@@ -15,13 +15,10 @@
  */
 package example.controllers;
 
-import io.micronaut.context.annotation.Property;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.Suite;
 
-@MicronautTest(transactional = false)
-@Property(name = "r2dbc.datasources.default.db-type", value = "oracle")
-@Property(name = "r2dbc.datasources.default.dialect", value = "ORACLE")
-@Property(name = "r2dbc.datasources.default.schema-generate", value = "CREATE_DROP")
-@Property(name = "test-resources.containers.oracle.image-name", value = "gvenzl/oracle-xe:21-slim-faststart")
-public class OracleDBApp extends AbstractApp {
+@Suite
+@SelectPackages("example.controllers")
+public class OracleDBApp {
 }
