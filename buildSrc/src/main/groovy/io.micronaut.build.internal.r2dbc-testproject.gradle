@@ -56,9 +56,13 @@ tasks.named("check") { task ->
         println "$it ${System.getProperty(it)}"
         System.getProperty(it)?.toLowerCase(Locale.ENGLISH)?.contains("graal")
     }
-    if (graal && !['micronaut-postgres', 'micronaut-mssql', 'micronaut-mysql'].contains(project.name)) {
+    if (graal) {
         task.dependsOn("nativeTest")
     }
+}
+
+configurations.all {
+    resolutionStrategy.preferProjectModules()
 }
 
 graalvmNative {

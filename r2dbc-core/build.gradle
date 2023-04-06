@@ -9,7 +9,6 @@ configurations.all {
 }
 
 dependencies {
-    compileOnly(libs.graal)
     compileOnly(mn.micronaut.graal)
     compileOnly(mn.micronaut.management)
 
