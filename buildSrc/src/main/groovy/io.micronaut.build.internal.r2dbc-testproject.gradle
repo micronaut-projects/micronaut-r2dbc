@@ -61,6 +61,10 @@ tasks.named("check") { task ->
     }
 }
 
+configurations.all {
+    resolutionStrategy.preferProjectModules()
+}
+
 graalvmNative {
     metadataRepository {
         enabled = true
