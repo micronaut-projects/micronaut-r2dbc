@@ -13,7 +13,7 @@ micronaut-flyway = "6.0.0-M1"
 micronaut-validation = "4.0.0-M2"
 
 groovy = "4.0.10"
-managed-testcontainers = "1.17.6"
+managed-testcontainers = "1.18.0"
 
 # R2DBC Drivers
 
