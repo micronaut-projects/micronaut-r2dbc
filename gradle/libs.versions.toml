@@ -5,7 +5,7 @@ micronaut-docs = "2.0.0"
 micronaut-reactor = "3.0.0-M1"
 micronaut-rxjava2 = "2.0.0-M1"
 micronaut-serde = "2.0.0-M3"
-micronaut-test = "4.0.0-M2"
+micronaut-test = "4.0.0-M3"
 micronaut-kotlin = "4.0.0-M1"
 micronaut-data = "4.0.0-M1"
 micronaut-sql = "5.0.0-M1"
@@ -29,8 +29,8 @@ managed-r2dbc-mssql = "1.0.0.RELEASE"
 
 # Gradle plugins
 
-micronaut-gradle-plugin = "4.0.0-M1"
-micronaut-testresources = "2.0.0-SNAPSHOT"
+micronaut-gradle-plugin = "4.0.0-M2"
+micronaut-testresources = "2.0.0-M3"
 kotlin-gradle-plugin = "1.8.20"
 
 [libraries]
