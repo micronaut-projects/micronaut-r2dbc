@@ -1,16 +1,12 @@
 plugins {
     id "io.micronaut.build.internal.r2dbc-dependencies"
-    id "io.micronaut.application"
+    id "io.micronaut.minimal.application"
 }
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
-}
-
-graalvmNative {
-    testSupport = false
 }
 
 application {
