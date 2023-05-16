@@ -10,7 +10,7 @@ repositories {
 
 project(":micronaut-test-graalvm") {
     if (System.getenv("SONAR_TOKEN") != null) {
-        sonarqube {
+        sonar {
             skipProject = true
         }
     }
