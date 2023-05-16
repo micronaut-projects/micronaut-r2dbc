@@ -15,11 +15,12 @@ java {
 }
 
 micronaut {
-    version "4.0.0-SNAPSHOT"
+    version libs.versions.micronaut.platform.get()
     runtime "netty"
     testRuntime "junit"
     testResources {
         clientTimeout = 300
+        version = libs.versions.micronaut.testresources.get()
     }
 }
 
