@@ -5,16 +5,16 @@ micronaut-docs = "2.0.0"
 
 micronaut-reactor = "3.0.0-M1"
 micronaut-rxjava2 = "2.0.0-M1"
-micronaut-serde = "2.0.0-M5"
+micronaut-serde = "2.0.0-M3"
 micronaut-test = "4.0.0-M3"
-micronaut-kotlin = "4.0.0-M2"
-micronaut-data = "4.0.0-M3"
-micronaut-sql = "5.0.0-M4"
-micronaut-flyway = "6.0.0-M3"
-micronaut-validation = "4.0.0-M5"
+micronaut-kotlin = "4.0.0-M1"
+micronaut-data = "4.0.0-M1"
+micronaut-sql = "5.0.0-M1"
+micronaut-flyway = "6.0.0-M1"
+micronaut-validation = "4.0.0-M3"
 
 groovy = "4.0.10"
-managed-testcontainers = "1.18.1"
+managed-testcontainers = "1.18.0"
 
 # R2DBC Drivers
 
