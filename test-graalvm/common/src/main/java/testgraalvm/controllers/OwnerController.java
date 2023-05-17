@@ -47,7 +47,7 @@ class OwnerController {
     }
 
     @Post("/")
-    Mono<OwnerDto> save(@Valid OwnerDto owner) {
+    Mono<OwnerDto> save(@Valid @Body OwnerDto owner) {
         return Mono.from(ownerRepository.save(new Owner(owner.getName(), owner.getAge()))
             .map(o -> new OwnerDto(o.getId(), o.getName(), o.getAge())));
     }
@@ -59,7 +59,7 @@ class OwnerController {
     }
 
     @Put("/")
-    Mono<OwnerDto> update(@Valid OwnerDto owner) {
+    Mono<OwnerDto> update(@Valid @Body OwnerDto owner) {
         return Mono.from(ownerRepository.update(new Owner(owner.getId(), owner.getName(), owner.getAge()))
             .map(o -> new OwnerDto(o.getId(), o.getName(), o.getAge())));
     }

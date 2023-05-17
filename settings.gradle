@@ -16,6 +16,7 @@ micronautBuild {
     importMicronautCatalog("micronaut-sql")
     importMicronautCatalog("micronaut-flyway")
     importMicronautCatalog("micronaut-validation")
+    importMicronautCatalog("micronaut-logging")
 }
 rootProject.name = 'r2dbc-parent'
 

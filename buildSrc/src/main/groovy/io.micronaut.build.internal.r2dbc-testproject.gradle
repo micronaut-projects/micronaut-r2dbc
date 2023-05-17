@@ -36,7 +36,7 @@ dependencies {
     annotationProcessor(mn.micronaut.graal)
     annotationProcessor(mnData.micronaut.data.processor)
     runtimeOnly(mnSql.micronaut.jdbc.hikari)
-    runtimeOnly(mn.logback.classic)
+    runtimeOnly(mnLogging.logback.classic)
 
     implementation(mn.micronaut.http.client)
     implementation projects.micronautR2dbcCore
