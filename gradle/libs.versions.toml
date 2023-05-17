@@ -1,20 +1,21 @@
 [versions]
-micronaut = "4.0.0-M2"
+micronaut = "4.0.0-M3"
 micronaut-platform = "4.0.0-M2"
 micronaut-docs = "2.0.0"
 
 micronaut-reactor = "3.0.0-M1"
 micronaut-rxjava2 = "2.0.0-M1"
-micronaut-serde = "2.0.0-M3"
+micronaut-serde = "2.0.0-M6"
 micronaut-test = "4.0.0-M3"
-micronaut-kotlin = "4.0.0-M1"
-micronaut-data = "4.0.0-M1"
-micronaut-sql = "5.0.0-M1"
-micronaut-flyway = "6.0.0-M1"
-micronaut-validation = "4.0.0-M4"
+micronaut-kotlin = "4.0.0-M2"
+micronaut-data = "4.0.0-M4"
+micronaut-sql = "5.0.0-M4"
+micronaut-flyway = "6.0.0-M3"
+micronaut-validation = "4.0.0-M7"
+micronaut-logging = "1.0.0-M1"
 
 groovy = "4.0.10"
-managed-testcontainers = "1.18.0"
+managed-testcontainers = "1.18.1"
 
 # R2DBC Drivers
 
@@ -45,6 +46,8 @@ micronaut-data = { module = "io.micronaut.data:micronaut-data-bom", version.ref 
 micronaut-sql = { module = "io.micronaut.sql:micronaut-sql-bom", version.ref = "micronaut-sql" }
 micronaut-flyway = { module = "io.micronaut.flyway:micronaut-flyway-bom", version.ref = "micronaut-flyway" }
 micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-bom", version.ref = "micronaut-validation" }
+micronaut-logging = { module = "io.micronaut.logging:micronaut-logging-bom", version.ref = "micronaut-logging" }
+
 boms-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "managed-testcontainers" }
 
 # R2DBC API
