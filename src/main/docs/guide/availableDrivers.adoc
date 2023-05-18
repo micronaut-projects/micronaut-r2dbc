@@ -14,7 +14,7 @@ dependency:com.h2database:h2[scope="runtimeOnly"]
 
 R2DBC Driver:
 
-dependency:io.asyncer:r2dbc-mysql[scope="runtimeOnly"]
+dependency:dev.miku:r2dbc-mysql[scope="runtimeOnly"]
 
 And for Flyway migrations the JDBC driver:
 
