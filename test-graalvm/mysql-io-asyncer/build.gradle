@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.managed.r2dbc.mysql.io.asyncer)
+    implementation(libs.managed.r2dbc.io.asyncer.mysql)
     implementation(mnSql.mysql.connector.java)
 }
