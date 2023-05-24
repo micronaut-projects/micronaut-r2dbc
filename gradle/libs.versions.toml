@@ -36,6 +36,8 @@ micronaut-testresources = "2.0.0-M5"
 kotlin-gradle-plugin = "1.8.21"
 
 [libraries]
+# Core
+micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
 
 # BOMS
 micronaut-reactor = { module = 'io.micronaut.reactor:micronaut-reactor-bom', version.ref = "micronaut-reactor" }
