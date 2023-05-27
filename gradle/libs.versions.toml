@@ -28,7 +28,7 @@ managed-r2dbc-io-asyncer-mysql = "1.0.1"
 managed-r2dbc-h2 = "1.0.0.RELEASE"
 managed-r2dbc-mariadb = "1.1.4"
 managed-r2dbc-postgresql = "1.0.1.RELEASE"
-managed-r2dbc-mssql = "1.0.0.RELEASE"
+managed-r2dbc-mssql = "1.0.1.RELEASE"
 
 # Gradle plugins
 
