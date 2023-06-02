@@ -24,7 +24,7 @@ managed-r2dbc-pool = "1.0.0.RELEASE"
 
 managed-r2dbc-oracle = "1.1.1"
 managed-r2dbc-mysql = "0.8.2.RELEASE"
-managed-r2dbc-io-asyncer-mysql = "1.0.1"
+managed-r2dbc-io-asyncer-mysql = "1.0.2"
 managed-r2dbc-h2 = "1.0.0.RELEASE"
 managed-r2dbc-mariadb = "1.1.4"
 managed-r2dbc-postgresql = "1.0.1.RELEASE"
