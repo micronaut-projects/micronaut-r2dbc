@@ -15,7 +15,7 @@ micronaut-validation = "4.0.0-M8"
 micronaut-logging = "1.0.0-M2"
 
 groovy = "4.0.10"
-managed-testcontainers = "1.18.1"
+managed-testcontainers = "1.18.3"
 
 # R2DBC Drivers
 
