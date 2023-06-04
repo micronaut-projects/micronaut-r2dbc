@@ -1,0 +1,8 @@
+plugins {
+    id("groovy")
+    id("io.micronaut.build.internal.r2dbc-example")
+}
+
+micronaut {
+    testRuntime("spock")
+}

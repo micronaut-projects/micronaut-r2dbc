@@ -14,12 +14,18 @@ application {
 }
 
 micronaut {
+    importMicronautPlatform = false
     version libs.versions.micronaut.platform.get()
     runtime "netty"
     testRuntime "junit5"
 }
 
 dependencies {
+    micronautBoms(platform(mn.micronaut.core.bom))
+    micronautBoms(platform(mnData.micronaut.data.bom))
+    micronautBoms(platform(mnLogging.micronaut.logging.bom))
+    micronautBoms(platform(mnTest.micronaut.test.bom))
+    micronautBoms(platform(mnFlyway.micronaut.flyway.bom))
     compileOnly(mnData.micronaut.data.processor)
     implementation projects.micronautR2dbcCore
     implementation(mnData.micronaut.data.r2dbc) {
