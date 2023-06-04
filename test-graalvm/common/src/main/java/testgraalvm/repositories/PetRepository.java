@@ -8,10 +8,6 @@ import testgraalvm.domain.Pet;
 import io.micronaut.transaction.TransactionDefinition;
 import io.micronaut.transaction.annotation.TransactionalAdvice;
 import io.r2dbc.spi.Connection;
-import org.reactivestreams.Publisher;
-
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 @TransactionalAdvice(isolation = TransactionDefinition.Isolation.SERIALIZABLE)
 public interface PetRepository extends ReactorCrudRepository<Pet, Long> {
@@ -19,5 +15,5 @@ public interface PetRepository extends ReactorCrudRepository<Pet, Long> {
 
     Mono<PetDto> findByName(String name);
 
-    Flux<Pet> saveAll(@Valid @NotNull Iterable<Pet> entities, Connection connection);
+    Flux<Pet> saveAll(Iterable<Pet> entities, Connection connection);
 }

@@ -30,8 +30,6 @@ import io.micronaut.test.support.TestPropertyProvider;
 import io.micronaut.testresources.client.TestResourcesClient;
 import io.micronaut.testresources.client.TestResourcesClientFactory;
 import jakarta.inject.Inject;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -142,13 +140,13 @@ public class TestApp implements TestPropertyProvider {
         OwnerDto get(String name);
 
         @Post("/")
-        OwnerDto save(@Body @Valid OwnerDto owner);
+        OwnerDto save(@Body OwnerDto owner);
 
         @Delete("/{id}")
-        HttpResponse<?> delete(@NotNull Long id);
+        HttpResponse<?> delete(Long id);
 
         @Put("/")
         @Nullable
-        OwnerDto update(@Body @Valid OwnerDto owner);
+        OwnerDto update(@Body OwnerDto owner);
     }
 }

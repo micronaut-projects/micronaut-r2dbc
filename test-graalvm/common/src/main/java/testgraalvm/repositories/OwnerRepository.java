@@ -8,10 +8,6 @@ import testgraalvm.domain.Owner;
 import io.micronaut.transaction.TransactionDefinition;
 import io.micronaut.transaction.annotation.TransactionalAdvice;
 import io.r2dbc.spi.Connection;
-import org.reactivestreams.Publisher;
-
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 @TransactionalAdvice(isolation = TransactionDefinition.Isolation.SERIALIZABLE)
 public interface OwnerRepository extends ReactorCrudRepository<Owner, Long> {
@@ -21,5 +17,5 @@ public interface OwnerRepository extends ReactorCrudRepository<Owner, Long> {
 
     Mono<OwnerDto> getByName(String name);
 
-    Flux<Owner> saveAll(@Valid @NotNull Iterable<Owner> entities, Connection connection);
+    Flux<Owner> saveAll(Iterable<Owner> entities, Connection connection);
 }

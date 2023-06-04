@@ -23,10 +23,6 @@ import testgraalvm.repositories.OwnerRepository;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 @Controller("/owners")
 class OwnerController {
 
@@ -42,24 +38,24 @@ class OwnerController {
     }
 
     @Get("/{name}")
-    Mono<OwnerDto> byName(@NotBlank String name) {
+    Mono<OwnerDto> byName(String name) {
         return ownerRepository.findByName(name);
     }
 
     @Post("/")
-    Mono<OwnerDto> save(@Valid @Body OwnerDto owner) {
+    Mono<OwnerDto> save(@Body OwnerDto owner) {
         return Mono.from(ownerRepository.save(new Owner(owner.getName(), owner.getAge()))
             .map(o -> new OwnerDto(o.getId(), o.getName(), o.getAge())));
     }
 
     @Delete("/{id}")
-    Mono<HttpResponse<?>> delete(@NotNull Long id) {
+    Mono<HttpResponse<?>> delete(Long id) {
         return Mono.from(ownerRepository.deleteById(id))
                      .map(c -> c > 0 ? HttpResponse.noContent() : HttpResponse.notFound());
     }
 
     @Put("/")
-    Mono<OwnerDto> update(@Valid @Body OwnerDto owner) {
+    Mono<OwnerDto> update(@Body OwnerDto owner) {
         return Mono.from(ownerRepository.update(new Owner(owner.getId(), owner.getName(), owner.getAge()))
             .map(o -> new OwnerDto(o.getId(), o.getName(), o.getAge())));
     }
