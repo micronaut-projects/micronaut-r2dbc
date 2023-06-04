@@ -12,5 +12,5 @@ dependencies {
     implementation(libs.micronaut.testresources.client)
     implementation(platform(libs.boms.testcontainers))
     implementation(libs.testcontainers.junit.jupiter)
-
+    implementation mnValidation.micronaut.validation
 }

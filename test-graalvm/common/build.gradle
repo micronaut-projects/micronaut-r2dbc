@@ -10,4 +10,5 @@ dependencies {
         exclude module:'micronaut-r2dbc-core'
     }
     implementation(mnSerde.micronaut.serde.jackson)
+    implementation mnValidation.micronaut.validation
 }
