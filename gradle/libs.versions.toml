@@ -5,7 +5,7 @@ micronaut-docs = "2.0.0"
 
 micronaut-reactor = "3.0.0-M6"
 micronaut-rxjava2 = "2.0.0-M5"
-micronaut-serde = "2.0.0-M11"
+micronaut-serde = "2.0.0-M12"
 micronaut-test = "4.0.0-M6"
 micronaut-kotlin = "4.0.0-M5"
 micronaut-data = "4.0.0-M9"
