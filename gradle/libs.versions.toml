@@ -12,7 +12,7 @@ micronaut-data = "4.0.0-M9"
 micronaut-sql = "5.0.0-M11"
 micronaut-flyway = "6.0.0-M7"
 micronaut-validation = "4.0.0-M11"
-micronaut-logging = "1.0.0-M4"
+micronaut-logging = "1.0.0-M5"
 
 groovy = "4.0.10"
 managed-testcontainers = "1.18.3"
