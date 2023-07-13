@@ -3,10 +3,3 @@ plugins {
     id "io.micronaut.build.internal.r2dbc-dependencies"
     id "io.micronaut.build.internal.module"
 }
-
-micronautBuild {
-    binaryCompatibility {
-        baselineVersion = "5.0.0-M11"
-        enabled = true
-    }
-}
