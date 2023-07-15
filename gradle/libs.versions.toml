@@ -20,7 +20,7 @@ managed-testcontainers = "1.18.3"
 # R2DBC Drivers
 
 managed-r2dbc = "1.0.0.RELEASE"
-managed-r2dbc-pool = "1.0.0.RELEASE"
+managed-r2dbc-pool = "1.0.1.RELEASE"
 
 managed-r2dbc-oracle = "1.1.1"
 managed-r2dbc-mysql = "0.8.2.RELEASE"
