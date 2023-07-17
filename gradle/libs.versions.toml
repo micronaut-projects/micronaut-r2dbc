@@ -3,15 +3,15 @@ micronaut = "4.0.0"
 micronaut-platform = "4.0.0-RC1"
 micronaut-docs = "2.0.0"
 
-micronaut-reactor = "3.0.0"
-micronaut-rxjava2 = "2.0.0"
-micronaut-serde = "2.0.0"
-micronaut-test = "4.0.0"
-micronaut-kotlin = "4.0.0"
+micronaut-reactor = "3.0.1"
+micronaut-rxjava2 = "2.0.1"
+micronaut-serde = "2.0.1"
+micronaut-test = "4.0.1"
+micronaut-kotlin = "4.0.1"
 micronaut-data = "4.0.1"
-micronaut-sql = "5.0.0"
-micronaut-flyway = "6.0.0"
-micronaut-validation = "4.0.0"
+micronaut-sql = "5.0.1"
+micronaut-flyway = "6.0.1"
+micronaut-validation = "4.0.1"
 micronaut-logging = "1.0.0"
 
 groovy = "4.0.13"
@@ -32,7 +32,7 @@ managed-r2dbc-mssql = "1.0.2.RELEASE"
 
 # Gradle plugins
 
-micronaut-gradle-plugin = "4.0.0-M8"
+micronaut-gradle-plugin = "4.0.0"
 micronaut-testresources = "2.0.0"
 kotlin-gradle-plugin = "1.9.0"
 
