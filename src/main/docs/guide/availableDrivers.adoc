@@ -24,7 +24,7 @@ dependency:mysql:mysql-connector-java[scope="runtimeOnly"]
 
 R2DBC Driver:
 
-dependency:org.mariadb:r2dbc-mariadb[scope="runtimeOnly", version="1.0.0"]
+dependency:org.mariadb:r2dbc-mariadb[scope="runtimeOnly"]
 
 And for Flyway migrations the JDBC driver:
 
