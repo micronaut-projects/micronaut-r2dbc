@@ -10,7 +10,7 @@ micronaut-test = "4.0.1"
 micronaut-kotlin = "4.0.2"
 micronaut-data = "4.1.2"
 micronaut-sql = "5.0.1"
-micronaut-flyway = "6.0.1"
+micronaut-flyway = "6.1.0"
 micronaut-validation = "4.0.3"
 micronaut-logging = "1.0.0"
 
