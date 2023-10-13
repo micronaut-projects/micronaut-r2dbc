@@ -2,7 +2,6 @@ plugins {
     id "org.jetbrains.kotlin.jvm"
     id "org.jetbrains.kotlin.kapt"
     id "org.jetbrains.kotlin.plugin.allopen"
-    id "io.micronaut.minimal.application"
     id "io.micronaut.build.internal.r2dbc-example"
     id "io.micronaut.build.internal.r2dbc-kotlin"
 }
@@ -21,13 +20,4 @@ compileTestKotlin {
     kotlinOptions {
         freeCompilerArgs = ["-Xjvm-default=all"]
     }
-}
-
-dependencies {
-    kapt(mnData.micronaut.data.processor)
-    implementation mnKotlin.micronaut.kotlin.runtime
-}
-
-application {
-    mainClass = "example.ApplicationKt"
 }
