@@ -2,6 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.micronaut.r2dbc/micronaut-r2dbc-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.micronaut.r2dbc%22%20AND%20a:%22micronaut-r2dbc-core%22)
 [![Build Status](https://github.com/micronaut-projects/micronaut-r2dbc/workflows/Java%20CI/badge.svg)](https://github.com/micronaut-projects/micronaut-r2dbc/actions)
+[![Revved up by Develocity](https://img.shields.io/badge/Revved%20up%20by-Develocity-06A0CE?logo=Gradle&labelColor=02303A)](https://ge.micronaut.io/scans)
 
 Micronaut R2DBC adds support for setting an R2DBC backed `ConnectionFactory` in Micronaut and Micronaut Data reactive repositories with R2DBC.
 
