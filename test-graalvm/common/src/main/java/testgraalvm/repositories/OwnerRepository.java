@@ -7,7 +7,6 @@ import testgraalvm.controllers.dto.OwnerDto;
 import testgraalvm.domain.Owner;
 import io.micronaut.transaction.TransactionDefinition;
 import io.micronaut.transaction.annotation.Transactional;
-import io.r2dbc.spi.Connection;
 
 @Transactional(isolation = TransactionDefinition.Isolation.SERIALIZABLE)
 public interface OwnerRepository extends ReactorCrudRepository<Owner, Long> {
@@ -16,6 +15,4 @@ public interface OwnerRepository extends ReactorCrudRepository<Owner, Long> {
     Mono<OwnerDto> findByName(String name);
 
     Mono<OwnerDto> getByName(String name);
-
-    Flux<Owner> saveAll(Iterable<Owner> entities, Connection connection);
 }
