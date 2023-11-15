@@ -1,13 +1,14 @@
 package testgraalvm.repositories;
 
 import io.micronaut.data.repository.reactive.ReactorCrudRepository;
+import io.micronaut.transaction.reactive.ReactiveTransactionStatus;
+import io.r2dbc.spi.Connection;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import testgraalvm.controllers.dto.OwnerDto;
 import testgraalvm.domain.Owner;
 import io.micronaut.transaction.TransactionDefinition;
 import io.micronaut.transaction.annotation.Transactional;
-import io.r2dbc.spi.Connection;
 
 @Transactional(isolation = TransactionDefinition.Isolation.SERIALIZABLE)
 public interface OwnerRepository extends ReactorCrudRepository<Owner, Long> {
@@ -17,5 +18,5 @@ public interface OwnerRepository extends ReactorCrudRepository<Owner, Long> {
 
     Mono<OwnerDto> getByName(String name);
 
-    Flux<Owner> saveAll(Iterable<Owner> entities, Connection connection);
+    Flux<Owner> saveAll(Iterable<Owner> entities, ReactiveTransactionStatus<Connection> transactionStatus);
 }
