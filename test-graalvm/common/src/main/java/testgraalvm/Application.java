@@ -68,9 +68,9 @@ public class Application {
 
         try {
             Flux.from(operations.withTransaction((status) ->
-                    Flux.from(ownerRepository.saveAll(Arrays.asList(fred, barney)))
+                    Flux.from(ownerRepository.saveAll(Arrays.asList(fred, barney), status))
                         .collectList().flatMapMany(owners ->
-                            petRepository.saveAll(Arrays.asList(dino, bp, hoppy))
+                            petRepository.saveAll(Arrays.asList(dino, bp, hoppy), status)
                     )
             )).collectList().block();
         } catch (Exception e) {
