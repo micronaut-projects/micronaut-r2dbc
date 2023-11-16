@@ -15,7 +15,7 @@ micronaut-validation = "4.1.0"
 micronaut-logging = "1.1.2"
 
 groovy = "4.0.13"
-managed-testcontainers = "1.19.1"
+testcontainers = "1.19.1"
 
 # R2DBC Drivers
 
@@ -51,7 +51,7 @@ micronaut-flyway = { module = "io.micronaut.flyway:micronaut-flyway-bom", versio
 micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-bom", version.ref = "micronaut-validation" }
 micronaut-logging = { module = "io.micronaut.logging:micronaut-logging-bom", version.ref = "micronaut-logging" }
 
-boms-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "managed-testcontainers" }
+testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
 
 # R2DBC API
 
