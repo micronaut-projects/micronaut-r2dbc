@@ -40,7 +40,7 @@ dependencies {
     runtimeOnly(libs.flyway.mysql)
 
     testImplementation(mn.micronaut.http.client)
-    testImplementation(platform(libs.boms.testcontainers))
+    testImplementation(platform(libs.testcontainers))
     testImplementation(libs.testcontainers.mysql)
     testImplementation(mnTest.micronaut.test.core)
 

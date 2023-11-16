@@ -22,7 +22,7 @@ dependencies {
 
     testImplementation(mnRxjava2.micronaut.rxjava2)
     testImplementation(libs.testcontainers.r2dbc)
-    testImplementation(platform(libs.boms.testcontainers))
+    testImplementation(platform(libs.testcontainers))
 
     // mariadb
     testImplementation(libs.managed.r2dbc.mariadb)
