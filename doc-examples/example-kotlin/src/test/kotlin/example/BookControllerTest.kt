@@ -82,7 +82,7 @@ class BookControllerTest : TestPropertyProvider {
     }
 
     override fun getProperties(): Map<String, String> {
-        container = MySQLContainer(DockerImageName.parse("mysql").withTag("8"))
+        container = MySQLContainer(DockerImageName.parse("mysql").withTag("8.2"))
         container!!.start()
         return mapOf(
                 "datasources.default.url" to container!!.jdbcUrl,
