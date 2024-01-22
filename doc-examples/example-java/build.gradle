@@ -2,3 +2,8 @@ plugins {
     id "java"
     id "io.micronaut.build.internal.r2dbc-example"
 }
+
+dependencies {
+    annotationProcessor(mnSerde.micronaut.serde.processor)
+    testAnnotationProcessor(mnSerde.micronaut.serde.processor)
+}

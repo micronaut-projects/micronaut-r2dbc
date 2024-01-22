@@ -1,16 +1,16 @@
 [versions]
 micronaut = "4.2.3"
-micronaut-platform = "4.1.6"
+micronaut-platform = "4.2.3"
 micronaut-docs = "2.0.0"
 
 micronaut-reactor = "3.2.1"
 micronaut-rxjava2 = "2.2.1"
 micronaut-serde = "2.7.0"
-micronaut-test = "4.0.1"
+micronaut-test = "4.2.0"
 micronaut-kotlin = "4.1.0"
 micronaut-data = "4.4.1"
 micronaut-sql = "5.4.0"
-micronaut-flyway = "6.2.1"
+micronaut-flyway = "7.0.0"
 micronaut-validation = "4.2.0"
 micronaut-logging = "1.2.1"
 
@@ -66,8 +66,6 @@ managed-r2dbc-mysql = { module = "dev.miku:r2dbc-mysql", version.ref = "managed-
 managed-r2dbc-io-asyncer-mysql = { module = "io.asyncer:r2dbc-mysql", version.ref = "managed-r2dbc-io-asyncer-mysql" }
 managed-r2dbc-mssql = { module = "io.r2dbc:r2dbc-mssql", version.ref = "managed-r2dbc-mssql" }
 managed-r2dbc-postgresql = { module = "org.postgresql:r2dbc-postgresql", version.ref = "managed-r2dbc-postgresql" }
-
-flyway-mysql = { module = "org.flywaydb:flyway-mysql" }
 
 testcontainers-jdbc = { module = "org.testcontainers:jdbc" }
 testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter" }

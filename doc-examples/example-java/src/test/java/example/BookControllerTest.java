@@ -90,7 +90,7 @@ public class BookControllerTest implements TestPropertyProvider {
 
     @Override
     public Map<String, String> getProperties() {
-        container = new MySQLContainer<>(DockerImageName.parse("mysql").withTag("8"));
+        container = new MySQLContainer<>(DockerImageName.parse("mysql").withTag("8.2"));
         container.start();
         return CollectionUtils.mapOf(
                 "datasources.default.url", container.getJdbcUrl(),

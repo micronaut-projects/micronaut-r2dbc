@@ -37,7 +37,7 @@ dependencies {
 
     runtimeOnly(libs.managed.r2dbc.mysql)
     runtimeOnly(mnSql.mysql.connector.java)
-    runtimeOnly(libs.flyway.mysql)
+    runtimeOnly(mnFlyway.flyway.mysql)
 
     testImplementation(mn.micronaut.http.client)
     testImplementation(platform(libs.testcontainers))
