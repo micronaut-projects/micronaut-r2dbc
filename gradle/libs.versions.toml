@@ -67,8 +67,6 @@ managed-r2dbc-io-asyncer-mysql = { module = "io.asyncer:r2dbc-mysql", version.re
 managed-r2dbc-mssql = { module = "io.r2dbc:r2dbc-mssql", version.ref = "managed-r2dbc-mssql" }
 managed-r2dbc-postgresql = { module = "org.postgresql:r2dbc-postgresql", version.ref = "managed-r2dbc-postgresql" }
 
-flyway-mysql = { module = "org.flywaydb:flyway-mysql" }
-
 testcontainers-jdbc = { module = "org.testcontainers:jdbc" }
 testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter" }
 testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
