@@ -15,7 +15,7 @@ micronaut-validation = "4.3.0"
 micronaut-logging = "1.2.2"
 
 groovy = "4.0.13"
-testcontainers = "1.19.3"
+testcontainers = "1.19.4"
 
 # R2DBC Drivers
 
@@ -33,7 +33,7 @@ managed-r2dbc-mssql = "1.0.2.RELEASE"
 # Gradle plugins
 
 micronaut-gradle-plugin = "4.2.1"
-micronaut-testresources = "2.3.1"
+micronaut-testresources = "2.3.2"
 kotlin-gradle-plugin = "1.9.22"
 
 [libraries]
