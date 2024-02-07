@@ -21,16 +21,15 @@ dependencies {
     testImplementation(mn.micronaut.management)
 
     testImplementation(mnRxjava2.micronaut.rxjava2)
-    testImplementation(libs.testcontainers.r2dbc)
-    testImplementation(platform(libs.testcontainers))
+    testImplementation(mnTestResources.testcontainers.r2dbc)
 
     // mariadb
     testImplementation(libs.managed.r2dbc.mariadb)
-    testImplementation(libs.testcontainers.mariadb)
+    testImplementation(mnTestResources.testcontainers.mariadb)
     testImplementation(mnSql.mariadb.java.client)
 
     // mysql
-    testImplementation(libs.testcontainers.mysql)
+    testImplementation(mnTestResources.testcontainers.mysql)
     testImplementation(mnSql.mysql.connector.java)
     testImplementation(libs.managed.r2dbc.mysql)
 
@@ -38,17 +37,17 @@ dependencies {
     testImplementation(libs.managed.r2dbc.h2)
 
     // sqlserver
-    testImplementation(libs.testcontainers.mssqlserver)
+    testImplementation(mnTestResources.testcontainers.mssql)
     testImplementation(mnSql.mssql.jdbc)
     testImplementation(libs.managed.r2dbc.mssql)
 
     // postgres
     testImplementation(libs.managed.r2dbc.postgresql)
-    testImplementation(libs.testcontainers.postgresql)
+    testImplementation(mnTestResources.testcontainers.postgres)
     testImplementation(mnSql.postgresql)
 
     // oracle
-    testImplementation(libs.testcontainers.oracle)
+    testImplementation(mnTestResources.testcontainers.oracle.xe)
     testImplementation(mnSql.ojdbc11)
     testImplementation(libs.managed.r2dbc.oracle)
 

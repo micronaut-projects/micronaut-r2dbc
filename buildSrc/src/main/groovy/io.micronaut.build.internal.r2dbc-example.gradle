@@ -40,8 +40,7 @@ dependencies {
     runtimeOnly(mnFlyway.flyway.mysql)
 
     testImplementation(mn.micronaut.http.client)
-    testImplementation(platform(libs.testcontainers))
-    testImplementation(libs.testcontainers.mysql)
+    testImplementation(mnTestResources.testcontainers.mysql)
     testImplementation(mnTest.micronaut.test.core)
 
     runtimeOnly mn.snakeyaml
