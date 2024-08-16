@@ -16,6 +16,8 @@ dependencies {
     api(mnValidation.micronaut.validation)
     api(libs.managed.r2dbc.spi)
 
+    api(libs.managed.reactor.netty.http)
+
     implementation(mn.reactor)
 
     testImplementation(mn.micronaut.management)
