@@ -14,7 +14,6 @@ micronaut-validation = "4.7.0"
 micronaut-logging = "1.3.0"
 
 groovy = "4.0.18"
-testcontainers = "1.19.4"
 
 # R2DBC Drivers
 
@@ -34,9 +33,6 @@ managed-r2dbc-mssql = "1.0.2.RELEASE"
 micronaut-gradle-plugin = "4.4.2"
 micronaut-test-resources = "2.5.4"
 kotlin-gradle-plugin = "1.9.25"
-
-# Reactory Netty Dependencies
-managed-reactor-netty = "1.1.20"
 
 [libraries]
 # Core
@@ -69,7 +65,7 @@ managed-r2dbc-mssql = { module = "io.r2dbc:r2dbc-mssql", version.ref = "managed-
 managed-r2dbc-postgresql = { module = "org.postgresql:r2dbc-postgresql", version.ref = "managed-r2dbc-postgresql" }
 
 # Reactor Netty Dependencies
-managed-reactor-netty-http = { module = "io.projectreactor.netty:reactor-netty-http", version.ref = "managed-reactor-netty" }
+managed-reactor-netty-http = { module = "io.projectreactor.netty:reactor-netty-http" }
 
 testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter" }
 
