@@ -11,7 +11,7 @@ micronautBom {
         // We used to erroneously manage testcontainers (prior to 5.2.0)
         acceptedLibraryRegressions.add("boms-testcontainers")
         acceptedVersionRegressions.add("testcontainers")
-        // Removed reactory-netty-http and now using mnReactor BOM
+        // Removed reactor-netty-http and now using mnReactor BOM
         acceptedVersionRegressions.add("reactor-netty")
         acceptedLibraryRegressions.add("reactor-netty-http")
     }
