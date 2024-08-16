@@ -13,3 +13,9 @@ micronautBom {
         acceptedVersionRegressions.add("testcontainers")
     }
 }
+
+micronautBuild {
+    binaryCompatibility {
+        enabled = false
+    }
+}
