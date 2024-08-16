@@ -4,7 +4,7 @@ plugins {
 
 configurations.all {
     resolutionStrategy {
-        force 'org.graalvm.sdk:graal-sdk:24.0.0'
+        force 'org.graalvm.sdk:graal-sdk:24.0.2'
     }
 }
 
