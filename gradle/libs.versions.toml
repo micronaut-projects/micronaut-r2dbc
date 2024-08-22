@@ -36,7 +36,7 @@ micronaut-test-resources = "2.5.4"
 kotlin-gradle-plugin = "1.9.25"
 
 # Reactory Netty Dependencies
-managed-reactor-netty = "1.1.20"
+managed-reactor-netty = "1.1.22"
 
 [libraries]
 # Core
