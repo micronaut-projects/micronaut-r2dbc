@@ -1,13 +1,6 @@
 plugins {
     id 'io.micronaut.build.internal.r2dbc-module'
 }
-
-configurations.all {
-    resolutionStrategy {
-        force 'org.graalvm.sdk:graal-sdk:24.0.0'
-    }
-}
-
 dependencies {
     compileOnly(mn.micronaut.graal)
     compileOnly(mn.micronaut.management)
