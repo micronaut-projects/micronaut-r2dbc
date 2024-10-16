@@ -32,7 +32,7 @@ managed-r2dbc-mssql = "1.0.2.RELEASE"
 # Gradle plugins
 
 micronaut-gradle-plugin = "4.4.3"
-micronaut-test-resources = "2.5.4"
+micronaut-test-resources = "2.6.2"
 kotlin-gradle-plugin = "1.9.25"
 
 # Reactory Netty Dependencies
