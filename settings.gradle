@@ -1,5 +1,5 @@
 plugins {
-    id 'io.micronaut.build.shared.settings' version '7.2.1'
+    id 'io.micronaut.build.shared.settings' version '7.2.2'
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
