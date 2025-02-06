@@ -10,7 +10,7 @@ micronaut-kotlin = "4.5.0"
 micronaut-data = "4.9.6"
 micronaut-sql = "5.8.3"
 micronaut-flyway = "7.4.0"
-micronaut-validation = "4.8.0"
+micronaut-validation = "4.9.0"
 micronaut-logging = "1.5.1"
 
 groovy = "4.0.18"
