@@ -1,6 +1,0 @@
-r2dbc:
-  datasources:
-    default:
-      db-type: "mysql"
-      dialect: "MYSQL"
-      schema-generate: "CREATE_DROP"
