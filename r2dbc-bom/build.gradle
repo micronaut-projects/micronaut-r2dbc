@@ -14,6 +14,10 @@ micronautBom {
         // Removed reactor-netty-http added in 5.6.0 and now using mnReactor BOM
         acceptedVersionRegressions.add("reactor-netty")
         acceptedLibraryRegressions.add("reactor-netty-http")
+        // Removed dev-miku mysql dependency and renamed r2dbc-io-asyncer-mysql to r2dbc-mysql as offically supported
+        // mysql r2dbc library
+        acceptedLibraryRegressions.add("r2dbc-io-asyncer-mysql")
+        acceptedVersionRegressions.add("r2dbc-io-asyncer-mysql")
     }
 }
 

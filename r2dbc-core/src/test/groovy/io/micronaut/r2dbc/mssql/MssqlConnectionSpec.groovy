@@ -18,7 +18,7 @@ import jakarta.inject.Inject
 import java.util.function.BiFunction
 
 @MicronautTest
-@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:sqlserver:///?TC_IMAGE_TAG=2017-CU12")
+@Property(name = "r2dbc.datasources.default.url", value = "r2dbc:tc:sqlserver:///?TC_IMAGE_TAG=2022-latest")
 @Property(name = "r2dbc.datasources.default.options.applicationName", value = "test")
 class MssqlConnectionSpec extends Specification {
     @Inject BasicR2dbcProperties props
