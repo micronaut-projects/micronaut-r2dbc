@@ -4,3 +4,7 @@ r2dbc:
       db-type: "mysql"
       dialect: "MYSQL"
       schema-generate: "CREATE_DROP"
+test-resources:
+  containers:
+    my-sql:
+      image-name: mysql:8.4.5
