@@ -25,7 +25,7 @@ class SomeEntityRepositoryTest : TestPropertyProvider {
     }
 
     override fun getProperties(): Map<String, String> {
-        container = MySQLContainer(DockerImageName.parse("mysql"))
+        container = MySQLContainer(DockerImageName.parse("mysql:8.4.5"))
         container!!.start()
         return mapOf(
             "datasources.default.url" to container!!.jdbcUrl,
