@@ -11,7 +11,7 @@ micronaut-data = "4.12.2"
 micronaut-sql = "6.2.0"
 micronaut-flyway = "7.7.0"
 micronaut-validation = "4.9.0"
-micronaut-logging = "1.6.1"
+micronaut-logging = "1.7.0"
 
 groovy = "4.0.18"
 
