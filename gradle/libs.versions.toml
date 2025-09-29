@@ -32,7 +32,7 @@ managed-r2dbc-mssql = "1.0.2.RELEASE"
 micronaut-gradle-plugin = "4.5.4"
 micronaut-test-resources = "2.10.1"
 kotlin-gradle-plugin = "1.9.25"
-sonatype-scan = "3.1.1"
+sonatype-scan = "3.1.4"
 
 [libraries]
 # Core
