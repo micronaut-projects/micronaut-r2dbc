@@ -31,7 +31,7 @@ managed-r2dbc-mssql = "1.0.3.RELEASE"
 
 micronaut-gradle-plugin = "4.6.0"
 micronaut-test-resources = "2.10.1"
-kotlin-gradle-plugin = "1.9.25"
+kotlin-gradle-plugin = "2.2.20"
 
 [libraries]
 # Core
@@ -74,4 +74,3 @@ gradle-micronaut = { module = "io.micronaut.gradle:micronaut-gradle-plugin", ver
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
 gradle-kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin-gradle-plugin" }
 gradle-kotlin-noarg = { module = "org.jetbrains.kotlin:kotlin-noarg", version.ref = "kotlin-gradle-plugin" }
-
