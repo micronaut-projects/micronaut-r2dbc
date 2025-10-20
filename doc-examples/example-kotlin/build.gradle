@@ -5,6 +5,7 @@ plugins {
 dependencies {
     kapt(mnData.micronaut.data.processor)
     implementation mnKotlin.micronaut.kotlin.runtime
+    testImplementation(libs.junit.platform.engine)
 }
 
 application {
