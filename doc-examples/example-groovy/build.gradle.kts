@@ -13,4 +13,5 @@ dependencies {
 
     testAnnotationProcessor(mnSerde.micronaut.serde.processor)
     testImplementation(mnSerde.micronaut.serde.processor)
+    testImplementation(libs.junit.platform.engine)
 }
