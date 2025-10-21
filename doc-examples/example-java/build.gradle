@@ -6,4 +6,5 @@ plugins {
 dependencies {
     annotationProcessor(mnSerde.micronaut.serde.processor)
     testAnnotationProcessor(mnSerde.micronaut.serde.processor)
+    testImplementation(libs.junit.platform.engine)
 }
