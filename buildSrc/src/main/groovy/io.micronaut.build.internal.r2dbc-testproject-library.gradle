@@ -2,14 +2,10 @@ plugins {
     id "java"
     id "io.micronaut.build.internal.r2dbc-dependencies"
     id "io.micronaut.minimal.library"
+    id "io.micronaut.build.internal.java-base"
 }
 
 group "io.micronaut.example"
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
-}
 
 micronaut {
     version libs.versions.micronaut.platform.get()
