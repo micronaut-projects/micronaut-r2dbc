@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.micronaut.r2dbc"},{"l":"io.micronaut.r2dbc.config"},{"l":"io.micronaut.r2dbc.health"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.micronaut.r2dbc"},{"l":"io.micronaut.r2dbc.config"},{"l":"io.micronaut.r2dbc.health"},{"l":"testgraalvm"},{"l":"testgraalvm.controllers.dto"},{"l":"testgraalvm.domain"},{"l":"testgraalvm.repositories"}];updateSearchResults();
