@@ -1,0 +1,7 @@
+io.micronaut.r2dbc
+io.micronaut.r2dbc.config
+io.micronaut.r2dbc.health
+testgraalvm
+testgraalvm.controllers.dto
+testgraalvm.domain
+testgraalvm.repositories
