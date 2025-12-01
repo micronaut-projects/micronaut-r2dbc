@@ -15,9 +15,9 @@
  */
 package io.micronaut.r2dbc;
 
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.naming.Named;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import io.r2dbc.spi.ConnectionFactoryOptions;
 
 import jakarta.validation.constraints.NotBlank;
