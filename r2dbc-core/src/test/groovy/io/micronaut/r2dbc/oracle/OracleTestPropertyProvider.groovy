@@ -3,14 +3,12 @@ package io.micronaut.r2dbc.oracle
 
 import io.micronaut.test.support.TestPropertyProvider
 import org.testcontainers.oracle.OracleContainer
-import org.testcontainers.utility.DockerImageName
 
 trait OracleTestPropertyProvider implements TestPropertyProvider {
 
     @Override
     Map<String, String> getProperties() {
-        def dbContainer = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:slim-faststart")
-                .asCompatibleSubstituteFor("gvenzl/oracle-free"))
+        def dbContainer = new OracleContainer("gvenzl/oracle-free:slim-faststart")
                 .withEnv("ORACLE_PASSWORD", "password")
                 .withPassword("password")
         dbContainer.start()

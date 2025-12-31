@@ -5,7 +5,6 @@ import io.r2dbc.spi.ConnectionFactoryOptions;
 import org.testcontainers.oracle.OracleContainer;
 import org.testcontainers.r2dbc.R2DBCDatabaseContainer;
 import org.testcontainers.r2dbc.R2DBCDatabaseContainerProvider;
-import org.testcontainers.utility.DockerImageName;
 
 public class OracleDatabaseContainerProvider implements R2DBCDatabaseContainerProvider {
 
@@ -18,8 +17,7 @@ public class OracleDatabaseContainerProvider implements R2DBCDatabaseContainerPr
 
     @Override
     public R2DBCDatabaseContainer createContainer(ConnectionFactoryOptions options) {
-        OracleContainer container = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:slim-faststart")
-            .asCompatibleSubstituteFor("gvenzl/oracle-free"))
+        OracleContainer container = new OracleContainer("gvenzl/oracle-free:slim-faststart")
             .withDatabaseName((String) options.getRequiredValue(ConnectionFactoryOptions.DATABASE));
 
         if (Boolean.TRUE.equals(options.getValue(REUSABLE_OPTION))) {
