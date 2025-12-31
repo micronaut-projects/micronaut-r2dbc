@@ -31,7 +31,7 @@ dependencies {
     implementation(mnSerde.micronaut.serde.jackson)
 
     runtimeOnly(libs.managed.r2dbc.mysql)
-    runtimeOnly(mnSql.mysql.connector.java)
+    runtimeOnly(mnSql.mysql.connector.j)
     runtimeOnly(mnFlyway.flyway.mysql)
 
     testImplementation(mn.micronaut.http.client)

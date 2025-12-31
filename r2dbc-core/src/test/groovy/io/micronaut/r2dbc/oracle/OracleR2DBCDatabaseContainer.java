@@ -1,8 +1,8 @@
 package io.micronaut.r2dbc.oracle;
 
 import io.r2dbc.spi.ConnectionFactoryOptions;
-import org.testcontainers.containers.OracleContainer;
 import org.testcontainers.lifecycle.Startable;
+import org.testcontainers.oracle.OracleContainer;
 import org.testcontainers.r2dbc.R2DBCDatabaseContainer;
 
 import java.util.Set;

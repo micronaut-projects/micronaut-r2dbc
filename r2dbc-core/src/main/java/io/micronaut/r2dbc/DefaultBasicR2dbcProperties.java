@@ -53,7 +53,7 @@ public class DefaultBasicR2dbcProperties implements BasicR2dbcProperties {
     }
 
     @Override
-    @NonNull public ConnectionFactoryOptions.Builder builder() {
+    public ConnectionFactoryOptions.@NonNull Builder builder() {
         return builder;
     }
 

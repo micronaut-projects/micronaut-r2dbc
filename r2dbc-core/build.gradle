@@ -31,7 +31,7 @@ dependencies {
 
     // mysql
     testImplementation(mnTestResources.testcontainers.mysql)
-    testImplementation(mnSql.mysql.connector.java)
+    testImplementation(mnSql.mysql.connector.j)
     testImplementation(libs.managed.r2dbc.mysql)
 
     // h2
@@ -48,7 +48,7 @@ dependencies {
     testImplementation(mnSql.postgresql)
 
     // oracle
-    testImplementation(mnTestResources.testcontainers.oracle.xe)
+    testImplementation(mnTestResources.testcontainers.oracle.free)
     testImplementation(mnSql.ojdbc11)
     testImplementation(libs.managed.r2dbc.oracle)
 

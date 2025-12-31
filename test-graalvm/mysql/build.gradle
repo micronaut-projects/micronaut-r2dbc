@@ -4,5 +4,5 @@ plugins {
 
 dependencies {
     implementation(libs.managed.r2dbc.mysql)
-    implementation(mnSql.mysql.connector.java)
+    implementation(mnSql.mysql.connector.j)
 }

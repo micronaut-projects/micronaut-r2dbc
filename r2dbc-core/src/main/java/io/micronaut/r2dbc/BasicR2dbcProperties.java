@@ -111,5 +111,5 @@ public interface BasicR2dbcProperties extends Named {
     /**
      * @return Return the current builder
      */
-    @NonNull ConnectionFactoryOptions.Builder builder();
+    ConnectionFactoryOptions.@NonNull Builder builder();
 }

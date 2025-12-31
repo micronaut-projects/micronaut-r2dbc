@@ -27,7 +27,7 @@ class OracleConnectionSpec extends Specification implements OracleTestPropertyPr
         expect:
         props != null
         options.getValue(ConnectionFactoryOptions.DRIVER) == 'oracle'
-        options.getValue(ConnectionFactoryOptions.DATABASE) == 'xepdb1'
+        options.getValue(ConnectionFactoryOptions.DATABASE) == 'freepdb1'
         options.getValue(Option.valueOf("applicationName")) == 'test'
     }
 
