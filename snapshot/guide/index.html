@@ -23,7 +23,9 @@
             document.body.className = classes.join(" ");
         }
     </script>
-
+    <style type="text/css">
+        .lang-java { display: block }; .lang-python { display: block }; .lang-kotlin { display: block }; .lang-groovy { display: block }; 
+    </style>
 </head>
 
 <body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
@@ -315,6 +317,24 @@ public class Author {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
+
+import io.micronaut.data.annotation.GeneratedValue
+import io.micronaut.data.annotation.Id
+import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.serde.annotation.Serdeable
+
+@Serdeable
+@MappedEntity
+data class Author(val name: String) {
+    @GeneratedValue
+    @Id
+    var id: Long? = null
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import io.micronaut.data.annotation.*
@@ -334,24 +354,6 @@ class Author {
 }</code></pre>
 </div>
 </div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
-
-import io.micronaut.data.annotation.GeneratedValue
-import io.micronaut.data.annotation.Id
-import io.micronaut.data.annotation.MappedEntity
-import io.micronaut.serde.annotation.Serdeable
-
-@Serdeable
-@MappedEntity
-data class Author(val name: String) {
-    @GeneratedValue
-    @Id
-    var id: Long? = null
-}</code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>And a repository interface to access the database that extends from <code>ReactiveStreamsRepository</code>:</p>
 </div>
@@ -359,7 +361,7 @@ data class Author(val name: String) {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
 
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.r2dbc.annotation.R2dbcRepository;
 import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository;
@@ -382,9 +384,27 @@ public interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Autho
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
+
+import io.micronaut.data.model.query.builder.sql.Dialect
+import io.micronaut.data.r2dbc.annotation.R2dbcRepository
+import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+import jakarta.validation.constraints.NotNull
+
+@R2dbcRepository(dialect = Dialect.MYSQL) // <b class="conum">(1)</b>
+interface AuthorRepository : ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
+    override fun findById(id: @NotNull Long): Mono&lt;Author&gt; // <b class="conum">(2)</b>
+    override fun findAll(): Flux&lt;Author&gt;
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
-import io.micronaut.core.annotation.NonNull
+import org.jspecify.annotations.NonNull
 import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.r2dbc.annotation.R2dbcRepository
 import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository
@@ -402,24 +422,6 @@ interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Author, Long
     @NonNull
     @Override
     Flux&lt;Author&gt; findAll()
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
-
-import io.micronaut.data.model.query.builder.sql.Dialect
-import io.micronaut.data.r2dbc.annotation.R2dbcRepository
-import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
-import jakarta.validation.constraints.NotNull
-
-@R2dbcRepository(dialect = Dialect.MYSQL) // <b class="conum">(1)</b>
-interface AuthorRepository : ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
-    override fun findById(id: @NotNull Long): Mono&lt;Author&gt; // <b class="conum">(2)</b>
-    override fun findAll(): Flux&lt;Author&gt;
 }</code></pre>
 </div>
 </div>
@@ -469,6 +471,29 @@ public class AuthorController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
+
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+
+@Controller("/authors")
+class AuthorController(private val repository: AuthorRepository) {
+    @Get
+    fun all(): Flux&lt;Author&gt; { // <b class="conum">(1)</b>
+        return repository.findAll()
+    }
+
+    @Get("/id")
+    fun get(id: Long): Mono&lt;Author&gt; { // <b class="conum">(2)</b>
+        return repository.findById(id)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import io.micronaut.http.annotation.Controller
@@ -491,29 +516,6 @@ class AuthorController {
 
     @Get("/id")
     Mono&lt;Author&gt; get(Long id) { // <b class="conum">(2)</b>
-        return repository.findById(id)
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
-
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
-
-@Controller("/authors")
-class AuthorController(private val repository: AuthorRepository) {
-    @Get
-    fun all(): Flux&lt;Author&gt; { // <b class="conum">(1)</b>
-        return repository.findAll()
-    }
-
-    @Get("/id")
-    fun get(id: Long): Mono&lt;Author&gt; { // <b class="conum">(2)</b>
         return repository.findById(id)
     }
 }</code></pre>
