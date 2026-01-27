@@ -31,7 +31,7 @@ managed-r2dbc-mssql = "1.0.4.RELEASE"
 
 micronaut-gradle-plugin = "4.6.1"
 micronaut-test-resources = "3.0.0-M4"
-kotlin-gradle-plugin = "2.2.21"
+kotlin-gradle-plugin = "2.3.0"
 
 [libraries]
 # Core
