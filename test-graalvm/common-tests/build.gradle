@@ -11,6 +11,6 @@ dependencies {
     implementation(mnTest.micronaut.test.junit5)
     implementation(libs.micronaut.testresources.client)
     testImplementation(platform(mnTestResources.boms.testcontainers))
-    implementation(libs.testcontainers.junit.jupiter)
+    testImplementation(libs.testcontainers.junit.jupiter)
 
 }
