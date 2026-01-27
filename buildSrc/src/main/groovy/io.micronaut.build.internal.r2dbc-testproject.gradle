@@ -10,6 +10,7 @@ plugins {
 group "io.micronaut.example"
 
 micronaut {
+    importMicronautPlatform = false
     version libs.versions.micronaut.platform.get()
     runtime "netty"
     testRuntime "junit"
@@ -28,8 +29,9 @@ application {
 }
 
 dependencies {
+    micronautBoms(platform(mnData.micronaut.data.bom))
+    micronautBoms(platform(mnSerde.micronaut.serde.bom))
     annotationProcessor(mn.micronaut.graal)
-    annotationProcessor(mnData.micronaut.data.processor)
     runtimeOnly(mnSql.micronaut.jdbc.hikari)
     runtimeOnly(mnLogging.logback.classic)
 
@@ -52,6 +54,16 @@ configurations.all {
 }
 
 graalvmNative {
+    toolchainDetection = false
+    binaries {
+        all {
+            buildArgs.add("--report-unsupported-elements-at-runtime")
+            if (System.getenv("GRAALVM_HOME")?.contains("graal") && System.getenv("GRAALVM_HOME")?.contains("25")) {
+                logger.quiet("Enabling SharedArenaSupport for GraalVM 25")
+                buildArgs.add("-H:+SharedArenaSupport")
+            }
+        }
+    }
     metadataRepository {
         enabled = true
     }
