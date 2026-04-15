@@ -44,6 +44,18 @@ class H2ConnectionFactoryConfigurationSpec extends Specification {
         options.getValue(Option.valueOf('DB_CLOSE_DELAY')) == '10'
     }
 
+    @Property(name = 'r2dbc.datasources.default.protocol', value = "mem")
+    @Property(name = 'r2dbc.datasources.default.driver', value = "h2")
+    @Property(name = 'r2dbc.datasources.default.database', value = "testdb3")
+    @Property(name = 'r2dbc.datasources.default.options.max-size', value = "48")
+    void 'test kebab-case options are normalized to camel case'() {
+        given:
+        BasicR2dbcProperties props = context.getBean(BasicR2dbcProperties)
+        ConnectionFactoryOptions options = context.getBean(ConnectionFactoryOptions)
 
+        expect:
+        props != null
+        options.getValue(Option.valueOf('maxSize')) == '48'
+    }
 
 }
