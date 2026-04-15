@@ -18,8 +18,10 @@ dependencies {
 
     api(platform(mnReactor.boms.reactor))
     implementation(mn.reactor)
+    implementation(libs.managed.r2dbc.pool)
 
     testImplementation(mn.micronaut.management)
+    testImplementation(libs.micronaut.micrometer)
 
     testImplementation(mnRxjava2.micronaut.rxjava2)
     testImplementation(mnTestResources.testcontainers.r2dbc)

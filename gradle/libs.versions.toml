@@ -12,6 +12,7 @@ micronaut-sql = "7.0.1-M1"
 micronaut-flyway = "8.0.0-M3"
 micronaut-validation = "5.0.0-M1"
 micronaut-logging = "2.0.0-M2"
+micronaut-micrometer = "5.13.2"
 
 groovy = "5.0.3"
 
@@ -48,6 +49,7 @@ micronaut-flyway = { module = "io.micronaut.flyway:micronaut-flyway-bom", versio
 micronaut-test-resources = { module = "io.micronaut.testresources:micronaut-test-resources-bom", version.ref = "micronaut-test-resources" }
 micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-bom", version.ref = "micronaut-validation" }
 micronaut-logging = { module = "io.micronaut.logging:micronaut-logging-bom", version.ref = "micronaut-logging" }
+micronaut-micrometer = { module = "io.micronaut.micrometer:micronaut-micrometer-core", version.ref = "micronaut-micrometer" }
 
 # R2DBC API
 
