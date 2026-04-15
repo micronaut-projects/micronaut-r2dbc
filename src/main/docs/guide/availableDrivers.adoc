@@ -40,6 +40,32 @@ And for Flyway migrations the JDBC driver:
 
 dependency:org.postgresql:postgresql[scope="runtimeOnly"]
 
+===== Google Cloud SQL
+
+To use PostgreSQL through the Google Cloud SQL R2DBC connector, add the Cloud SQL connector dependency alongside the PostgreSQL R2DBC driver:
+
+dependency:com.google.cloud.sql:cloud-sql-connector-r2dbc-postgres[scope="runtimeOnly"]
+
+Use a full Cloud SQL URL for the datasource:
+
+[source,yaml]
+----
+r2dbc:
+  datasources:
+    default:
+      url: r2dbc:gcp:postgres://<DB_USER>:<DB_PASS>@<CLOUD_SQL_CONNECTION_NAME>/<DATABASE_NAME>
+----
+
+If you also want R2DBC pooling, compose the delegated driver layers in the URL instead of trying to split `gcp` and `pool` across separate `driver` and `options.driver` properties:
+
+[source,yaml]
+----
+r2dbc:
+  datasources:
+    default:
+      url: r2dbc:pool:gcp:postgres://<DB_USER>:<DB_PASS>@<CLOUD_SQL_CONNECTION_NAME>/<DATABASE_NAME>
+----
+
 ==== SQL Server
 
 R2DBC Driver:
