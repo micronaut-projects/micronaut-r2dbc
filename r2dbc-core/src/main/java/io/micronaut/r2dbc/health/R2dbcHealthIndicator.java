@@ -73,8 +73,8 @@ public class R2dbcHealthIndicator implements HealthIndicator {
 
     @Override
     public Publisher<HealthResult> getResult() {
-        return healthQuery.flatMap(query -> Mono.usingWhen(Mono.fromDirect(connectionFactory.create()),
-                        connection -> Mono.fromDirect(connection.createStatement(query).execute())
+        return healthQuery.flatMap(query -> Mono.usingWhen(Mono.from(connectionFactory.create()),
+                        connection -> Mono.from(connection.createStatement(query).execute())
                                 .flatMapMany(result -> result.map(this::extractQueryResult))
                                 .next(),
                         Connection::close, (o, throwable) -> o.close(), Connection::close)
