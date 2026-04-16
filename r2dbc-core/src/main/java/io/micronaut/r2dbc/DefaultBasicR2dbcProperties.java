@@ -21,6 +21,7 @@ import org.jspecify.annotations.Nullable;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.context.env.Environment;
 import io.micronaut.core.convert.format.MapFormat;
+import io.micronaut.core.naming.NameUtils;
 import io.micronaut.core.naming.conventions.StringConvention;
 import io.micronaut.core.type.Argument;
 import io.micronaut.core.util.CollectionUtils;
@@ -85,7 +86,7 @@ public class DefaultBasicR2dbcProperties implements BasicR2dbcProperties {
         if (CollectionUtils.isNotEmpty(options)) {
             options.forEach((key, value) ->
                     getBuilder().option(
-                            Option.valueOf(key),
+                            Option.valueOf(normalizeOptionKey(key)),
                             value
                     )
             );
@@ -227,5 +228,9 @@ public class DefaultBasicR2dbcProperties implements BasicR2dbcProperties {
                 ConnectionFactoryOptions.DATABASE, database
         );
         return this;
+    }
+
+    private static String normalizeOptionKey(String key) {
+        return NameUtils.isHyphenatedLowerCase(key) ? NameUtils.camelCase(key) : key;
     }
 }
