@@ -36,6 +36,8 @@ R2DBC Driver:
 
 dependency:org.postgresql:r2dbc-postgresql[scope="runtimeOnly"]
 
+NOTE: For GraalVM native images, use a recent `org.postgresql:r2dbc-postgresql` version. Older `0.9.x` releases do not include the native-image reflection metadata required by the PostgreSQL codec layer and can fail at runtime with errors about array types such as `Instant[]`. The Micronaut R2DBC BOM manages a compatible version for you, but if you override the driver version manually, use `1.0.2.RELEASE` or newer.
+
 And for Flyway migrations the JDBC driver:
 
 dependency:org.postgresql:postgresql[scope="runtimeOnly"]
