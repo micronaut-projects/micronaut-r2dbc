@@ -18,7 +18,7 @@ dependencies {
 
     api(platform(mnReactor.boms.reactor))
     implementation(mn.reactor)
-    implementation(libs.managed.r2dbc.pool)
+    runtimeOnly(libs.managed.r2dbc.pool)
 
     testImplementation(mn.micronaut.management)
     testImplementation(libs.micronaut.micrometer)

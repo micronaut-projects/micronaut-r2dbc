@@ -7,7 +7,7 @@ import spock.lang.Specification
 
 class R2dbcPoolOptionalDependencySpec extends Specification {
 
-    void 'application context starts without r2dbc-pool on the application classpath'() {
+    void 'application context starts without an explicit r2dbc-pool declaration in the application'() {
         given:
         ApplicationContext context
 
@@ -18,7 +18,8 @@ class R2dbcPoolOptionalDependencySpec extends Specification {
 
         then:
         context.getBean(ConnectionFactory) != null
-        !context.getBeansOfType(MeterBinder).isEmpty()
+        context.getBeanDefinitions(MeterBinder)
+            .any { it.toString().contains('R2dbcPoolMetricsBinderFactory#r2dbcPoolMeterBinder') }
 
         cleanup:
         context?.close()
