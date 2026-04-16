@@ -19,7 +19,7 @@ class R2dbcPoolOptionalDependencySpec extends Specification {
         then:
         context.getBean(ConnectionFactory) != null
         context.getBeanDefinitions(MeterBinder)
-            .any { it.toString().contains('R2dbcPoolMetricsBinderFactory#r2dbcPoolMeterBinder') }
+            .any { it.declaringType.present && it.declaringType.get().name == 'io.micronaut.configuration.metrics.binder.r2dbc.R2dbcPoolMetricsBinderFactory' }
 
         cleanup:
         context?.close()
