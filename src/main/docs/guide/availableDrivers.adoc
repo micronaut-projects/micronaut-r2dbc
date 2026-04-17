@@ -46,14 +46,16 @@ To use PostgreSQL through the Google Cloud SQL R2DBC connector, add the Cloud SQ
 
 dependency:com.google.cloud.sql:cloud-sql-connector-r2dbc-postgres[scope="runtimeOnly"]
 
-Use a full Cloud SQL URL for the datasource:
+Use a full Cloud SQL URL for the datasource and provide credentials separately (for example via environment variables or secret injection):
 
 [source,yaml]
 ----
 r2dbc:
   datasources:
     default:
-      url: r2dbc:gcp:postgres://<DB_USER>:<DB_PASS>@<CLOUD_SQL_CONNECTION_NAME>/<DATABASE_NAME>
+      url: r2dbc:gcp:postgres://<CLOUD_SQL_CONNECTION_NAME>/<DATABASE_NAME>
+      username: ${DB_USER}
+      password: ${DB_PASS}
 ----
 
 If you also want R2DBC pooling, compose the delegated driver layers in the URL instead of trying to split `gcp` and `pool` across separate `driver` and `options.driver` properties:
@@ -63,8 +65,12 @@ If you also want R2DBC pooling, compose the delegated driver layers in the URL i
 r2dbc:
   datasources:
     default:
-      url: r2dbc:pool:gcp:postgres://<DB_USER>:<DB_PASS>@<CLOUD_SQL_CONNECTION_NAME>/<DATABASE_NAME>
+      url: r2dbc:pool:gcp:postgres://<CLOUD_SQL_CONNECTION_NAME>/<DATABASE_NAME>
+      username: ${DB_USER}
+      password: ${DB_PASS}
 ----
+
+The protocol segment accepts both `postgres` and `postgresql`.
 
 ==== SQL Server
 

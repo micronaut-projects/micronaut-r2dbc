@@ -1,5 +1,6 @@
 package io.micronaut.r2dbc.postgresql
 
+import com.google.cloud.sql.core.CloudSqlConnectionFactory
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.annotation.Property
 import io.micronaut.r2dbc.BasicR2dbcProperties
@@ -30,7 +31,7 @@ class GcpPostgresConnectionFactoryConfigurationSpec extends Specification {
         options.getValue(ConnectionFactoryOptions.DATABASE) == 'appdb'
         options.getValue(ConnectionFactoryOptions.USER) == 'db-user'
         options.getValue(ConnectionFactoryOptions.PASSWORD).toString() == 'db-pass'
-        connectionFactory.class.name.contains('CloudSqlConnectionFactory')
+        connectionFactory instanceof CloudSqlConnectionFactory
     }
 
     @Property(name = 'r2dbc.datasources.default.driver', value = 'gcp')
@@ -52,7 +53,7 @@ class GcpPostgresConnectionFactoryConfigurationSpec extends Specification {
         options.getValue(ConnectionFactoryOptions.DATABASE) == 'appdb'
         options.getValue(ConnectionFactoryOptions.USER) == 'db-user'
         options.getValue(ConnectionFactoryOptions.PASSWORD).toString() == 'password'
-        options.getValue(Option.valueOf('ENABLE_IAM_AUTH')) == 'true'
-        connectionFactory.class.name.contains('CloudSqlConnectionFactory')
+        (options.getValue(Option.valueOf('ENABLE_IAM_AUTH')) as Boolean) == true
+        connectionFactory instanceof CloudSqlConnectionFactory
     }
 }
