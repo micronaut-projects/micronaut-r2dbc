@@ -704,6 +704,18 @@ class AuthorController {
 </div>
 </p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For GraalVM native images, use a recent <code>org.postgresql:r2dbc-postgresql</code> version. Older <code>0.9.x</code> releases do not include the native-image reflection metadata required by the PostgreSQL codec layer and can fail at runtime with errors about array types such as <code>Instant[]</code>. The Micronaut R2DBC BOM manages a compatible version for you, but if you override the driver version manually, use <code>1.0.2.RELEASE</code> or newer.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>And for Flyway migrations the JDBC driver:</p>
 </div>
