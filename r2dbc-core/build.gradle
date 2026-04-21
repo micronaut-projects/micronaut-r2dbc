@@ -44,6 +44,7 @@ dependencies {
 
     // postgres
     testImplementation(libs.managed.r2dbc.postgresql)
+    testImplementation(libs.managed.cloud.sql.connector.r2dbc.postgres)
     testImplementation(mnTestResources.testcontainers.postgres)
     testImplementation(mnSql.postgresql)
 
