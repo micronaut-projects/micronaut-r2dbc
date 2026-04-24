@@ -1,17 +1,19 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
 plugins {
     id "org.jetbrains.kotlin.jvm"
 }
 
-tasks.named("compileKotlin") {
-    kotlinOptions {
-        jvmTarget = '21'
-    }
+def javaExtension = extensions.getByType(JavaPluginExtension)
+def kotlinJvmTarget = providers.provider {
+    def toolchainLanguageVersion = javaExtension.toolchain.languageVersion.orNull?.asInt()
+    def javaTargetVersion = toolchainLanguageVersion ?: javaExtension.targetCompatibility.majorVersion
+    JvmTarget.fromTarget(javaTargetVersion.toString())
 }
 
-tasks.named("compileTestKotlin") {
-    kotlinOptions {
-        jvmTarget = '21'
-    }
+tasks.withType(KotlinJvmCompile).configureEach {
+    compilerOptions.jvmTarget.set(kotlinJvmTarget)
 }
 
 kotlin {
