@@ -244,11 +244,13 @@ CREATE TABLE author(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(
       enabled: true
 datasources:
   default: <i class="conum" data-value="2"></i><b>(2)</b>
-    url: jdbc:mysql://localhost:3306/mydatabase
+    url: ${JDBC_URL:`jdbc:mysql://localhost:3306/mydatabase`}
 r2dbc:
   datasources:
     default: <i class="conum" data-value="3"></i><b>(3)</b>
-      url: r2dbc:mysql:///mydatabase</code></pre>
+      url: r2dbc:mysql:///mydatabase
+      host: ${R2DBC_HOST:localhost} <i class="conum" data-value="4"></i><b>(4)</b>
+      port: ${R2DBC_PORT:3306}</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -259,11 +261,15 @@ r2dbc:
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The Flyway configuration needs a JDBC datasource configured, this setting configures one. See <a href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc">Micronaut JDBC</a> for more information.</td>
+<td>The Flyway configuration needs a JDBC datasource configured, this setting configures one and lets you override it with <code>JDBC_URL</code> for container deployments. See <a href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc">Micronaut JDBC</a> for more information.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The property <code>r2dbc.datasources.default.url</code> is used to configure the default R2DBC <code>ConnectionFactory</code></td>
+<td>The property <code>r2dbc.datasources.default.url</code> is used to configure the default R2DBC <code>ConnectionFactory</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Override <code>R2DBC_HOST</code> and <code>R2DBC_PORT</code> when the application runs in Docker or another container so the app connects to the database service instead of the container&#8217;s own <code>localhost</code>.</td>
 </tr>
 </table>
 </div>
