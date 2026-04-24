@@ -45,16 +45,19 @@ flyway: # <1>
       enabled: true
 datasources:
   default: # <2>
-    url: jdbc:mysql://localhost:3306/mydatabase
+    url: ${JDBC_URL:`jdbc:mysql://localhost:3306/mydatabase`}
 r2dbc:
   datasources:
     default: # <3>
       url: r2dbc:mysql:///mydatabase
+      host: ${R2DBC_HOST:localhost} # <4>
+      port: ${R2DBC_PORT:3306}
 ----
 
 <1> The Flyway configuration ensures the schema migration is applied. See https://micronaut-projects.github.io/micronaut-flyway/latest/guide/index.html[Micronaut Flyway] for more information.
-<2> The Flyway configuration needs a JDBC datasource configured, this setting configures one. See https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc[Micronaut JDBC] for more information.
-<3> The property `r2dbc.datasources.default.url` is used to configure the default R2DBC `ConnectionFactory`
+<2> The Flyway configuration needs a JDBC datasource configured, this setting configures one and lets you override it with `JDBC_URL` for container deployments. See https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc[Micronaut JDBC] for more information.
+<3> The property `r2dbc.datasources.default.url` is used to configure the default R2DBC `ConnectionFactory`.
+<4> Override `R2DBC_HOST` and `R2DBC_PORT` when the application runs in Docker or another container so the app connects to the database service instead of the container's own `localhost`.
 
 TIP: The R2DBC `ConnectionFactory` object can be injected anywhere in your code with dependency injection.
 
@@ -75,6 +78,5 @@ snippet::example.AuthorController[project-base="doc-examples/example", source="m
 
 <1> By returning a reactive type that emits many items you can stream data (either rx:Flowable[] or `Flux`)
 <1> By returning a reactive type that emits a single item you return the entire response (either rx:Single[] or `Mono`)
-
 
 
