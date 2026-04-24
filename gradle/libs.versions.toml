@@ -32,7 +32,7 @@ managed-cloud-sql-connector = "1.28.3"
 
 micronaut-gradle-plugin = "4.6.2"
 micronaut-test-resources = "4.0.0-M1"
-kotlin-gradle-plugin = "2.3.20"
+kotlin-gradle-plugin = "2.3.21"
 
 [libraries]
 # Core
