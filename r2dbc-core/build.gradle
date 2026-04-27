@@ -23,7 +23,7 @@ dependencies {
     testImplementation(mn.micronaut.management)
     testImplementation(libs.micronaut.micrometer)
 
-    testImplementation(mnRxjava2.micronaut.rxjava2)
+    testImplementation(mnRxjava3.micronaut.rxjava3)
     testImplementation(mnTestResources.testcontainers.r2dbc)
 
     // mariadb
