@@ -11,7 +11,7 @@ import io.r2dbc.spi.Option
 import io.r2dbc.spi.Result
 import io.r2dbc.spi.Row
 import io.r2dbc.spi.RowMetadata
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 import jakarta.inject.Inject
 import spock.lang.Specification
 

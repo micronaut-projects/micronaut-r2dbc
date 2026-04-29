@@ -3,7 +3,7 @@ micronaut = "5.0.0-M24"
 micronaut-platform = "5.0.0-M2"
 micronaut-docs = "3.0.0"
 micronaut-reactor = "4.0.0-M2"
-micronaut-rxjava2 = "2.9.0"
+micronaut-rxjava3 = "4.0.0-M1"
 micronaut-serde = "3.0.0-M7"
 micronaut-test = "5.0.0-M3"
 micronaut-kotlin = "5.0.0-M1"
@@ -41,7 +41,7 @@ micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'mi
 
 # BOMS
 micronaut-reactor = { module = 'io.micronaut.reactor:micronaut-reactor-bom', version.ref = "micronaut-reactor" }
-micronaut-rxjava2 = { module = 'io.micronaut.rxjava2:micronaut-rxjava2-bom', version.ref = "micronaut-rxjava2" }
+micronaut-rxjava3 = { module = 'io.micronaut.rxjava3:micronaut-rxjava3-bom', version.ref = "micronaut-rxjava3" }
 micronaut-kotlin = { module = 'io.micronaut.kotlin:micronaut-kotlin-bom', version.ref = "micronaut-kotlin" }
 micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.ref = "micronaut-serde" }
 micronaut-data = { module = "io.micronaut.data:micronaut-data-bom", version.ref = "micronaut-data" }
@@ -66,7 +66,7 @@ managed-r2dbc-mssql = { module = "io.r2dbc:r2dbc-mssql", version.ref = "managed-
 managed-r2dbc-postgresql = { module = "org.postgresql:r2dbc-postgresql", version.ref = "managed-r2dbc-postgresql" }
 managed-cloud-sql-connector-r2dbc-postgres = { module = "com.google.cloud.sql:cloud-sql-connector-r2dbc-postgres", version.ref = "managed-cloud-sql-connector" }
 
-testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter" }
+testcontainers-junit-jupiter = { module = "org.testcontainers:testcontainers-junit-jupiter" }
 
 junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engine" }
 # Testresources

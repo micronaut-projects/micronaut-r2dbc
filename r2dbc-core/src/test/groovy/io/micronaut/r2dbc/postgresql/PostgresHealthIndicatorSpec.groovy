@@ -8,7 +8,7 @@ import io.micronaut.r2dbc.health.R2dbcHealthIndicator
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.r2dbc.spi.ConnectionFactory
 import io.r2dbc.spi.ConnectionFactoryOptions
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 import jakarta.inject.Inject
 import spock.lang.IgnoreIf
 import spock.lang.Specification
