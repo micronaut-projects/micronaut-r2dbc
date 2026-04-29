@@ -1,5 +1,6 @@
 plugins {
     id "io.micronaut.build.internal.r2dbc-kotlin-example"
+    id("io.micronaut.build.internal.kotlin-kapt")
 }
 
 dependencies {

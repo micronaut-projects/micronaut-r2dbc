@@ -9,7 +9,5 @@ repositories {
 
 dependencies {
     implementation libs.gradle.micronaut
-    implementation libs.gradle.kotlin
-    implementation libs.gradle.kotlin.allopen
-    implementation libs.gradle.kotlin.noarg
+    implementation(providers.gradleProperty("micronaut-build-version").map { "io.micronaut.build.internal:micronaut-kotlin-build-plugins:${it}" }.get())
 }

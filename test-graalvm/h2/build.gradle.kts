@@ -1,13 +1,7 @@
 plugins {
     id("io.micronaut.build.internal.r2dbc-testproject")
-    id("org.jetbrains.kotlin.jvm")
-    id("org.jetbrains.kotlin.kapt")
-    id("org.jetbrains.kotlin.plugin.allopen")
+    id("io.micronaut.build.internal.kotlin-kapt")
     id("io.micronaut.build.internal.r2dbc-kotlin")
-}
-
-allOpen {
-    annotation("io.micronaut.aop.Around")
 }
 
 tasks.named("internalStartTestResourcesService") {
