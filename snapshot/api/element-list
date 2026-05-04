@@ -1,7 +1,6 @@
 io.micronaut.r2dbc
 io.micronaut.r2dbc.config
 io.micronaut.r2dbc.health
-io.micronaut.r2dbc.info
 testgraalvm
 testgraalvm.controllers.dto
 testgraalvm.domain
