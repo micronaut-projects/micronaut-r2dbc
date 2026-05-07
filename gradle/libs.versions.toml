@@ -11,7 +11,7 @@ micronaut-sql = "7.0.1-M3"
 micronaut-flyway = "8.0.0-M3"
 micronaut-validation = "5.0.0-RC2"
 micronaut-logging = "2.0.0-RC1"
-micronaut-micrometer = "5.13.2"
+micronaut-micrometer = "6.0.0-M2"
 
 groovy = "5.0.3"
 
