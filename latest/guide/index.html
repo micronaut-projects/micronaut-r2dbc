@@ -23,7 +23,9 @@
             document.body.className = classes.join(" ");
         }
     </script>
-
+    <style type="text/css">
+        .lang-java { display: block }; .lang-python { display: block }; .lang-kotlin { display: block }; .lang-groovy { display: block }; 
+    </style>
 </head>
 
 <body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
@@ -105,7 +107,7 @@
         <h1>Micronaut R2DBC</h1>
         <p></p>
         <p>Integration with Micronaut and R2DBC</p>
-        <p><strong>Version:</strong> 7.0.0 </p>
+        <p><strong>Version:</strong> 7.0.1 </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
@@ -242,11 +244,13 @@ CREATE TABLE author(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(
       enabled: true
 datasources:
   default: <i class="conum" data-value="2"></i><b>(2)</b>
-    url: jdbc:mysql://localhost:3306/mydatabase
+    url: ${JDBC_URL:`jdbc:mysql://localhost:3306/mydatabase`}
 r2dbc:
   datasources:
     default: <i class="conum" data-value="3"></i><b>(3)</b>
-      url: r2dbc:mysql:///mydatabase</code></pre>
+      url: r2dbc:mysql:///mydatabase
+      host: ${R2DBC_HOST:localhost} <i class="conum" data-value="4"></i><b>(4)</b>
+      port: ${R2DBC_PORT:3306}</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -257,11 +261,15 @@ r2dbc:
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The Flyway configuration needs a JDBC datasource configured, this setting configures one. See <a href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc">Micronaut JDBC</a> for more information.</td>
+<td>The Flyway configuration needs a JDBC datasource configured, this setting configures one and lets you override it with <code>JDBC_URL</code> for container deployments. See <a href="https://micronaut-projects.github.io/micronaut-sql/latest/guide/#jdbc">Micronaut JDBC</a> for more information.</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>The property <code>r2dbc.datasources.default.url</code> is used to configure the default R2DBC <code>ConnectionFactory</code></td>
+<td>The property <code>r2dbc.datasources.default.url</code> is used to configure the default R2DBC <code>ConnectionFactory</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Override <code>R2DBC_HOST</code> and <code>R2DBC_PORT</code> when the application runs in Docker or another container so the app connects to the database service instead of the container&#8217;s own <code>localhost</code>.</td>
 </tr>
 </table>
 </div>
@@ -315,6 +323,24 @@ public class Author {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
+
+import io.micronaut.data.annotation.GeneratedValue
+import io.micronaut.data.annotation.Id
+import io.micronaut.data.annotation.MappedEntity
+import io.micronaut.serde.annotation.Serdeable
+
+@Serdeable
+@MappedEntity
+data class Author(val name: String) {
+    @GeneratedValue
+    @Id
+    var id: Long? = null
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import io.micronaut.data.annotation.*
@@ -334,24 +360,6 @@ class Author {
 }</code></pre>
 </div>
 </div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
-
-import io.micronaut.data.annotation.GeneratedValue
-import io.micronaut.data.annotation.Id
-import io.micronaut.data.annotation.MappedEntity
-import io.micronaut.serde.annotation.Serdeable
-
-@Serdeable
-@MappedEntity
-data class Author(val name: String) {
-    @GeneratedValue
-    @Id
-    var id: Long? = null
-}</code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>And a repository interface to access the database that extends from <code>ReactiveStreamsRepository</code>:</p>
 </div>
@@ -359,7 +367,7 @@ data class Author(val name: String) {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
 
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.r2dbc.annotation.R2dbcRepository;
 import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository;
@@ -382,9 +390,27 @@ public interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Autho
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
+
+import io.micronaut.data.model.query.builder.sql.Dialect
+import io.micronaut.data.r2dbc.annotation.R2dbcRepository
+import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+import jakarta.validation.constraints.NotNull
+
+@R2dbcRepository(dialect = Dialect.MYSQL) // <b class="conum">(1)</b>
+interface AuthorRepository : ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
+    override fun findById(id: @NotNull Long): Mono&lt;Author&gt; // <b class="conum">(2)</b>
+    override fun findAll(): Flux&lt;Author&gt;
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
-import io.micronaut.core.annotation.NonNull
+import org.jspecify.annotations.NonNull
 import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.r2dbc.annotation.R2dbcRepository
 import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository
@@ -402,24 +428,6 @@ interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Author, Long
     @NonNull
     @Override
     Flux&lt;Author&gt; findAll()
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
-
-import io.micronaut.data.model.query.builder.sql.Dialect
-import io.micronaut.data.r2dbc.annotation.R2dbcRepository
-import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
-import jakarta.validation.constraints.NotNull
-
-@R2dbcRepository(dialect = Dialect.MYSQL) // <b class="conum">(1)</b>
-interface AuthorRepository : ReactiveStreamsCrudRepository&lt;Author, Long&gt; {
-    override fun findById(id: @NotNull Long): Mono&lt;Author&gt; // <b class="conum">(2)</b>
-    override fun findAll(): Flux&lt;Author&gt;
 }</code></pre>
 </div>
 </div>
@@ -469,6 +477,29 @@ public class AuthorController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
+
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+
+@Controller("/authors")
+class AuthorController(private val repository: AuthorRepository) {
+    @Get
+    fun all(): Flux&lt;Author&gt; { // <b class="conum">(1)</b>
+        return repository.findAll()
+    }
+
+    @Get("/id")
+    fun get(id: Long): Mono&lt;Author&gt; { // <b class="conum">(2)</b>
+        return repository.findById(id)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import io.micronaut.http.annotation.Controller
@@ -491,29 +522,6 @@ class AuthorController {
 
     @Get("/id")
     Mono&lt;Author&gt; get(Long id) { // <b class="conum">(2)</b>
-        return repository.findById(id)
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
-
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
-
-@Controller("/authors")
-class AuthorController(private val repository: AuthorRepository) {
-    @Get
-    fun all(): Flux&lt;Author&gt; { // <b class="conum">(1)</b>
-        return repository.findAll()
-    }
-
-    @Get("/id")
-    fun get(id: Long): Mono&lt;Author&gt; { // <b class="conum">(2)</b>
         return repository.findById(id)
     }
 }</code></pre>
@@ -702,6 +710,18 @@ class AuthorController(private val repository: AuthorRepository) {
 </div>
 </p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For GraalVM native images, use a recent <code>org.postgresql:r2dbc-postgresql</code> version. Older <code>0.9.x</code> releases do not include the native-image reflection metadata required by the PostgreSQL codec layer and can fail at runtime with errors about array types such as <code>Instant[]</code>. The Micronaut R2DBC BOM manages a compatible version for you, but if you override the driver version manually, use <code>1.0.2.RELEASE</code> or newer.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>And for Flyway migrations the JDBC driver:</p>
 </div>
@@ -722,6 +742,59 @@ class AuthorController(private val repository: AuthorRepository) {
 </div>
 </div>
 </p>
+</div>
+<div class="sect4">
+<h5 id="_google_cloud_sql">Google Cloud SQL</h5>
+<div class="paragraph">
+<p>To use PostgreSQL through the Google Cloud SQL R2DBC connector, add the Cloud SQL connector dependency alongside the PostgreSQL R2DBC driver:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">runtimeOnly(<span class="hljs-string">"com.google.cloud.sql:cloud-sql-connector-r2dbc-postgres")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;com.google.cloud.sql&lt;/groupId&gt;
+    &lt;artifactId&gt;cloud-sql-connector-r2dbc-postgres&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>Use a full Cloud SQL URL for the datasource and provide credentials separately (for example via environment variables or secret injection):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">r2dbc:
+  datasources:
+    default:
+      url: r2dbc:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;
+      username: ${DB_USER}
+      password: ${DB_PASS}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you also want R2DBC pooling, compose the delegated driver layers in the URL instead of trying to split <code>gcp</code> and <code>pool</code> across separate <code>driver</code> and <code>options.driver</code> properties:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">r2dbc:
+  datasources:
+    default:
+      url: r2dbc:pool:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;
+      username: ${DB_USER}
+      password: ${DB_PASS}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The protocol segment accepts both <code>postgres</code> and <code>postgresql</code>.</p>
+</div>
 </div>
 </div>
 <div class="sect3">
