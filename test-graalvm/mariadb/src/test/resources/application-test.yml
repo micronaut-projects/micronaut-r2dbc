@@ -4,7 +4,8 @@ r2dbc:
       db-type: "mariadb"
       dialect: "MYSQL"
       schema-generate: "CREATE_DROP"
+      protocol: "mariadb"
 test-resources:
   containers:
     mariadb:
-      image-name: "mariadb:10.3.6"
+      image-name: "mariadb"
