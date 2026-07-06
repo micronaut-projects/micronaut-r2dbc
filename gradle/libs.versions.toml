@@ -10,7 +10,7 @@ micronaut-data = "5.0.5"
 micronaut-sql = "7.0.2"
 micronaut-flyway = "8.0.0"
 micronaut-validation = "5.0.0"
-micronaut-logging = "2.0.0"
+micronaut-logging = "2.1.0"
 micronaut-micrometer = "6.0.1"
 
 groovy = "5.0.3"
