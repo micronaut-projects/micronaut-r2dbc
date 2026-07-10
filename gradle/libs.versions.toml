@@ -1,5 +1,5 @@
 [versions]
-micronaut = "5.1.4"
+micronaut = "5.1.5"
 micronaut-platform = "5.0.4"
 micronaut-docs = "3.0.0"
 micronaut-reactor = "4.1.0"
