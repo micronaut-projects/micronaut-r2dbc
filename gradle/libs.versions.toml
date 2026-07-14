@@ -1,15 +1,15 @@
 [versions]
-micronaut = "5.1.5"
+micronaut = "5.1.6"
 micronaut-platform = "5.0.4"
 micronaut-docs = "3.0.0"
 micronaut-reactor = "4.1.0"
 micronaut-rxjava3 = "4.1.0"
 micronaut-serde = "3.1.0"
 micronaut-kotlin = "5.0.0"
-micronaut-data = "5.0.5"
+micronaut-data = "5.0.6"
 micronaut-sql = "7.1.0"
 micronaut-flyway = "8.0.0"
-micronaut-validation = "5.0.0"
+micronaut-validation = "5.1.0"
 micronaut-logging = "2.1.0"
 micronaut-micrometer = "6.0.1"
 
