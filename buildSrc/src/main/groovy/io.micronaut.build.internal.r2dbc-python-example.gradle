@@ -1,0 +1,82 @@
+/*
+ * Convention for the Python documentation example (doc-examples/example-python).
+ *
+ * Mirrors io.micronaut.build.internal.r2dbc-example for sources compiled by the Python compiler
+ * (micronaut-inject-python). The Python compiler takes the (jar-resolved) compile classpath as its
+ * annotation processor path, so the Micronaut processors are regular test dependencies of the
+ * project, not annotationProcessor ones. The Python tests only run with -Ppython-ci.
+ */
+plugins {
+    id "io.micronaut.build.internal.r2dbc-dependencies"
+    id "io.micronaut.minimal.library"
+    id "io.micronaut.build.internal.java-base"
+    id "io.micronaut.build.internal.python"
+}
+
+micronaut {
+    importMicronautPlatform = false
+    version libs.versions.micronaut.platform.get()
+}
+
+dependencies {
+    micronautBoms(platform(mn.micronaut.core.bom))
+    micronautBoms(platform(mnData.micronaut.data.bom))
+    micronautBoms(platform(mnLogging.micronaut.logging.bom))
+    micronautBoms(platform(mnTest.micronaut.test.bom))
+    micronautBoms(platform(mnFlyway.micronaut.flyway.bom))
+    micronautBoms(platform(mnSerde.micronaut.serde.bom))
+
+    // The Java helpers in src/test/java are processed by javac
+    testAnnotationProcessor(mn.micronaut.inject.java)
+
+    // Processors of the Python sources (compile classpath, see above)
+    testImplementation(mn.micronaut.inject.python.test)
+    testImplementation(mn.micronaut.context.python)
+    testImplementation(mnData.micronaut.data.processor)
+    testImplementation(mnSerde.micronaut.serde.processor)
+
+    implementation projects.micronautR2dbcCore
+    implementation(mnData.micronaut.data.r2dbc) {
+        exclude module:'micronaut-r2dbc-core'
+    }
+    implementation(mnFlyway.micronaut.flyway)
+    implementation(mnSql.micronaut.jdbc.hikari)
+    implementation(mnSerde.micronaut.serde.jackson)
+    implementation(mn.micronaut.http.server.netty)
+
+    runtimeOnly(libs.managed.r2dbc.mysql)
+    runtimeOnly(mnSql.mysql.connector.j)
+    runtimeOnly(mnFlyway.flyway.mysql)
+    runtimeOnly mn.snakeyaml
+
+    testImplementation(mn.micronaut.http.client)
+    testImplementation(mnTestResources.testcontainers.mysql)
+    testImplementation(mnTest.micronaut.test.junit5)
+    testRuntimeOnly mnLogging.logback.classic
+    testRuntimeOnly mnTest.junit.jupiter.engine
+    testRuntimeOnly mnTest.junit.platform.launcher
+}
+
+// TODO(python): the application code lives in src/main/python (the `source="main"` snippets) and the
+// tests in src/test/python. Compiling them separately yields two GraalPy VFS roots whose generated shim
+// modules shadow each other at test time, and the Python compiler resolves the imports of a source file
+// only within its own source root, so both roots are merged into one directory compiled with the tests.
+def mergedPythonSources = tasks.register("mergePythonSources", Sync) {
+    from(layout.projectDirectory.dir("src/main/python"))
+    from(layout.projectDirectory.dir("src/test/python"))
+    into(layout.buildDirectory.dir("merged-python-sources"))
+}
+tasks.named("compilePython") {
+    enabled = false
+}
+tasks.named("compileTestPython") {
+    dependsOn(mergedPythonSources)
+    source.setFrom(mergedPythonSources.map { it.destinationDir })
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    systemProperty "micronaut.python.pool.enabled", "false"
+    // Gradle enables assertions in test JVMs; an internal Truffle host-interop assertion trips on varargs overloads
+    enableAssertions = false
+}
