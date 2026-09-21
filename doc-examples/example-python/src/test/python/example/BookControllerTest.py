@@ -5,7 +5,7 @@ from micronaut.data.r2dbc.operations import R2dbcOperations
 from micronaut.http.annotation import Get
 from micronaut.http.client.annotation import Client
 from micronaut.test.extensions.junit5.annotation import MicronautTest
-from org.junit.jupiter.api import AfterEach, BeforeEach, Disabled, Test
+from org.junit.jupiter.api import AfterEach, BeforeEach, Test
 from reactor.core.publisher import Flux, Mono
 
 from example.Author import Author
@@ -22,7 +22,6 @@ class BookClient:
 
 # The MySQL container properties are supplied by example.support.MySqlTestConfigurer for the "mysql" environment
 @MicronautTest(transactional=False, environments=["mysql"])
-@Disabled("TODO(python): the Reactor transaction context is not propagated into the publishers returned by Python lambdas (the MANDATORY propagation of BookRepository.save fails), see doc-examples/DISABLED_TESTS.md")
 class BookControllerTest:
 
     bookClient: Annotated[BookClient, Inject]

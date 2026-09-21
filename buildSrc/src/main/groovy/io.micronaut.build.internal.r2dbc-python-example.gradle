@@ -30,10 +30,11 @@ dependencies {
     testAnnotationProcessor(mn.micronaut.inject.java)
 
     // Processors of the Python sources (compile classpath, see above)
+    implementation(mn.micronaut.inject.python)
+    implementation(mn.micronaut.context.python)
+    implementation(mnData.micronaut.data.processor)
+    implementation(mnSerde.micronaut.serde.processor)
     testImplementation(mn.micronaut.inject.python.test)
-    testImplementation(mn.micronaut.context.python)
-    testImplementation(mnData.micronaut.data.processor)
-    testImplementation(mnSerde.micronaut.serde.processor)
 
     implementation projects.micronautR2dbcCore
     implementation(mnData.micronaut.data.r2dbc) {
@@ -57,26 +58,7 @@ dependencies {
     testRuntimeOnly mnTest.junit.platform.launcher
 }
 
-// TODO(python): the application code lives in src/main/python (the `source="main"` snippets) and the
-// tests in src/test/python. Compiling them separately yields two GraalPy VFS roots whose generated shim
-// modules shadow each other at test time, and the Python compiler resolves the imports of a source file
-// only within its own source root, so both roots are merged into one directory compiled with the tests.
-def mergedPythonSources = tasks.register("mergePythonSources", Sync) {
-    from(layout.projectDirectory.dir("src/main/python"))
-    from(layout.projectDirectory.dir("src/test/python"))
-    into(layout.buildDirectory.dir("merged-python-sources"))
-}
-tasks.named("compilePython") {
-    enabled = false
-}
-tasks.named("compileTestPython") {
-    dependsOn(mergedPythonSources)
-    source.setFrom(mergedPythonSources.map { it.destinationDir })
-}
-
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
     systemProperty "micronaut.python.pool.enabled", "false"
-    // Gradle enables assertions in test JVMs; an internal Truffle host-interop assertion trips on varargs overloads
-    enableAssertions = false
 }

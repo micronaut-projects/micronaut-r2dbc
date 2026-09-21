@@ -1,6 +1,5 @@
-from micronaut.core.async_.annotation import SingleResult
 from micronaut.http.annotation import Controller, Get
-from org.reactivestreams import Publisher
+from reactor.core.publisher import Flux, Mono
 
 from example.Author import Author
 from example.AuthorRepository import AuthorRepository
@@ -13,10 +12,9 @@ class AuthorController:
         self.repository = repository
 
     @Get
-    def all(self) -> Publisher[Author]:  # <1>
+    def all(self) -> Flux[Author]:  # <1>
         return self.repository.findAll()
 
     @Get("/id")
-    @SingleResult
-    def get(self, id: int) -> Publisher[Author]:  # <2>
+    def get(self, id: int) -> Mono[Author]:  # <2>
         return self.repository.findById(id)

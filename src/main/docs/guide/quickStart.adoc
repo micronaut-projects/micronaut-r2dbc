@@ -79,7 +79,4 @@ snippet::example.AuthorController[project-base="doc-examples/example", source="m
 <1> By returning a reactive type that emits many items you can stream data (either rx:Flowable[] or `Flux`)
 <2> By returning a reactive type that emits a single item you return the entire response (either rx:Single[] or `Mono`)
 
-[.lang-python]
-NOTE: Python controller methods declare the Reactive Streams `Publisher` type: a method returning a `Publisher` streams the emitted items, and a method annotated with ann:core.async.annotation.SingleResult[] returns the single emitted item as the response.
-
 

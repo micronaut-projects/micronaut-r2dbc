@@ -12,49 +12,42 @@ Testcontainers container (`mysql:8.4.5`) like the Java, Kotlin and Groovy exampl
 
 ## Reconciliation
 
-- Last generated active `@Disabled` count: 2 (one class, one method).
+- Last generated active `@Disabled` count: 0.
 - Last generated command: `rg -n "@Disabled\(" doc-examples/example-python/src`.
 - Last full-suite command: `./gradlew :micronaut-doc-examples:micronaut-example-python:test -Ppython-ci`.
-- Last full-suite result: build successful, 4 tests executed, 3 skipped, 0 failures.
+- Last full-suite result: build successful, 4 tests executed, 0 skipped, 0 failures (micronaut-core 5.2.3, micronaut-build 8.1.2).
 
 ## Migration Rules
 
 - Do not define local copies of Micronaut annotation helpers or custom annotation shims in docs snippets.
   Standard Micronaut and Micronaut Data annotations are imported from their Java package
   (`micronaut.data.annotation`, `micronaut.data.r2dbc.annotation`, `micronaut.http.annotation`, ...).
-- The application code of the `source="main"` snippets lives in `src/main/python`, the tests in `src/test/python`;
-  both roots are merged into one directory compiled by `compileTestPython` (see the `TODO(python)` in
-  `buildSrc/src/main/groovy/io.micronaut.build.internal.r2dbc-python-example.gradle`): compiling them separately
-  yields two GraalPy VFS roots whose generated shim modules shadow each other, and the imports of a source file are
-  only resolved within its own root. Classes of the other root are imported with absolute imports
-  (`from example.Author import Author`).
+- The application code of the `source="main"` snippets lives in `src/main/python`, the tests in `src/test/python`
+  (two source roots compiled by `compilePython` / `compileTestPython`; the Micronaut processors are `implementation`
+  dependencies so they are on the main compile classpath too). Classes of the main root are imported with absolute
+  imports (`from example.Author import Author`).
 - Entities are `@Serdeable @MappedEntity @dataclass` classes with `id: Annotated[int | None, Id, GeneratedValue] = None`;
   relations use `Annotated[Author | None, Relation("MANY_TO_ONE")]`.
 - Repositories are classes extending the generic Java repository interface (`ReactiveStreamsCrudRepository[Author, int]`)
   with `...` bodies; query method names stay camelCase (`findById`, `findAll`) because the name is parsed by Micronaut Data;
-  `id` parameters are `int | None` so no `int` overload is created next to the inherited `Integer` one.
+  the `findById(self, id: int)` overrides replace the inherited method like the Java `Mono<Author> findById(Integer)`.
 - Reactive results reach Python as plain `Publisher` objects: wrap them with `Mono.from_(...)` / `Flux.from_(...)`
   (`from_` is the keyword-safe alias of `Mono.from`).
-- Controller methods returning reactive types declare the Reactive Streams `Publisher` type (`-> Publisher[Author]`),
-  single results are annotated with `@SingleResult`: the Java signature of a bridged method typed `Mono`/`Flux` casts the
-  converted `Publisher` and fails with `ClassCastException` (a `[.lang-python]` note in `quickStart.adoc` explains the
-  `Publisher` return type).
+- Controller methods return `Mono[Author]` / `Flux[Author]` like the Java example; repository methods declared with a
+  `Publisher[Book]` return type keep it.
 - The MySQL container properties of the Java tests' `TestPropertyProvider` are supplied by the Java
   `@ContextConfigurer` `example.support.MySqlTestConfigurer` (`configure(ApplicationContext)`, gated on the `mysql`
   environment of `@MicronautTest(environments=["mysql"])`) because Micronaut Test calls `TestPropertyProvider` before the
   GraalPy runtime exists.
 - Python tests are `@MicronautTest` classes with `@BeforeEach`/`@AfterEach` methods (the Java `@BeforeAll`/`PER_CLASS`
   lifecycle is not available); `AuthorControllerTest` (Python only) exercises the guide's `Author`, `AuthorRepository` and
-  `AuthorController` snippets over HTTP while `BookControllerTest` is disabled.
+  `AuthorController` snippets over HTTP, `BookControllerTest` the programmatic transactions of the `BookRepository`.
 - Java classes are imported (`from reactor.core.publisher import Flux, Mono`, `from org.reactivestreams import Publisher`);
   no `java.type(...)` alias is needed by these examples.
 
 ## Active `@Disabled` Tests
 
-| Test | Reason |
-| --- | --- |
-| `example.BookControllerTest` (class) | The Reactor transaction context is not propagated into the publishers returned by Python lambdas inside `operations.withTransaction(...)`: the `@Transactional(MANDATORY)` `BookRepository.save`/`saveAll` fail with `NoTransactionException: Expected an existing transaction, but none was found in the Reactive context` (`programmatic-tx` / `programmatic-tx-status` setup of the Java test). |
-| `example.AuthorControllerTest.test_find_author_by_id` | The `findById(self, id: int \| None) -> Mono[Author]` override of `AuthorRepository` (callout `<2>` of the guide) is dropped from the repository bean definition: the generated stub keeps a `findById(Integer)` method that is not intercepted by Micronaut Data, so calling it (from Python or from the Java proxy) runs the `...` body and returns `None`. The inherited `findById` of a repository that does not redeclare it, the parameterless `findAll` override and query methods such as `findByName` work. `AuthorController.get` is affected in the same way. |
+None.
 
 ## Commented Unsupported Snippet Ports
 
@@ -64,7 +57,7 @@ None.
 
 | Target | Reason |
 | --- | --- |
-| `example.AuthorController` | `-> Publisher[Author]` return types and `@SingleResult` instead of the `Flux<Author>` / `Mono<Author>` of the Java example (see the migration rules). |
+| `example.BookRepository` (`mandatory` tag) | Only `save` is redeclared with `@Transactional("MANDATORY")`; the `saveAll` override of the Java example is omitted (`TODO(python)`): overriding the inherited generic `<S extends Book> Publisher<S> saveAll(Iterable<S>)` is not possible yet, a `list[Book]` hint produces `Publisher<Book> saveAll(Iterable<Book>)` which clashes with the inherited erasure, and a PEP 695 type parameter (`def saveAll[S: Book](...) -> Publisher[S]`) is rejected by the Micronaut Data visitor (`Unsupported return type for a save method: python.S`). |
 
 ## Intentionally Unsupported Snippet Targets
 

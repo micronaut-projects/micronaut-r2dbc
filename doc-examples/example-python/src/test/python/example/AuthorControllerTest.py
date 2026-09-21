@@ -4,7 +4,7 @@ from jakarta.inject import Inject
 from micronaut.http.annotation import Get
 from micronaut.http.client.annotation import Client
 from micronaut.test.extensions.junit5.annotation import MicronautTest
-from org.junit.jupiter.api import AfterEach, BeforeEach, Disabled, Test
+from org.junit.jupiter.api import AfterEach, BeforeEach, Test
 from reactor.core.publisher import Flux, Mono
 
 from example.Author import Author
@@ -42,7 +42,6 @@ class AuthorControllerTest:
         assert {author.name for author in authors} == {"Stephen King", "James Patterson"}
 
     @Test
-    @Disabled("TODO(python): the findById override of AuthorRepository is dropped from the repository bean definition and returns None, see doc-examples/DISABLED_TESTS.md")
     def test_find_author_by_id(self):
         stephen_king = Flux.from_(self.authorRepository.findAll()).filter(lambda author: author.name == "Stephen King").blockFirst()
         assert stephen_king is not None
