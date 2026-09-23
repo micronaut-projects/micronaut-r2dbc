@@ -341,6 +341,23 @@ public class Author {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from dataclasses import dataclass
+from typing import Annotated
+
+from micronaut.data.annotation import GeneratedValue, Id, MappedEntity
+from micronaut.serde.annotation import Serdeable
+
+
+@Serdeable
+@MappedEntity
+@dataclass
+class Author:
+    name: str
+    id: Annotated[int | None, Id, GeneratedValue] = None</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
 
 import io.micronaut.data.annotation.GeneratedValue
@@ -404,6 +421,24 @@ public interface AuthorRepository extends ReactiveStreamsCrudRepository&lt;Autho
     @Override
     Flux&lt;Author&gt; findAll();
 }</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from micronaut.data.model.query.builder.sql import Dialect
+from micronaut.data.r2dbc.annotation import R2dbcRepository
+from micronaut.data.repository.reactive import ReactiveStreamsCrudRepository
+from reactor.core.publisher import Flux, Mono
+
+from example.Author import Author
+
+
+@R2dbcRepository(dialect=Dialect.MYSQL)  # <b class="conum">(1)</b>
+class AuthorRepository(ReactiveStreamsCrudRepository[Author, int]):
+
+    def findById(self, id: int) -&gt; Mono[Author]: ...  # <b class="conum">(2)</b>
+
+    def findAll(self) -&gt; Flux[Author]: ...</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -491,6 +526,30 @@ public class AuthorController {
         return repository.findById(id);
     }
 }</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from micronaut.http.annotation import Controller, Get
+from reactor.core.publisher import Flux, Mono
+
+from example.Author import Author
+from example.AuthorRepository import AuthorRepository
+
+
+@Controller("/authors")
+class AuthorController:
+
+    def __init__(self, repository: AuthorRepository):
+        self.repository = repository
+
+    @Get
+    def all(self) -&gt; Flux[Author]:  # <b class="conum">(1)</b>
+        return self.repository.findAll()
+
+    @Get("/id")
+    def get(self, id: int) -&gt; Mono[Author]:  # <b class="conum">(2)</b>
+        return self.repository.findById(id)</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
