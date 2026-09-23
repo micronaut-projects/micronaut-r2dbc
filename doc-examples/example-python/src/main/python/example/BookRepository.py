@@ -22,6 +22,7 @@ class BookRepository(ReactiveStreamsCrudRepository[Book, int]):
     @Transactional("MANDATORY")
     def save(self, entity: Book) -> Publisher[Book]: ...
     # end::mandatory[]
-    # TODO(python): overriding the inherited generic `<S extends Book> Publisher<S> saveAll(Iterable<S>)` is not
-    # possible yet: a `list[Book]` hint clashes with the inherited erasure and a `[S: Book]` type parameter is
-    # rejected by the Micronaut Data visitor (`Unsupported return type for a save method: python.S`), see DISABLED_TESTS.md
+    # The `saveAll` override of the Java example is omitted: Micronaut Data rejects a redeclared save method whose
+    # return type is a method type parameter (`Unsupported return type for a save method: python.S`), so neither
+    # `def saveAll[S: Book](self, entities: Iterable[S]) -> Publisher[S]` nor the `list[S]` variant is accepted, and a
+    # `list[Book]` hint has the same erasure as the inherited `saveAll(Iterable<S>)` without overriding it.
