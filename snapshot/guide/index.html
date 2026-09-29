@@ -107,13 +107,13 @@
         <h1>Micronaut R2DBC</h1>
         <p></p>
         <p>Integration with Micronaut and R2DBC</p>
-        <p><strong>Version:</strong> 7.2.0-SNAPSHOT </p>
+        <p><strong>Version:</strong> 7.3.0-SNAPSHOT </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.2.x/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.3.x/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -126,7 +126,7 @@
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.2.x/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.3.x/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -142,7 +142,7 @@
 <h1 id="quickStart"><a class="anchor" href="#quickStart"></a>3 Quick Start</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.2.x/src/main/docs/guide/quickStart.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.3.x/src/main/docs/guide/quickStart.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -620,7 +620,7 @@ class AuthorController {
 <h1 id="availableDrivers"><a class="anchor" href="#availableDrivers"></a>4 Available Drivers</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.2.x/src/main/docs/guide/availableDrivers.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.3.x/src/main/docs/guide/availableDrivers.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -927,7 +927,16 @@ runtime = [
 <div class="paragraph">
 <p>Use a full Cloud SQL URL for the datasource and provide credentials separately (for example via environment variables or secret injection):</p>
 </div>
-<div class="listingblock">
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">r2dbc.datasources.default.url=r2dbc:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;
+r2dbc.datasources.default.username=${DB_USER}
+r2dbc.datasources.default.password=${DB_PASS}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">r2dbc:
   datasources:
@@ -937,10 +946,69 @@ runtime = [
       password: ${DB_PASS}</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">r2dbc = {datasources = {default = {url = "r2dbc:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;", username = "${DB_USER}", password = "${DB_PASS}"}}}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">r2dbc {
+  datasources {
+    'default' {
+      url = "r2dbc:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;"
+      username = "${DB_USER}"
+      password = "${DB_PASS}"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  r2dbc {
+    datasources {
+      default {
+        url = "r2dbc:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;"
+        username = "${DB_USER}"
+        password = "${DB_PASS}"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "r2dbc": {
+    "datasources": {
+      "default": {
+        "url": "r2dbc:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;",
+        "username": "${DB_USER}",
+        "password": "${DB_PASS}"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>If you also want R2DBC pooling, compose the delegated driver layers in the URL instead of trying to split <code>gcp</code> and <code>pool</code> across separate <code>driver</code> and <code>options.driver</code> properties:</p>
 </div>
-<div class="listingblock">
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">r2dbc.datasources.default.url=r2dbc:pool:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;
+r2dbc.datasources.default.username=${DB_USER}
+r2dbc.datasources.default.password=${DB_PASS}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">r2dbc:
   datasources:
@@ -948,6 +1016,56 @@ runtime = [
       url: r2dbc:pool:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;
       username: ${DB_USER}
       password: ${DB_PASS}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">r2dbc = {datasources = {default = {url = "r2dbc:pool:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;", username = "${DB_USER}", password = "${DB_PASS}"}}}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">r2dbc {
+  datasources {
+    'default' {
+      url = "r2dbc:pool:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;"
+      username = "${DB_USER}"
+      password = "${DB_PASS}"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  r2dbc {
+    datasources {
+      default {
+        url = "r2dbc:pool:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;"
+        username = "${DB_USER}"
+        password = "${DB_PASS}"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "r2dbc": {
+    "datasources": {
+      "default": {
+        "url": "r2dbc:pool:gcp:postgres://&lt;CLOUD_SQL_CONNECTION_NAME&gt;/&lt;DATABASE_NAME&gt;",
+        "username": "${DB_USER}",
+        "password": "${DB_PASS}"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -1022,7 +1140,7 @@ runtime = [
 <h1 id="dataR2dbc"><a class="anchor" href="#dataR2dbc"></a>5 Micronaut Data R2DBC</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.2.x/src/main/docs/guide/dataR2dbc.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.3.x/src/main/docs/guide/dataR2dbc.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1035,7 +1153,7 @@ runtime = [
 <h1 id="repository"><a class="anchor" href="#repository"></a>6 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.2.x/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-r2dbc/edit/7.3.x/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
