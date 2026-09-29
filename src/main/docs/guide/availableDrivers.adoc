@@ -50,7 +50,7 @@ dependency:com.google.cloud.sql:cloud-sql-connector-r2dbc-postgres[scope="runtim
 
 Use a full Cloud SQL URL for the datasource and provide credentials separately (for example via environment variables or secret injection):
 
-[source,yaml]
+[configuration]
 ----
 r2dbc:
   datasources:
@@ -62,7 +62,7 @@ r2dbc:
 
 If you also want R2DBC pooling, compose the delegated driver layers in the URL instead of trying to split `gcp` and `pool` across separate `driver` and `options.driver` properties:
 
-[source,yaml]
+[configuration]
 ----
 r2dbc:
   datasources:
