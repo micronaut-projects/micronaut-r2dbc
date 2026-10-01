@@ -1,17 +1,17 @@
 [versions]
-micronaut = "5.2.5"
-micronaut-platform = "5.1.5"
+micronaut = "5.2.11"
+micronaut-platform = "5.2.0"
 micronaut-docs = "3.0.0"
 micronaut-reactor = "4.3.0"
 micronaut-rxjava3 = "4.1.0"
-micronaut-serde = "3.2.1"
+micronaut-serde = "3.2.4"
 micronaut-kotlin = "5.1.0"
-micronaut-data = "5.1.5"
+micronaut-data = "5.2.0"
 micronaut-sql = "7.2.0"
 micronaut-flyway = "8.1.1"
-micronaut-validation = "5.2.0"
+micronaut-validation = "5.2.1"
 micronaut-logging = "2.1.0"
-micronaut-micrometer = "6.0.2"
+micronaut-micrometer = "6.1.0"
 
 groovy = "5.0.3"
 
