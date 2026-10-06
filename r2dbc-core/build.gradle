@@ -22,6 +22,7 @@ dependencies {
 
     testImplementation(mn.micronaut.management)
     testImplementation(libs.micronaut.micrometer)
+    testImplementation(libs.managed.r2dbc.pool)
 
     testImplementation(mnRxjava3.micronaut.rxjava3)
     testImplementation(mnTestResources.testcontainers.r2dbc)
