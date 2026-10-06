@@ -1,0 +1,22 @@
+plugins {
+    id "io.micronaut.build.internal.r2dbc-base"
+}
+
+dependencies {
+    testImplementation(platform(mn.micronaut.core.bom))
+    testImplementation(projects.micronautR2dbcCore)
+    testImplementation(mn.micronaut.dev.tck)
+    // the reload harness compiles the application under test with the processors on the test classpath
+    testImplementation(mn.micronaut.inject.java)
+    testImplementation(libs.managed.r2dbc.pool)
+    testImplementation(mnTest.junit.jupiter.api)
+
+    testRuntimeOnly(mnTest.junit.jupiter.engine)
+    testRuntimeOnly(mnTest.junit.platform.launcher)
+    testRuntimeOnly(libs.managed.r2dbc.h2)
+    testRuntimeOnly(mnLogging.logback.classic)
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}

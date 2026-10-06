@@ -60,6 +60,7 @@ include 'doc-examples:example-kotlin'
 include 'doc-examples:example-python'
 
 // tests
+include 'test-suite-dev-reload'
 include 'test-graalvm'
 include 'test-graalvm:h2'
 include 'test-graalvm:mariadb'
