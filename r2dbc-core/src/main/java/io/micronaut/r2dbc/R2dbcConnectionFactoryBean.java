@@ -18,6 +18,7 @@ package io.micronaut.r2dbc;
 import io.micronaut.context.annotation.Context;
 import io.micronaut.context.annotation.EachBean;
 import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.annotation.Retain;
 import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactoryOptions;
@@ -59,11 +60,17 @@ public class R2dbcConnectionFactoryBean {
 
     /**
      * Method that exposes the {@link ConnectionFactory}.
+     *
+     * <p>In development mode the connection factory, a connection pool with an {@code r2dbc:pool:} URL, is retained
+     * across restarts of the application and released when configuration under {@value BasicR2dbcProperties#PREFIX}
+     * changes. Outside development mode {@link Retain} has no effect.</p>
+     *
      * @param options the options
      * @return The connection factory
      */
     @EachBean(ConnectionFactoryOptions.class)
     @Context
+    @Retain(invalidatedBy = BasicR2dbcProperties.PREFIX)
     protected ConnectionFactory connectionFactory(ConnectionFactoryOptions options) {
         return ConnectionFactories.get(options);
     }

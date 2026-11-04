@@ -15,6 +15,7 @@
  */
 package io.micronaut.r2dbc;
 
+import io.micronaut.context.annotation.ConfigurationInject;
 import io.micronaut.context.annotation.EachProperty;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -44,10 +45,29 @@ public class DefaultBasicR2dbcProperties implements BasicR2dbcProperties {
     private final String name;
 
     /**
+     * Creates the properties of the named data source, starting from the configured URL if present.
+     *
+     * <p>The URL is bound like any other property, so that the properties hold nothing of the context that
+     * created them and development mode can retain the connection factory created from them.</p>
+     *
+     * @param name The name of the datasource
+     * @param url The configured URL ({@code r2dbc.datasources.<name>.url}), or {@code null}
+     * @since 7.3.0
+     */
+    @ConfigurationInject
+    protected DefaultBasicR2dbcProperties(@Parameter String name, @Nullable String url) {
+        this.builder = newConnectionFactoryOptionsBuilder(url);
+        this.name = name;
+    }
+
+    /**
      * Default constructor.
      * @param name The name of the datasource
      * @param environment The environment
+     * @deprecated Use {@link #DefaultBasicR2dbcProperties(String, String)}, which receives the configured URL
+     * instead of the environment
      */
+    @Deprecated(since = "7.3.0")
     protected DefaultBasicR2dbcProperties(@Parameter String name, Environment environment) {
         this.builder = newConnectionFactoryOptionsBuilder(name, environment, null);
         this.name = name;
@@ -146,6 +166,16 @@ public class DefaultBasicR2dbcProperties implements BasicR2dbcProperties {
         String url = env.getProperty(
                 property, Argument.STRING
         ).orElse(defaultUrl);
+        return newConnectionFactoryOptionsBuilder(url);
+    }
+
+    /**
+     * Create a {@link ConnectionFactoryOptions.Builder} from the given URL if present.
+     * @param url The URL, or {@code null}
+     * @return The builder
+     * @since 7.3.0
+     */
+    protected static ConnectionFactoryOptions.Builder newConnectionFactoryOptionsBuilder(@Nullable String url) {
         if (url != null) {
             return ConnectionFactoryOptions.parse(url).mutate();
         } else {

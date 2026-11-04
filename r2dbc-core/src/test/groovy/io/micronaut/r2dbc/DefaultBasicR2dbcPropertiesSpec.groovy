@@ -26,4 +26,16 @@ class DefaultBasicR2dbcPropertiesSpec extends Specification {
         options.getValue(ConnectionFactoryOptions.USER) == 'db-user'
         options.getValue(ConnectionFactoryOptions.PASSWORD).toString() == 'db-pass'
     }
+
+    void "the properties are created from the configured URL, without the environment"() {
+        given:
+        DefaultBasicR2dbcProperties properties = new DefaultBasicR2dbcProperties('default', 'r2dbc:pool:gcp:postgres://db-user:db-pass@project:us-central1:db-instance/appdb')
+        ConnectionFactoryOptions options = properties.builder().build()
+
+        expect:
+        options.getValue(ConnectionFactoryOptions.DRIVER) == 'pool'
+        options.getValue(ConnectionFactoryOptions.PROTOCOL) == 'gcp:postgres'
+        options.getValue(ConnectionFactoryOptions.DATABASE) == 'appdb'
+        new DefaultBasicR2dbcProperties('default', (String) null).builder().build().getValue(ConnectionFactoryOptions.DRIVER) == null
+    }
 }

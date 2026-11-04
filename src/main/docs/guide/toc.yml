@@ -4,6 +4,7 @@ releaseHistory: Release History
 quickStart:
   title: Quick Start
 availableDrivers: Available Drivers
+devModeReloading: Development Mode Reloading
 dataR2dbc: Micronaut Data R2DBC
 repository: Repository
 
